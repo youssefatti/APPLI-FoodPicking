@@ -1,10 +1,14 @@
 import { StackNavigator } from "react-navigation";
+import Home from "./src/screens/Home";
 import Restaurants from "./src/screens/Restaurants";
 import Menu from "./src/screens/Menu";
 
 console.ignoredYellowBox = ["Warning: componentWill", "Remote debugger"];
 
 const App = StackNavigator({
+  Home: {
+    screen: Home
+  },
   Restaurants: {
     screen: Restaurants
   },

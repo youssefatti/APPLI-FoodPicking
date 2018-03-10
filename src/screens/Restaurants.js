@@ -11,9 +11,9 @@ import {
 } from "react-native";
 
 export default class Restaurants extends React.Component {
-  static navigationOptions = {
-    header: null
-  };
+  static navigationOptions = ({ navigation }) => ({
+    title: navigation.state.params.name
+  });
 
   render() {
     let resto = {
