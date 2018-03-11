@@ -81,14 +81,17 @@ export default class Restaurants extends React.Component {
     const arrResto = [];
     for (let i = 0; i < this.state.restaurants.length; i++) {
       arrResto.push(
-        <View style={styles.bloc}>
+        <View key={i} style={styles.bloc}>
           <TouchableOpacity
             onPress={() =>
               // passage du nom, id et lien à la page Menu
               navigate("Menu", {
-                name: this.state.restaurants[i].attributes.name,
-                id_deliveroo: this.state.restaurants[i].id,
-                link: this.state.restaurants[i].links.web
+                name: resto.data[i].attributes.name,
+                id_deliveroo: resto.data[i].id,
+                link: resto.data[i].links.web,
+                picture: resto.data[i].attributes.image_url,
+                rank: resto.data[i].attributes.rating_formatted_count,
+                percent: resto.data[i].attributes.rating_percentage
               })
             }
           >

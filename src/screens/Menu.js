@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, Text, StyleSheet, ScrollView, Image } from "react-native";
 import Items from "./Items";
 import axios from "axios";
 
@@ -65,14 +65,14 @@ export default class Menu extends React.Component {
       menu: {
         id: 24827,
         categories: [
-          // {
-          //   id: 277629,
-          //   description: "",
-          //   name: "Formules",
-          //   sort_order: 2,
-          //   top_level: true,
-          //   unique_id: 277793
-          // },
+          {
+            id: 277629,
+            description: "",
+            name: "Formules",
+            sort_order: 2,
+            top_level: true,
+            unique_id: 277793
+          },
           {
             id: 277631,
             description: "",
@@ -778,8 +778,16 @@ export default class Menu extends React.Component {
           if (menu.menu.categories[i].id === menu.menu.items[j].category_id) {
             menuShow.push(
               <View key={j}>
-                <Text>Catégorie : {menu.menu.categories[i].name}</Text>
-                <Text>{menu.menu.items[j].name}</Text>
+                <Text style={styles.titleCategory}>
+                  {menu.menu.categories[i].name}
+                </Text>
+                <View style={styles.blocItem}>
+                  <Text style={styles.strong}>{menu.menu.items[j].name}</Text>
+                  <Text>{menu.menu.items[j].description}</Text>
+                  <Text style={[styles.strong, styles.text]}>
+                    {menu.menu.items[j].price}
+                  </Text>
+                </View>
               </View>
             );
           }
@@ -788,13 +796,39 @@ export default class Menu extends React.Component {
     }
     return (
       <ScrollView style={[styles.container, styles.style]}>
-        <View>
-          <Text>title: {this.props.navigation.state.params.name}</Text>
+        <View style={styles.blocTop}>
+          <Image
+            style={styles.picTop}
+            source={{
+              uri: this.props.navigation.state.params.picture
+            }}
+          />
+        </View>
+        <View style={styles.blocMenuIn}>
+          {/* <Text>title: {this.props.navigation.state.params.name}</Text>
           <Text>
             id restaurant: {this.props.navigation.state.params.id_deliveroo}
           </Text>
           <Text>
             lien restaurant: {this.props.navigation.state.params.link}
+          </Text> */}
+          <View>
+            <Text>
+              {menu.restaurant.menu.menu_tags[0].name} -{" "}
+              {menu.restaurant.menu.menu_tags[1].name}
+            </Text>
+            <Text>
+              <Text style={styles.strong}>
+                {this.props.navigation.state.params.percent}%
+              </Text>{" "}
+              {this.props.navigation.state.params.rank} avis
+            </Text>
+          </View>
+          <Text style={[styles.text, styles.description]}>
+            {menu.restaurant.id ===
+            Number(this.props.navigation.state.params.id_deliveroo)
+              ? menu.restaurant.description
+              : null}
           </Text>
           <View>{menuShow}</View>
         </View>
@@ -809,5 +843,44 @@ const styles = StyleSheet.create({
   },
   style: {
     flex: 1
+  },
+  blocTop: {
+    overflow: "hidden"
+  },
+  picTop: {
+    width: "100%",
+    height: 200
+  },
+  blocMenuIn: {
+    paddingTop: 5,
+    paddingRight: 10,
+    paddingLeft: 10,
+    paddingBottom: 5
+  },
+  text: {
+    color: "#FBB252"
+  },
+  description: {
+    textAlign: "justify",
+    fontSize: 16,
+    marginBottom: 20,
+    marginTop: 10
+  },
+  titleCategory: {
+    textAlign: "center",
+    fontSize: 16,
+    fontWeight: "bold",
+    marginTop: 10,
+    marginBottom: 10
+  },
+  blocItem: {
+    backgroundColor: "#F4F4F4",
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingRight: 10,
+    paddingLeft: 10
+  },
+  strong: {
+    fontWeight: "bold"
   }
 });
