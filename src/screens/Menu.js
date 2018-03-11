@@ -773,25 +773,17 @@ export default class Menu extends React.Component {
       Number(this.props.navigation.state.params.id_deliveroo)
     ) {
       for (let i = 0; i < menu.menu.categories.length; i++) {
-        //boucle pour récupérer les noms des catégories et les noms des items présent dans cette catégorie
-        for (let j = 0; j < menu.menu.items.length; j++) {
-          if (menu.menu.categories[i].id === menu.menu.items[j].category_id) {
-            menuShow.push(
-              <View key={j}>
-                <Text style={styles.titleCategory}>
-                  {menu.menu.categories[i].name}
-                </Text>
-                <View style={styles.blocItem}>
-                  <Text style={styles.strong}>{menu.menu.items[j].name}</Text>
-                  <Text>{menu.menu.items[j].description}</Text>
-                  <Text style={[styles.strong, styles.text]}>
-                    {menu.menu.items[j].price}
-                  </Text>
-                </View>
-              </View>
-            );
-          }
-        }
+        menuShow.push(
+          <View key={i}>
+            {/* on récupere le nom de la catégorie et on envoie les infos au composent items */}
+            <Text style={styles.titleCategory}>
+              {menu.menu.categories[i].name}
+            </Text>
+            <View style={styles.blocItem}>
+              <Items idCat={menu.menu.categories[i]} idItem={menu.menu.items} />
+            </View>
+          </View>
+        );
       }
     }
     return (
