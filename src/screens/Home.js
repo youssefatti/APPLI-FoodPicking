@@ -11,6 +11,8 @@ import {
   View,
   Text
 } from "react-native";
+import AppStyle from "../../AppStyle";
+const styles = StyleSheet.create(AppStyle);
 
 export default class Home extends React.Component {
   static navigationOptions = {
@@ -117,31 +119,3 @@ export default class Home extends React.Component {
     );
   }
 }
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#ffffff",
-    paddingTop: 30
-  },
-  style: {
-    flex: 1
-  },
-  bgColorHome: {
-    backgroundColor: "pink"
-  },
-  blocLogo: {
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 200
-  },
-  picHome: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
-    backgroundColor: "#41CBD4",
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  logoText: {
-    color: "#ffffff"
-  }
-});

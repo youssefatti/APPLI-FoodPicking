@@ -11,6 +11,8 @@ import {
   ActivityIndicator,
   View
 } from "react-native";
+import AppStyle from "../../AppStyle";
+const styles = StyleSheet.create(AppStyle);
 
 const resto = {};
 
@@ -81,14 +83,17 @@ export default class Restaurants extends React.Component {
     const arrResto = [];
     for (let i = 0; i < this.state.restaurants.length; i++) {
       arrResto.push(
-        <View style={styles.bloc}>
+        <View key={i} style={styles.bloc}>
           <TouchableOpacity
             onPress={() =>
               // passage du nom, id et lien à la page Menu
               navigate("Menu", {
-                name: this.state.restaurants[i].attributes.name,
-                id_deliveroo: this.state.restaurants[i].id,
-                link: this.state.restaurants[i].links.web
+                name: resto.data[i].attributes.name,
+                id_deliveroo: resto.data[i].id,
+                link: resto.data[i].links.web,
+                picture: resto.data[i].attributes.image_url,
+                rank: resto.data[i].attributes.rating_formatted_count,
+                percent: resto.data[i].attributes.rating_percentage
               })
             }
           >
@@ -108,7 +113,7 @@ export default class Restaurants extends React.Component {
       );
     }
     return (
-      <ScrollView style={[styles.container, styles.style]}>
+      <ScrollView style={[styles.containerIn, styles.style]}>
         <Image
           style={styles.visuelTop}
           source={{
@@ -127,38 +132,3 @@ export default class Restaurants extends React.Component {
     );
   }
 }
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#ffffff"
-  },
-  style: {
-    flex: 1
-  },
-  bloc: {
-    marginTop: 10,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingRight: 10,
-    paddingLeft: 10
-  },
-  blocIn: {
-    width: 220,
-    paddingLeft: 10
-  },
-  justifyText: {
-    textAlign: "justify"
-  },
-  picRestaurant: {
-    width: 60,
-    height: 60,
-    borderRadius: 10
-  },
-  title: {
-    fontSize: 25,
-    fontWeight: "bold"
-  },
-  visuelTop: {
-    width: 480,
-    height: 100
-  }
-});

@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-// import AppStyle from "../../AppStyle";
-// const styles = StyleSheet.create(AppStyle);
+import AppStyle from "../../AppStyle";
+const styles = StyleSheet.create(AppStyle);
 
 export default class Items extends React.Component {
   render() {
