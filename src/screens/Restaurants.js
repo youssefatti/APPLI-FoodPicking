@@ -88,12 +88,13 @@ export default class Restaurants extends React.Component {
             onPress={() =>
               // passage du nom, id et lien à la page Menu
               navigate("Menu", {
-                name: resto.data[i].attributes.name,
-                id_deliveroo: resto.data[i].id,
-                link: resto.data[i].links.web,
-                picture: resto.data[i].attributes.image_url,
-                rank: resto.data[i].attributes.rating_formatted_count,
-                percent: resto.data[i].attributes.rating_percentage
+                name: this.state.restaurants[i].attributes.name,
+                id_deliveroo: this.state.restaurants[i].id,
+                link: this.state.restaurants[i].links.web,
+                picture: this.state.restaurants[i].attributes.image_url,
+                rank: this.state.restaurants[i].attributes
+                  .rating_formatted_count,
+                percent: this.state.restaurants[i].attributes.rating_percentage
               })
             }
           >
