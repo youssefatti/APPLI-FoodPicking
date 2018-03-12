@@ -3,6 +3,9 @@ const styles = {
     backgroundColor: "#ffffff",
     paddingTop: 30
   },
+  containerIn: {
+    backgroundColor: "#ffffff"
+  },
   style: {
     flex: 1
   },

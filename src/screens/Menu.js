@@ -789,7 +789,7 @@ export default class Menu extends React.Component {
       }
     }
     return (
-      <ScrollView style={[styles.container, styles.style]}>
+      <ScrollView style={[styles.containerIn, styles.style]}>
         <View style={styles.blocTop}>
           <Image
             style={styles.picTop}
