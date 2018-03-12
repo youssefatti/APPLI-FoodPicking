@@ -4,7 +4,11 @@ import AppStyle from "../../AppStyle";
 const styles = StyleSheet.create(AppStyle);
 
 export default class Items extends React.Component {
-  render() {
+  state = {
+    itemsMenus: null
+  };
+
+  _renderItemsMenus() {
     let arrItems = [];
     // on boucle sur le tableau items
     for (let i = 0; i < this.props.idItem.length; i++) {
@@ -29,10 +33,25 @@ export default class Items extends React.Component {
         );
       }
     }
+    // this.setState(
+    //   {
+    //     itemsMenus: arrItems
+    //   },
+    //   () => {
+    //     console.log("affichage du itemsMenus : ", this.state.itemsMenus);
+    //   }
+    // );
+
     return (
       <View>
         <Text>{arrItems}</Text>
       </View>
     );
+  }
+
+  render() {
+    console.log("render de items /;;;;;;");
+
+    return this._renderItemsMenus();
   }
 }

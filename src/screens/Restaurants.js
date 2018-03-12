@@ -47,7 +47,7 @@ export default class Restaurants extends React.Component {
     }
   };
 
-  componentDidMount() {
+  componentWillMount() {
     console.log("did mount ");
     let geohash = this.props.navigation.state.params.geoloc;
 
