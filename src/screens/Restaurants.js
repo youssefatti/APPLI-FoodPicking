@@ -13,6 +13,7 @@ import {
 } from "react-native";
 import AppStyle from "../../AppStyle";
 const styles = StyleSheet.create(AppStyle);
+import Icon from "react-native-vector-icons/Ionicons";
 
 const resto = {};
 
