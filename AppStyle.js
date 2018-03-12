@@ -53,15 +53,11 @@ const styles = {
     fontWeight: "bold"
   },
   visuelTop: {
-    width: 480,
-    height: 100
+    width: "100%",
+    height: 200
   },
   blocTop: {
     overflow: "hidden"
-  },
-  picTop: {
-    width: "100%",
-    height: 200
   },
   blocMenuIn: {
     paddingTop: 5,
