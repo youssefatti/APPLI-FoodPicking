@@ -36,17 +36,3 @@ export default class Items extends React.Component {
     );
   }
 }
-const styles = StyleSheet.create({
-  text: {
-    color: "#FBB252"
-  },
-  description: {
-    textAlign: "justify",
-    fontSize: 16,
-    marginBottom: 20,
-    marginTop: 10
-  },
-  strong: {
-    fontWeight: "bold"
-  }
-});
