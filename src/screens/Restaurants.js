@@ -11,6 +11,8 @@ import {
   ActivityIndicator,
   View
 } from "react-native";
+import AppStyle from "../../AppStyle";
+const styles = StyleSheet.create(AppStyle);
 
 const resto = {};
 
@@ -130,38 +132,3 @@ export default class Restaurants extends React.Component {
     );
   }
 }
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#ffffff"
-  },
-  style: {
-    flex: 1
-  },
-  bloc: {
-    marginTop: 10,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingRight: 10,
-    paddingLeft: 10
-  },
-  blocIn: {
-    width: 220,
-    paddingLeft: 10
-  },
-  justifyText: {
-    textAlign: "justify"
-  },
-  picRestaurant: {
-    width: 60,
-    height: 60,
-    borderRadius: 10
-  },
-  title: {
-    fontSize: 25,
-    fontWeight: "bold"
-  },
-  visuelTop: {
-    width: 480,
-    height: 100
-  }
-});

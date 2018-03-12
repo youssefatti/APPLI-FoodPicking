@@ -2,6 +2,8 @@ import React from "react";
 import { View, Text, StyleSheet, ScrollView, Image } from "react-native";
 import Items from "./Items";
 import axios from "axios";
+import AppStyle from "../../AppStyle";
+const styles = StyleSheet.create(AppStyle);
 
 export default class Menu extends React.Component {
   static navigationOptions = ({ navigation }) => ({
@@ -828,51 +830,3 @@ export default class Menu extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#ffffff"
-  },
-  style: {
-    flex: 1
-  },
-  blocTop: {
-    overflow: "hidden"
-  },
-  picTop: {
-    width: "100%",
-    height: 200
-  },
-  blocMenuIn: {
-    paddingTop: 5,
-    paddingRight: 10,
-    paddingLeft: 10,
-    paddingBottom: 5
-  },
-  text: {
-    color: "#FBB252"
-  },
-  description: {
-    textAlign: "justify",
-    fontSize: 16,
-    marginBottom: 20,
-    marginTop: 10
-  },
-  titleCategory: {
-    textAlign: "center",
-    fontSize: 16,
-    fontWeight: "bold",
-    marginTop: 10,
-    marginBottom: 10
-  },
-  blocItem: {
-    backgroundColor: "#F4F4F4",
-    paddingTop: 10,
-    paddingBottom: 10,
-    paddingRight: 10,
-    paddingLeft: 10
-  },
-  strong: {
-    fontWeight: "bold"
-  }
-});
