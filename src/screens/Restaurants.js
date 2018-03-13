@@ -27,17 +27,12 @@ export default class Restaurants extends React.Component {
     isLoading: true
   };
 
-  shouldComponentUpdate(nextProps, nextState) {
-    if (nextProps.restaurants !== this.state.restaurants) {
-      //console.log("is changing");
-      return true;
-    }
-    // console.log("appel a show hide");
-    // ShowHideActivityIndicator();
-    return false;
-
-    //console.log("is changing or du if : ");
-  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   if (this.props.restaurants === nextProps.restaurants) {
+  //     return false;
+  //   }
+  //   return true;
+  // }
 
   ShowHideActivityIndicator = () => {
     if (this.state.isLoading == true) {
@@ -48,7 +43,7 @@ export default class Restaurants extends React.Component {
   };
 
   componentWillMount() {
-    console.log("did mount ");
+    console.log("Will mount restaurants Page ");
     let geohash = this.props.navigation.state.params.geoloc;
 
     axios
@@ -57,19 +52,15 @@ export default class Restaurants extends React.Component {
       )
       .then(response => {
         const element = [];
-        for (let i = 0; i < response.data.data.length; i++) {
-          if (i < 20) {
-            element.push(response.data.data[i]);
-            //console.log("tableau : ", i + " et " + response.data.data[i]);
-            // },
-            // () => {
-            //   //console.log("liste des resto : ", this.state.restaurants.length);
-            // }
+        response.data.data.map((item, index) => {
+          if (item.attributes.delivery_time === "10 - 20") {
+            element.push(item);
           }
-          this.setState({
-            restaurants: element
-          });
-        }
+          return element;
+        });
+        this.setState({
+          restaurants: element
+        });
       })
       .catch(function(error) {
         console.log(error);
@@ -77,7 +68,7 @@ export default class Restaurants extends React.Component {
   }
 
   render() {
-    console.log("rendering");
+    console.log("rendering restaurants Page");
     //console.log("is loading ", this.state.isLoading);
     const { navigate } = this.props.navigation;
     // récupération du nom et de la photo
