@@ -24,7 +24,9 @@ export default class Restaurants extends React.Component {
 
   state = {
     restaurants: [],
-    isLoading: true
+    restaurantsAll: [],
+    isLoading: true,
+    length: null
   };
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -49,25 +51,35 @@ export default class Restaurants extends React.Component {
 
   componentDidMount() {
     console.log("did mount ");
+    console.log("hour", this.props.navigation.state.params.hour);
+    let hour = this.props.navigation.state.params.hour;
     let geohash = this.props.navigation.state.params.geoloc;
 
     axios
       .get(
-        `https://consumer-ow-api.deliveroo.com/orderapp/v2/restaurants?geohash=${geohash}`
+        hour === "now"
+          ? `https://consumer-ow-api.deliveroo.com/orderapp/v2/restaurants?geohash=${geohash}`
+          : `https://consumer-ow-api.deliveroo.com/orderapp/v2/restaurants?delivery_time=${hour}&geohash=${geohash}`
       )
       .then(response => {
         const element = [];
+        const elementAll = [];
+        this.setState({
+          length: response.data.data.length
+        });
         for (let i = 0; i < response.data.data.length; i++) {
           if (i < 20) {
             element.push(response.data.data[i]);
-            //console.log("tableau : ", i + " et " + response.data.data[i]);
-            // },
-            // () => {
-            //   //console.log("liste des resto : ", this.state.restaurants.length);
-            // }
           }
+          elementAll.push(response.data.data[i]);
+          //console.log("tableau : ", i + " et " + response.data.data[i]);
+          // },
+          // () => {
+          //   //console.log("liste des resto : ", this.state.restaurants.length);
+          // }
           this.setState({
-            restaurants: element
+            restaurants: element,
+            restaurantsAll: elementAll
           });
         }
       })
@@ -78,6 +90,8 @@ export default class Restaurants extends React.Component {
 
   render() {
     console.log("rendering");
+    console.log("data", this.state.length);
+    console.log("arr", this.state.restaurants.length);
     //console.log("is loading ", this.state.isLoading);
     const { navigate } = this.props.navigation;
     // récupération du nom et de la photo
@@ -114,6 +128,7 @@ export default class Restaurants extends React.Component {
         </View>
       );
     }
+    console.log("taille", arrResto.length);
     return (
       <ScrollView style={[styles.containerIn, styles.style]}>
         <Image
@@ -122,13 +137,19 @@ export default class Restaurants extends React.Component {
             uri: "https://f.roocdn.com/images/menu_items/1772997/item-image.jpg"
           }}
         />
+
         <View style={styles.bloc}>
           // affichage des éléments
-          {this.state.isLoading ? (
-            <ActivityIndicator size="large" color="#0000ff" />
-          ) : null}
+          {this.state.length === this.state.restaurantsAll.length ? (
+            <View>{arrResto}</View>
+          ) : (
+            <ActivityIndicator
+              size="large"
+              color="#0000ff"
+              style={{ alignSelf: "center", flex: 1 }}
+            />
+          )}
           {/*  */}
-          <View>{arrResto}</View>
         </View>
       </ScrollView>
     );
