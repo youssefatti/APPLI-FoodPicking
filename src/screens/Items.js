@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import AppStyle from "../../AppStyle";
 const styles = StyleSheet.create(AppStyle);
 
@@ -22,13 +22,17 @@ export default class Items extends React.Component {
               marginBottom: 10
             }}
           >
-            <Text style={styles.strong}>{this.props.idItem[i].name}</Text>
-            {this.props.idItem[i].description ? (
-              <Text>{this.props.idItem[i].description}</Text>
-            ) : null}
-            <Text style={[styles.strong, styles.text]}>
-              {this.props.idItem[i].price}
-            </Text>
+            <TouchableOpacity
+              onPress={() => this.props.addItem(this.props.idItem[i])}
+            >
+              <Text style={styles.strong}>{this.props.idItem[i].name}</Text>
+              {this.props.idItem[i].description ? (
+                <Text>{this.props.idItem[i].description}</Text>
+              ) : null}
+              <Text style={[styles.strong, styles.text]}>
+                {this.props.idItem[i].price}
+              </Text>
+            </TouchableOpacity>
           </View>
         );
       }
@@ -44,7 +48,12 @@ export default class Items extends React.Component {
 
     return (
       <View>
-        <Text>{arrItems}</Text>
+        <View>
+          <Text>total : {this.props.state} €</Text>
+        </View>
+        <View>
+          <Text>{arrItems}</Text>
+        </View>
       </View>
     );
   }

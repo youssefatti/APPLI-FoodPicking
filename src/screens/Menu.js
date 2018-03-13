@@ -1,5 +1,13 @@
 import React from "react";
-import { View, Text, StyleSheet, ScrollView, Image } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Image,
+  Button,
+  TouchableOpacity
+} from "react-native";
 import Items from "./Items";
 import axios from "axios";
 import AppStyle from "../../AppStyle";
@@ -10,13 +18,49 @@ export default class Menu extends React.Component {
   static navigationOptions = ({ navigation }) => ({
     title: navigation.state.params.name
   });
-
   state = {
+    cart: 0,
+    item: [],
     menu: null,
     onMenu: false,
     menusRestaurant: []
   };
 
+  addItem = item => {
+    console.log("qty", item.quantity);
+    const newItem = [];
+    let found = false;
+
+    for (let i = 0; i < this.state.item.length; i++) {
+      newItem.push(this.state.item[i]);
+    }
+
+    for (let i = 0; i < newItem.length; i++) {
+      //   console.log("item.id", item.id)
+      // console.log("newItem[i].id", newItem[i].id)
+      if (item.id !== newItem[i].id) {
+        found = false;
+      } else {
+        newItem[i].quantity++;
+        found = true;
+        break;
+      }
+    }
+    if (found === false) {
+      item.quantity = 1;
+      newItem.push(item);
+    }
+
+    this.setState(
+      {
+        item: newItem,
+        cart: this.state.cart + item.raw_price
+      },
+      () => {
+        console.log("quantity", this.state.item.quantity);
+      }
+    );
+  };
   componentWillMount() {
     console.log("did mount ");
     let link = this.props.navigation.state.params.link;
@@ -61,6 +105,8 @@ export default class Menu extends React.Component {
           </Text>
           <View style={styles.blocItem}>
             <Items
+              state={this.state.cart}
+              addItem={this.addItem}
               idCat={this.state.menu.menu.categories[i]}
               idItem={this.state.menu.menu.items}
             />
@@ -69,7 +115,10 @@ export default class Menu extends React.Component {
       );
     }
 
-    //}
+    {
+      /* const { navigate } = this.props.navigation; */
+    }
+
     return menuShow;
   }
 
@@ -112,6 +161,19 @@ export default class Menu extends React.Component {
           : null}
       </Text> */}
           <View>{this._renderItems()}</View>
+
+          <View>{menuShow}</View>
+          <View>
+            <Button
+              title="Valider la commande"
+              onPress={() =>
+                navigate("Cart", {
+                  name: "Cart",
+                  cart: this.state.cart
+                })
+              }
+            />
+          </View>
         </View>
       </ScrollView>
     );
