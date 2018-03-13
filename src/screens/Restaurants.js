@@ -24,22 +24,16 @@ export default class Restaurants extends React.Component {
 
   state = {
     restaurants: [],
-    restaurantsAll: [],
     isLoading: true,
     length: null
   };
 
-  shouldComponentUpdate(nextProps, nextState) {
-    if (nextProps.restaurants !== this.state.restaurants) {
-      //console.log("is changing");
-      return true;
-    }
-    // console.log("appel a show hide");
-    // ShowHideActivityIndicator();
-    return false;
-
-    //console.log("is changing or du if : ");
-  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   if (this.props.restaurants === nextProps.restaurants) {
+  //     return false;
+  //   }
+  //   return true;
+  // }
 
   ShowHideActivityIndicator = () => {
     if (this.state.isLoading == true) {
@@ -49,39 +43,37 @@ export default class Restaurants extends React.Component {
     }
   };
 
-  componentDidMount() {
-    console.log("did mount ");
-    console.log("hour", this.props.navigation.state.params.hour);
+  componentWillMount() {
+    console.log("Will mount restaurants Page ");
     let hour = this.props.navigation.state.params.hour;
     let geohash = this.props.navigation.state.params.geoloc;
-
     axios
       .get(
-        hour === "now"
+        hour === null || hour === this.props.navigation.state.params.pick
           ? `https://consumer-ow-api.deliveroo.com/orderapp/v2/restaurants?geohash=${geohash}`
           : `https://consumer-ow-api.deliveroo.com/orderapp/v2/restaurants?delivery_time=${hour}&geohash=${geohash}`
       )
       .then(response => {
         const element = [];
-        const elementAll = [];
-        this.setState({
-          length: response.data.data.length
-        });
-        for (let i = 0; i < response.data.data.length; i++) {
-          if (i < 20) {
-            element.push(response.data.data[i]);
+        response.data.data.map((item, index) => {
+          if (
+            hour === null ||
+            hour === this.props.navigation.state.params.pick
+          ) {
+            if (item.attributes.delivery_time === "10 - 20") {
+              element.push(item);
+            }
+          } else {
+            if (item.attributes.rating_percentage > 90) {
+              element.push(item);
+            }
           }
-          elementAll.push(response.data.data[i]);
-          //console.log("tableau : ", i + " et " + response.data.data[i]);
-          // },
-          // () => {
-          //   //console.log("liste des resto : ", this.state.restaurants.length);
-          // }
-          this.setState({
-            restaurants: element,
-            restaurantsAll: elementAll
-          });
-        }
+          return element;
+        });
+        this.setState({
+          restaurants: element,
+          length: element.length
+        });
       })
       .catch(function(error) {
         console.log(error);
@@ -89,10 +81,9 @@ export default class Restaurants extends React.Component {
   }
 
   render() {
-    console.log("rendering");
-    console.log("data", this.state.length);
-    console.log("arr", this.state.restaurants.length);
-    //console.log("is loading ", this.state.isLoading);
+    console.log("rendering restaurants Page");
+    console.log("taille", this.state.restaurants.length);
+    console.log("taille length", this.state.length);
     const { navigate } = this.props.navigation;
     // récupération du nom et de la photo
     const arrResto = [];
@@ -128,7 +119,7 @@ export default class Restaurants extends React.Component {
         </View>
       );
     }
-    console.log("taille", arrResto.length);
+    console.log("aa", arrResto);
     return (
       <ScrollView style={[styles.containerIn, styles.style]}>
         <Image
@@ -140,7 +131,7 @@ export default class Restaurants extends React.Component {
 
         <View style={styles.bloc}>
           // affichage des éléments
-          {this.state.length === this.state.restaurantsAll.length ? (
+          {this.state.length === this.state.restaurants.length ? (
             <View>{arrResto}</View>
           ) : (
             <ActivityIndicator
@@ -149,6 +140,12 @@ export default class Restaurants extends React.Component {
               style={{ alignSelf: "center", flex: 1 }}
             />
           )}
+          {/* <ActivityIndicator
+            size="large"
+            color="#0000ff"
+            style={{ alignSelf: "center", flex: 1 }}
+          />
+          <View>{arrResto}</View> */}
           {/*  */}
         </View>
       </ScrollView>
