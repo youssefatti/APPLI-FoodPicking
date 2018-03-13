@@ -13,11 +13,13 @@ import axios from "axios";
 import AppStyle from "../../AppStyle";
 
 const styles = StyleSheet.create(AppStyle);
+let menuShow = [];
 
 export default class Menu extends React.Component {
   static navigationOptions = ({ navigation }) => ({
     title: navigation.state.params.name
   });
+
   state = {
     cart: 0,
     item: [],
@@ -61,6 +63,7 @@ export default class Menu extends React.Component {
       }
     );
   };
+
   componentWillMount() {
     console.log("did mount ");
     let link = this.props.navigation.state.params.link;
@@ -89,13 +92,11 @@ export default class Menu extends React.Component {
   _renderItems() {
     console.log("affichage de l id la fonction item : ", this.state.menu.id);
 
-    let menuShow = [];
     // on affiche la suite que si l'id du resto de l'objet correspond à l'id reçu du resto
     // if (
     //   this.state.menu.id ===
     //   Number(this.props.navigation.state.params.id_deliveroo)
     // ) {
-
     for (let i = 0; i < this.state.menu.menu.categories.length; i++) {
       menuShow.push(
         <View key={i}>
@@ -114,15 +115,13 @@ export default class Menu extends React.Component {
         </View>
       );
     }
-
-    {
-      /* const { navigate } = this.props.navigation; */
-    }
+    // }
 
     return menuShow;
   }
 
   _renderMenu() {
+    const { navigate } = this.props.navigation;
     return (
       <ScrollView style={[styles.containerIn, styles.style]}>
         <View style={styles.blocTop}>
