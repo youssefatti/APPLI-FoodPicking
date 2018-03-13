@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "babel-plugin-transform-remove-console": "^6.9.0",
     "geo-hash": "0.0.2",
     "react": "16.3.0-alpha.1",
     "react-native": "0.54.0",
