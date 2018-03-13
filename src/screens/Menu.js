@@ -1,5 +1,13 @@
 import React from "react";
-import { View, Text, StyleSheet, ScrollView, Image } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Image,
+  Button,
+  TouchableOpacity
+} from "react-native";
 import Items from "./Items";
 import axios from "axios";
 import AppStyle from "../../AppStyle";
@@ -9,7 +17,45 @@ export default class Menu extends React.Component {
   static navigationOptions = ({ navigation }) => ({
     title: navigation.state.params.name
   });
+  state = {
+    cart: 0,
+    item: []
+  };
+  addItem = item => {
+    console.log("qty", item.quantity);
+    const newItem = [];
+    let found = false;
 
+    for (let i = 0; i < this.state.item.length; i++) {
+      newItem.push(this.state.item[i]);
+    }
+
+    for (let i = 0; i < newItem.length; i++) {
+      //   console.log("item.id", item.id)
+      // console.log("newItem[i].id", newItem[i].id)
+      if (item.id !== newItem[i].id) {
+        found = false;
+      } else {
+        newItem[i].quantity++;
+        found = true;
+        break;
+      }
+    }
+    if (found === false) {
+      item.quantity = 1;
+      newItem.push(item);
+    }
+
+    this.setState(
+      {
+        item: newItem,
+        cart: this.state.cart + item.raw_price
+      },
+      () => {
+        console.log("quantity", this.state.item.quantity);
+      }
+    );
+  };
   componentDidMount() {
     console.log("did mount ");
     let link = this.props.navigation.state.params.link;
@@ -32,6 +78,8 @@ export default class Menu extends React.Component {
   }
 
   render() {
+    const { navigate } = this.props.navigation;
+
     let menu = {
       restaurant: {
         id: 31219,
@@ -782,7 +830,12 @@ export default class Menu extends React.Component {
               {menu.menu.categories[i].name}
             </Text>
             <View style={styles.blocItem}>
-              <Items idCat={menu.menu.categories[i]} idItem={menu.menu.items} />
+              <Items
+                state={this.state.cart}
+                idCat={menu.menu.categories[i]}
+                idItem={menu.menu.items}
+                addItem={this.addItem}
+              />{" "}
             </View>
           </View>
         );
@@ -825,6 +878,17 @@ export default class Menu extends React.Component {
               : null}
           </Text>
           <View>{menuShow}</View>
+          <View>
+            <Button
+              title="Valider la commande"
+              onPress={() =>
+                navigate("Cart", {
+                  name: "Cart",
+                  cart: this.state.cart
+                })
+              }
+            />
+          </View>
         </View>
       </ScrollView>
     );
