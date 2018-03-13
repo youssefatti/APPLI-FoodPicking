@@ -3,13 +3,16 @@ import axios from "axios";
 
 import geo from "geo-hash";
 
+import moment from "moment";
+
 import {
   StyleSheet,
   ScrollView,
   Image,
   TouchableOpacity,
   View,
-  Text
+  Text,
+  Picker
 } from "react-native";
 import AppStyle from "../../AppStyle";
 const styles = StyleSheet.create(AppStyle);
@@ -21,17 +24,18 @@ export default class Home extends React.Component {
 
   state = {
     error: null,
-    geoloc: null
+    geoloc: null,
+    hour: null
   };
 
   // Optimizing the rendering page, if the geoloc state not changing then we don't rendering
 
-  shouldComponentUpdate(nextProps, nextState) {
-    if (this.props.geoloc === nextProps.geoloc) {
-      return false;
-    }
-    return true;
-  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   if (this.props.geoloc === nextProps.geoloc) {
+  //     return false;
+  //   }
+  //   return true;
+  // }
 
   // function to get geoloc and convert it to geohash
 
@@ -63,11 +67,33 @@ export default class Home extends React.Component {
     this.getGeoLoc();
   }
 
-  // componentWillUnmount() {
-  //   navigator.geolocation.clearWatch(this.watchId);
-  // }
-
   render() {
+    /* PICKERS */
+    const pickers = [];
+
+    /* ON ARRONDIT L'HEURE ACTUELLE A 15 MIN SUPERIEURES */
+    const rounded = Math.round(moment().minute() / 15) * 15;
+    const roundedDown = Math.floor(moment().minute() / 15) * 15;
+    const roundedUp = Math.ceil(moment().minute() / 15) * 15;
+
+    roundedtime = moment()
+      .minute(roundedUp)
+      .second(0);
+
+    const timestamp = moment(roundedtime).unix();
+    const tonightTimestamp = moment(moment().endOf("day")).unix();
+
+    for (let i = 0; i < Math.ceil((tonightTimestamp - timestamp) / 900); i++) {
+      pickers.push(
+        <Picker.Item
+          key={i}
+          label={moment((timestamp + i * 900) * 1000).format("HH:mm")}
+          value={moment((timestamp + i * 900) * 1000).unix()}
+        />
+      );
+    }
+    console.log("picker", pickers[0].props.value);
+
     console.log("rendering home page");
     const { navigate } = this.props.navigation;
     return (
@@ -77,7 +103,9 @@ export default class Home extends React.Component {
             onPress={() =>
               navigate("Restaurants", {
                 name: "Restaurant",
-                geoloc: this.state.geoloc
+                geoloc: this.state.geoloc,
+                hour: this.state.hour,
+                pick: pickers[0].props.value
               })
             }
           >
@@ -97,6 +125,15 @@ export default class Home extends React.Component {
           <Text>Longitude: {this.state.longitude}</Text> */}
           {this.state.error ? <Text>Error: {this.state.error}</Text> : null}
         </View>
+        <Text>Quand récuperer ma commande : </Text>
+        <Picker
+          selectedValue={this.state.hour}
+          onValueChange={(itemValue, itemIndex) =>
+            this.setState({ hour: itemValue })
+          }
+        >
+          {pickers}
+        </Picker>
       </ScrollView>
     );
   }
