@@ -13,7 +13,6 @@ import axios from "axios";
 import AppStyle from "../../AppStyle";
 
 const styles = StyleSheet.create(AppStyle);
-let menuShow = [];
 
 export default class Menu extends React.Component {
   static navigationOptions = ({ navigation }) => ({
@@ -65,6 +64,7 @@ export default class Menu extends React.Component {
   };
 
   componentWillMount() {
+    console.log("params", this.props.navigation);
     console.log("did mount ");
     let link = this.props.navigation.state.params.link;
     let id = this.props.navigation.state.params.id_deliveroo;
@@ -90,6 +90,7 @@ export default class Menu extends React.Component {
   }
 
   _renderItems() {
+    let menuShow = [];
     console.log("affichage de l id la fonction item : ", this.state.menu.id);
 
     // on affiche la suite que si l'id du resto de l'objet correspond à l'id reçu du resto
@@ -104,19 +105,17 @@ export default class Menu extends React.Component {
           <Text style={styles.titleCategory}>
             {this.state.menu.menu.categories[i].name}
           </Text>
-          <View style={styles.blocItem}>
-            <Items
-              state={this.state.cart}
-              addItem={this.addItem}
-              idCat={this.state.menu.menu.categories[i]}
-              idItem={this.state.menu.menu.items}
-            />
-          </View>
+          <Items
+            state={this.state.cart}
+            addItem={this.addItem}
+            idCat={this.state.menu.menu.categories[i].id}
+            idItem={this.state.menu.menu.items}
+          />
         </View>
       );
     }
     // }
-
+    console.log("itemmmmm", this.state.menu);
     return menuShow;
   }
 
@@ -124,56 +123,69 @@ export default class Menu extends React.Component {
     const { navigate } = this.props.navigation;
     return (
       <ScrollView style={[styles.containerIn, styles.style]}>
-        <View style={styles.blocTop}>
-          <Image
-            style={styles.visuelTop}
-            source={{
-              uri: this.props.navigation.state.params.picture
-            }}
-          />
-        </View>
-
-        <View style={styles.blocMenuIn}>
-          {/* <Text>title: {this.props.navigation.state.params.name}</Text>
+        <View>
+          <View style={styles.blocTop}>
+            <Image
+              style={styles.visuelTop}
+              source={{
+                uri: this.props.navigation.state.params.picture
+              }}
+            />
+          </View>
+          <View style={styles.blocMenuIn}>
+            {/* <Text>title: {this.props.navigation.state.params.name}</Text>
       <Text>
         id restaurant: {this.props.navigation.state.params.id_deliveroo}
       </Text>
       <Text>
         lien restaurant: {this.props.navigation.state.params.link}
       </Text> */}
-          <View>
-            {/* <Text>
+            <View>
+              {/* <Text>
           {this.state.menu ? (this.state.menu.infos.menu.menu_tags[0].name ) : null}
           //this.state.menu.infos.menu.menu_tags[1].name 
         </Text> */}
-            <Text>
-              <Text style={styles.strong}>
-                {this.props.navigation.state.params.percent}%
-              </Text>{" "}
-              {this.props.navigation.state.params.rank} avis
-            </Text>
-          </View>
-          {/* <Text style={[styles.text, styles.description]}>
-        {this.state.menu.id ===
-        Number(this.props.navigation.state.params.id_deliveroo)
-          ? this.state.menu.description
-          : null}
-      </Text> */}
-          <View>{this._renderItems()}</View>
+              <View
+                style={{
+                  backgroundColor: "#FBB252",
+                  position: "absolute",
+                  zIndex: 1,
+                  width: 80,
+                  height: 50,
+                  borderRadius: 10,
+                  paddingRight: 5,
+                  paddingLeft: 5,
+                  paddingTop: 5,
+                  paddingBottom: 5,
+                  right: 0,
+                  top: -70
+                }}
+              >
+                <Text style={styles.strong}>
+                  {this.props.navigation.state.params.percent}%
+                </Text>
 
-          <View>{menuShow}</View>
-          <View>
-            <Button
-              title="Valider la commande"
-              onPress={() =>
-                navigate("Cart", {
-                  name: "Cart",
-                  cart: this.state.cart
-                })
-              }
-            />
+                <Text>{this.props.navigation.state.params.rank} avis</Text>
+              </View>
+            </View>
+            <Text style={[styles.text, styles.description]}>
+              {this.state.menu.infos.description}
+            </Text>
+            <View>{this._renderItems()}</View>
+            <View>
+              <Button
+                title="Valider la commande"
+                onPress={() =>
+                  navigate("Cart", {
+                    name: "Cart",
+                    cart: this.state.cart
+                  })
+                }
+              />
+            </View>
           </View>
         </View>
+        }
       </ScrollView>
     );
   }

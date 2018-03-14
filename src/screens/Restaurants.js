@@ -18,10 +18,19 @@ import Icon from "react-native-vector-icons/Ionicons";
 const resto = {};
 
 export default class Restaurants extends React.Component {
-  static navigationOptions = ({ navigation }) => ({
-    title: navigation.state.params.name
-  });
+  // static navigationOptions = ({ navigation }) => ({
+  //   title: navigation.state.params.name
+  // });
 
+  static navigationOptions = ({ navigation }) => ({
+    title:
+      typeof navigation.state.params === "undefined" ||
+      typeof navigation.state.params.title === "undefined"
+        ? null
+        : navigation.state.params.title,
+    // remove title on the back button
+    headerBackTitle: null
+  });
   state = {
     restaurants: [],
     isLoading: true,
@@ -54,6 +63,9 @@ export default class Restaurants extends React.Component {
           : `https://consumer-ow-api.deliveroo.com/orderapp/v2/restaurants?delivery_time=${hour}&geohash=${geohash}`
       )
       .then(response => {
+        this.props.navigation.setParams({
+          title: response.data.meta.neighborhood_name
+        });
         const element = [];
         response.data.data.map((item, index) => {
           if (
@@ -63,8 +75,14 @@ export default class Restaurants extends React.Component {
             if (item.attributes.delivery_time === "10 - 20") {
               element.push(item);
             }
+            if (item.attributes.delivery_time === "15 - 25") {
+              element.push(item);
+            }
           } else {
             if (item.attributes.rating_percentage > 90) {
+              element.push(item);
+            }
+            if (item.attributes.rating_percentage > 80) {
               element.push(item);
             }
           }
@@ -79,11 +97,8 @@ export default class Restaurants extends React.Component {
         console.log(error);
       });
   }
-
   render() {
     console.log("rendering restaurants Page");
-    console.log("taille", this.state.restaurants.length);
-    console.log("taille length", this.state.length);
     const { navigate } = this.props.navigation;
     // récupération du nom et de la photo
     const arrResto = [];
@@ -107,9 +122,7 @@ export default class Restaurants extends React.Component {
             <Image
               style={styles.picRestaurant}
               source={{
-                uri: `${
-                  this.state.restaurants[i].attributes.image_url
-                }?width=50&height=50&auto=webp&format=jpg&fit=crop`
+                uri: this.state.restaurants[i].attributes.image_url
               }}
             />
           </TouchableOpacity>
@@ -119,16 +132,8 @@ export default class Restaurants extends React.Component {
         </View>
       );
     }
-    console.log("aa", arrResto);
     return (
       <ScrollView style={[styles.containerIn, styles.style]}>
-        <Image
-          style={styles.visuelTop}
-          source={{
-            uri: "https://f.roocdn.com/images/menu_items/1772997/item-image.jpg"
-          }}
-        />
-
         <View style={styles.bloc}>
           // affichage des éléments
           {this.state.length === this.state.restaurants.length ? (
@@ -136,17 +141,10 @@ export default class Restaurants extends React.Component {
           ) : (
             <ActivityIndicator
               size="large"
-              color="#0000ff"
+              color="#FBB252"
               style={{ alignSelf: "center", flex: 1 }}
             />
           )}
-          {/* <ActivityIndicator
-            size="large"
-            color="#0000ff"
-            style={{ alignSelf: "center", flex: 1 }}
-          />
-          <View>{arrResto}</View> */}
-          {/*  */}
         </View>
       </ScrollView>
     );

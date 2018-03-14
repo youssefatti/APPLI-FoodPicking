@@ -84,36 +84,21 @@ export default class Home extends React.Component {
     const tonightTimestamp = moment(moment().endOf("day")).unix();
 
     for (let i = 0; i < Math.ceil((tonightTimestamp - timestamp) / 900); i++) {
-      pickers.push(
-        <Picker.Item
-          key={i}
-          label={moment((timestamp + i * 900) * 1000).format("HH:mm")}
-          value={moment((timestamp + i * 900) * 1000).unix()}
-        />
-      );
+      i > 0
+        ? pickers.push(
+            <Picker.Item
+              key={i}
+              label={moment((timestamp + i * 900) * 1000).format("HH:mm")}
+              value={moment((timestamp + i * 900) * 1000).unix()}
+            />
+          )
+        : null;
     }
-    console.log("picker", pickers[0].props.value);
 
     console.log("rendering home page");
     const { navigate } = this.props.navigation;
     return (
       <ScrollView style={[styles.container, styles.style, styles.bgColorHome]}>
-        <View style={styles.blocLogo}>
-          <TouchableOpacity
-            onPress={() =>
-              navigate("Restaurants", {
-                name: "Restaurant",
-                geoloc: this.state.geoloc,
-                hour: this.state.hour,
-                pick: pickers[0].props.value
-              })
-            }
-          >
-            <View style={styles.picHome}>
-              <Text style={styles.logoText}>FoodPicking</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
         <View
           style={{
             flexGrow: 1,
@@ -125,7 +110,10 @@ export default class Home extends React.Component {
           <Text>Longitude: {this.state.longitude}</Text> */}
           {this.state.error ? <Text>Error: {this.state.error}</Text> : null}
         </View>
-        <Text>Quand récuperer ma commande : </Text>
+        <Text style={styles.pickerText}>
+          &Agrave; partir de quelle heure souhaitez-vous récupérer votre
+          commande?{" "}
+        </Text>
         <Picker
           selectedValue={this.state.hour}
           onValueChange={(itemValue, itemIndex) =>
@@ -134,6 +122,22 @@ export default class Home extends React.Component {
         >
           {pickers}
         </Picker>
+        <View style={styles.blocLogo}>
+          <TouchableOpacity
+            onPress={() =>
+              navigate("Restaurants", {
+                name: "Restaurant",
+                geoloc: this.state.geoloc,
+                hour: this.state.hour,
+                pick: pickers[1].props.value
+              })
+            }
+          >
+            <View style={styles.picHome}>
+              <Text style={styles.logoText}>FoodPicking</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
       </ScrollView>
     );
   }

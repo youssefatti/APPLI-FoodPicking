@@ -1,5 +1,13 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  ActivityIndicator,
+  FlatList
+} from "react-native";
 import AppStyle from "../../AppStyle";
 const styles = StyleSheet.create(AppStyle);
 
@@ -12,19 +20,21 @@ export default class Items extends React.Component {
     let arrItems = [];
     // on boucle sur le tableau items
     for (let i = 0; i < this.props.idItem.length; i++) {
-      // on vérifie la correspondance entre l'id de la catégorie et la category_id de l'item et on récupere les infos
-      if (this.props.idCat.id === this.props.idItem[i].category_id) {
-        arrItems.push(
-          <View
-            key={i}
-            style={{
-              width: 300,
-              marginBottom: 10
-            }}
+      arrItems.push(
+        <View key={i} style={styles.blocItem}>
+          <TouchableOpacity
+            style={styles.row}
+            onPress={() => this.props.addItem(this.props.idItem[i])}
           >
-            <TouchableOpacity
-              onPress={() => this.props.addItem(this.props.idItem[i])}
-            >
+            {this.props.idItem[i].image ? (
+              <Image
+                style={styles.picRestaurant}
+                source={{
+                  uri: `https:${this.props.idItem[i].image}`
+                }}
+              />
+            ) : null}
+            <View style={styles.textItem}>
               <Text style={styles.strong}>{this.props.idItem[i].name}</Text>
               {this.props.idItem[i].description ? (
                 <Text>{this.props.idItem[i].description}</Text>
@@ -32,10 +42,10 @@ export default class Items extends React.Component {
               <Text style={[styles.strong, styles.text]}>
                 {this.props.idItem[i].price}
               </Text>
-            </TouchableOpacity>
-          </View>
-        );
-      }
+            </View>
+          </TouchableOpacity>
+        </View>
+      );
     }
     // this.setState(
     //   {
@@ -45,15 +55,12 @@ export default class Items extends React.Component {
     //     console.log("affichage du itemsMenus : ", this.state.itemsMenus);
     //   }
     // );
-
     return (
       <View>
         <View>
           <Text>total : {this.props.state} €</Text>
         </View>
-        <View>
-          <Text>{arrItems}</Text>
-        </View>
+        {arrItems}
       </View>
     );
   }
