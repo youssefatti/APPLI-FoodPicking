@@ -15,7 +15,15 @@ const styles = {
   blocLogo: {
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 200
+    marginTop: 70,
+    marginBottom: 20
+  },
+  pickerText: {
+    marginTop: 50,
+    paddingRight: 10,
+    paddingLeft: 10,
+    fontSize: 20,
+    textAlign: "center"
   },
   picHome: {
     width: 120,
@@ -83,13 +91,21 @@ const styles = {
   },
   blocItem: {
     backgroundColor: "#F4F4F4",
-    paddingTop: 10,
-    paddingBottom: 10,
+    marginTop: 10,
     paddingRight: 10,
-    paddingLeft: 10
+    paddingLeft: 10,
+    paddingBottom: 10,
+    paddingTop: 10
   },
   strong: {
     fontWeight: "bold"
+  },
+  row: {
+    flexDirection: "row"
+  },
+  textItem: {
+    flex: 1,
+    paddingLeft: 10
   }
 };
 
