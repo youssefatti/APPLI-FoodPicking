@@ -21,19 +21,43 @@ export default class Menu extends React.Component {
 
   state = {
     cart: 0,
-    item: [],
+    items: [],
     menu: null,
     onMenu: false,
     menusRestaurant: []
   };
 
+  componentWillMount() {
+    // console.log("did mount ");
+    let link = this.props.navigation.state.params.link;
+    let id = this.props.navigation.state.params.id_deliveroo;
+
+    axios
+      .get(
+        `https://foodpacking-serveur.herokuapp.com/restaurant-menu/?id=${id}&link=${link}`
+      )
+      .then(response => {
+        //menu = response.data;
+        this.setState(
+          {
+            menu: response.data
+          },
+          () => {
+            // console.log("Object menu : dans did mount  ", this.state.menu);
+          }
+        );
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  }
   addItem = item => {
-    console.log("qty", item.quantity);
     const newItem = [];
     let found = false;
+    const index = -1;
 
-    for (let i = 0; i < this.state.item.length; i++) {
-      newItem.push(this.state.item[i]);
+    for (let i = 0; i < this.state.items.length; i++) {
+      newItem.push(this.state.items[i]);
     }
 
     for (let i = 0; i < newItem.length; i++) {
@@ -42,27 +66,55 @@ export default class Menu extends React.Component {
       if (item.id !== newItem[i].id) {
         found = false;
       } else {
-        newItem[i].quantity++;
+        // console.log("else", newItem[i].quantity);
         found = true;
-        break;
       }
     }
+
     if (found === false) {
       item.quantity = 1;
       newItem.push(item);
+    } else {
+      item.quantity++;
     }
-
     this.setState(
       {
-        item: newItem,
+        items: newItem,
         cart: this.state.cart + item.raw_price
       },
       () => {
-        console.log("quantity", this.state.item.quantity);
+        // console.log("item", this.state.items);
+        // console.log("longueur de state item : ", this.state.items.length);
+        // console.log("longeur de new item : ", newItem.length);
       }
     );
   };
+  removeItem = item => {
+    const removeItem = [...this.state.items];
+    let index = null;
 
+    for (let i = 0; i < removeItem.length; i++) {
+      if (item.id === removeItem[i].id) {
+        removeItem[i].quantity = removeItem[i].quantity - 1;
+        index = i;
+      }
+      if (index !== null && removeItem[i].quantity < 1) {
+        removeItem.splice(index, 1);
+      }
+      console.log("removeitem", removeItem);
+    }
+    this.setState(
+      {
+        items: removeItem,
+        cart: this.state.cart - item.raw_price
+      },
+      () => {
+        console.log("item", this.state.items);
+        // console.log("longueur de state item : ", this.state.items.length);
+        // console.log("longeur de new item : ", newItem.length);
+      }
+    );
+  };
   componentWillMount() {
     console.log("params", this.props.navigation);
     console.log("did mount ");
@@ -91,7 +143,8 @@ export default class Menu extends React.Component {
 
   _renderItems() {
     let menuShow = [];
-    console.log("affichage de l id la fonction item : ", this.state.menu.id);
+
+    // console.log("affichage de l id la fonction item : ", this.state.menu.id);
 
     // on affiche la suite que si l'id du resto de l'objet correspond à l'id reçu du resto
     // if (
@@ -100,17 +153,20 @@ export default class Menu extends React.Component {
     // ) {
     for (let i = 0; i < this.state.menu.menu.categories.length; i++) {
       menuShow.push(
-        <View key={i}>
+        <View key={this.state.menu.menu.categories[i].id}>
           {/* on récupere le nom de la catégorie et on envoie les infos au composent items */}
           <Text style={styles.titleCategory}>
             {this.state.menu.menu.categories[i].name}
           </Text>
-          <Items
-            state={this.state.cart}
-            addItem={this.addItem}
-            idCat={this.state.menu.menu.categories[i].id}
-            idItem={this.state.menu.menu.items}
-          />
+          <View style={styles.blocItem}>
+            <Items
+              state={this.state.cart}
+              addItem={this.addItem}
+              items={this.state.items}
+              idCat={this.state.menu.menu.categories[i]}
+              idItem={this.state.menu.menu.items}
+            />
+          </View>
         </View>
       );
     }
@@ -124,6 +180,9 @@ export default class Menu extends React.Component {
     return (
       <ScrollView style={[styles.containerIn, styles.style]}>
         <View>
+          <View>
+            <Text>total : {this.state.cart} €</Text>
+          </View>
           <View style={styles.blocTop}>
             <Image
               style={styles.visuelTop}
@@ -132,6 +191,7 @@ export default class Menu extends React.Component {
               }}
             />
           </View>
+
           <View style={styles.blocMenuIn}>
             {/* <Text>title: {this.props.navigation.state.params.name}</Text>
       <Text>
@@ -178,7 +238,10 @@ export default class Menu extends React.Component {
                 onPress={() =>
                   navigate("Cart", {
                     name: "Cart",
-                    cart: this.state.cart
+                    cart: this.state.cart,
+                    items: this.state.items,
+                    addItem: this.addItem,
+                    removeItem: this.removeItem
                   })
                 }
               />
@@ -191,7 +254,8 @@ export default class Menu extends React.Component {
   }
 
   render() {
-    console.log("render menu ....");
+    console.log("render dans menu");
+    // console.log("state menu", this.state.menu);
 
     return this.state.menu ? this._renderMenu() : null;
   }
