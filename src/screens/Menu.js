@@ -231,6 +231,9 @@ export default class Menu extends React.Component {
           ? this.state.menu.description
           : null}
       </Text> */}
+              <Text style={[styles.text, styles.description]}>
+                {this.state.menu.infos.description}
+              </Text>
               <View>{this._renderItems()}</View>
             </View>
           </View>
