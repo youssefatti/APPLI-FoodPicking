@@ -2,8 +2,11 @@ import { StackNavigator } from "react-navigation";
 import Home from "./src/screens/Home";
 import Restaurants from "./src/screens/Restaurants";
 import Menu from "./src/screens/Menu";
-import Cart from "./src/screens/Cart";
 import LogInScreen from "./src/screens/LogIn/LogInScreen";
+
+import Payment from "./src/screens/Payment";
+import Confirmation from "./src/screens/Confirmation";
+
 
 console.ignoredYellowBox = ["Warning: componentWill", "Remote debugger"];
 
@@ -20,8 +23,11 @@ const App = StackNavigator({
   Menu: {
     screen: Menu
   },
-  Cart: {
-    screen: Cart
+  Payment: {
+    screen: Payment
+  },
+  Confirmation: {
+    screen: Confirmation
   }
 });
 export default App;

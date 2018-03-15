@@ -4,6 +4,12 @@ import android.app.Application;
 
 import com.facebook.react.ReactApplication;
 import com.oblador.vectoricons.VectorIconsPackage;
+import com.oblador.vectoricons.VectorIconsPackage;
+import com.oblador.vectoricons.VectorIconsPackage;
+<<<<<<< HEAD
+=======
+import com.oblador.vectoricons.VectorIconsPackage;
+>>>>>>> 9d92ba186bb58aaa2b53876be9262b4b00310766
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -24,6 +30,12 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new VectorIconsPackage(),
+            new VectorIconsPackage(),
+<<<<<<< HEAD
+=======
+            new VectorIconsPackage(),
+>>>>>>> 9d92ba186bb58aaa2b53876be9262b4b00310766
             new VectorIconsPackage()
       );
     }
