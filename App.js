@@ -6,8 +6,6 @@ import LogInScreen from "./src/screens/LogIn/LogInScreen";
 
 import Payment from "./src/screens/Payment";
 import Confirmation from "./src/screens/Confirmation";
-import LogInScreen from "./src/screens/LogIn/LogInScreen";
-
 
 console.ignoredYellowBox = ["Warning: componentWill", "Remote debugger"];
 
