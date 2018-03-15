@@ -106,6 +106,21 @@ const styles = {
   textItem: {
     flex: 1,
     paddingLeft: 10
+  },
+
+  header: {
+    flex: 1,
+    height: 50,
+    justifyContent: "center",
+    alignItems: "center",
+    height: 50,
+    backgroundColor: "red",
+    flexDirection: "row"
+  },
+  button: {
+    height: 100,
+    width: 200,
+    backgroundColor: "yellow"
   }
 };
 
