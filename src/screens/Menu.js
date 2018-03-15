@@ -116,7 +116,7 @@ export default class Menu extends React.Component {
 
     axios
       .get(
-        `https://foodpacking-serveur.herokuapp.com/restaurant-menu/?id=${id}&link=${link}`
+        `https://foodpacking-serveur.herokuapp.com/api/restaurant/menu/?id=${id}&link=${link}`
       )
       .then(response => {
         //menu = response.data;
