@@ -12,7 +12,11 @@ import AppStyle from "../../AppStyle";
 const styles = StyleSheet.create(AppStyle);
 
 export default class Items extends React.Component {
-  _renderItemsMenus = () => {
+  state = {
+    itemsMenus: null
+  };
+
+  _renderItemsMenus() {
     let arrItems = [];
     // on boucle sur le tableau items
     for (let i = 0; i < this.props.idItem.length; i++) {
@@ -43,7 +47,6 @@ export default class Items extends React.Component {
         </View>
       );
     }
-
     // this.setState(
     //   {
     //     itemsMenus: arrItems
@@ -52,16 +55,18 @@ export default class Items extends React.Component {
     //     console.log("affichage du itemsMenus : ", this.state.itemsMenus);
     //   }
     // );
-    // console.log("cart dans item ", this.props.state);
     return (
       <View>
-        <Text>{arrItems}</Text>
+        <View>
+          <Text>total : {this.props.state} €</Text>
+        </View>
+        {arrItems}
       </View>
     );
-  };
+  }
 
   render() {
-    console.log("render de items ");
+    console.log("render de items /;;;;;;");
 
     return this._renderItemsMenus();
   }
