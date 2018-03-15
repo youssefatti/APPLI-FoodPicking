@@ -100,14 +100,14 @@ const styles = {
   strong: {
     fontWeight: "bold"
   },
-<<<<<<< HEAD
   row: {
     flexDirection: "row"
   },
   textItem: {
     flex: 1,
     paddingLeft: 10
-=======
+  },
+
   header: {
     flex: 1,
     height: 50,
@@ -121,7 +121,6 @@ const styles = {
     height: 100,
     width: 200,
     backgroundColor: "yellow"
->>>>>>> creat cart and stripe
   }
 };
 
