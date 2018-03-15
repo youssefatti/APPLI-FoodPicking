@@ -14,6 +14,7 @@ import AppStyle from "../../AppStyle";
 import Stripe from "react-native-stripe-api";
 import axios from "axios";
 /* const styles = StyleSheet.create(AppStyle); */
+
 export default class Payment extends React.Component {
   state = {
     cart: this.props.navigation.state.params.cart,
@@ -25,9 +26,11 @@ export default class Payment extends React.Component {
     expYear: "",
     CVC: ""
   };
+
   pay() {
     const apiKey = "pk_test_hI9eMiVH1jgYGC8JF7uiEIkr";
     const client = new Stripe(apiKey);
+
     client
       .createToken({
         number: this.state.number,
@@ -39,21 +42,26 @@ export default class Payment extends React.Component {
         // { token },
         resp => {
           console.log("resp", resp);
-          alert("Votre commande a bien été prise en compte");
           const token = resp;
           const total = this.props.navigation.state.params.amount;
           axios
-            .post("https://8e47f037.ngrok.io/payment", {
-              token,
-              total
-            })
+            .post(
+              "https://foodpacking-serveur.herokuapp.com/api/payment/order",
+              {
+                items: this.props.navigation.state.params.items,
+                token,
+                total
+              }
+            )
             .then(function(resp) {
               console.log(resp);
+              alert("Votre commande a bien été prise en compte");
             })
             .catch(function(error) {
               console.log(error);
               console.log("axios", token);
               console.log("axios", total);
+              alert("erreur");
             });
           console.log("token", token);
         }
@@ -62,8 +70,10 @@ export default class Payment extends React.Component {
         console.log(err);
       });
   }
+
   render() {
     const { navigate } = this.props.navigation;
+
     console.log("number", this.state.number);
     // console.log("cart", this.props.navigation.state.params);
     return (
@@ -134,6 +144,7 @@ export default class Payment extends React.Component {
           title="Confirmer et payer"
           onPress={() => {
             this.pay();
+
             navigate("Confirmation", {
               name: "Confirmation",
               amount: this.state.cart
@@ -144,6 +155,7 @@ export default class Payment extends React.Component {
     );
   }
 }
+
 const styles = StyleSheet.create({
   scrollView: {
     flex: 1,
