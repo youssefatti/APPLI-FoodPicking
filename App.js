@@ -6,7 +6,7 @@ import LogInScreen from "./src/screens/LogIn/LogInScreen";
 
 import Payment from "./src/screens/Payment";
 import Confirmation from "./src/screens/Confirmation";
-import Cart from "./src/screens/Cart";
+//import Payment from "./src/screens/Payment";
 import LogInScreen from "./src/screens/LogIn/LogInScreen";
 
 

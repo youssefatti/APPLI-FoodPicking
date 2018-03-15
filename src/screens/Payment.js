@@ -14,7 +14,7 @@ import AppStyle from "../../AppStyle";
 import Stripe from "react-native-stripe-api";
 import axios from "axios";
 /* const styles = StyleSheet.create(AppStyle); */
-export default class Cart extends React.Component {
+export default class Payment extends React.Component {
   state = {
     cart: this.props.navigation.state.params.cart,
     isValidateOrderVisible: true,

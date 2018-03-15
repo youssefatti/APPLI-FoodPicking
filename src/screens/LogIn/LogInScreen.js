@@ -37,7 +37,7 @@ export default class LogIn extends React.Component {
 
   signUpUser = (email, password, username, cb) => {
     axios
-      .post("http://localhost:3000/api/user/sign_up", {
+      .post("https://foodpacking-serveur.herokuapp.com/api/user/sign_up", {
         email,
         password,
         username
@@ -60,7 +60,7 @@ export default class LogIn extends React.Component {
     console.log("this.state password : ", this.state.password);
 
     axios
-      .post("http://localhost:3000/api/user/log_in", {
+      .post("https://foodpacking-serveur.herokuapp.com/api/user/log_in", {
         email,
         password
       })
