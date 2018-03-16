@@ -115,7 +115,8 @@ export default class Restaurants extends React.Component {
                 picture: this.state.restaurants[i].attributes.image_url,
                 rank: this.state.restaurants[i].attributes
                   .rating_formatted_count,
-                percent: this.state.restaurants[i].attributes.rating_percentage
+                percent: this.state.restaurants[i].attributes.rating_percentage,
+                arrChoose: this.props.navigation.state.params.arrChoose
               })
             }
           >

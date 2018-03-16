@@ -11,10 +11,14 @@ import {
   TextInput
 } from "react-native";
 import AppStyle from "../../AppStyle";
+const styles = StyleSheet.create(AppStyle);
 import Stripe from "react-native-stripe-api";
 import axios from "axios";
 /* const styles = StyleSheet.create(AppStyle); */
 export default class Cart extends React.Component {
+  static navigationOptions = {
+    header: null
+  };
   state = {
     cart: this.props.navigation.state.params.cart,
     isValidateOrderVisible: true,
@@ -63,24 +67,35 @@ export default class Cart extends React.Component {
       });
   }
   render() {
+    const arrCart = [];
+    for (let i = 0; i < this.props.navigation.state.params.items.length; i++) {
+      arrCart.push(
+        <Text>
+          {this.props.navigation.state.params.items[i].quantity}x{" "}
+          {this.props.navigation.state.params.items[i].name}{" "}
+          {(
+            this.props.navigation.state.params.items[i].raw_price *
+            this.props.navigation.state.params.items[i].quantity
+          ).toFixed(2)}€ ||
+        </Text>
+      );
+    }
+    console.log("items", this.props.navigation.state.params.items);
+    console.log("heure conf", this.props.navigation.state.params.chosenHour);
     const { navigate } = this.props.navigation;
-    console.log("number", this.state.number);
-    // console.log("cart", this.props.navigation.state.params);
     return (
       <View style={{ flex: 1, alignItems: "center" }}>
-        <Text>Recap</Text>
+        <Text>Commande est confirmée.</Text>
+        <Text>Voici le récapitulatif de votre commande</Text>
+        <Text>
+          total : {this.props.navigation.state.params.amount.toFixed(2)}
+        </Text>
+        <Text>items : {arrCart}</Text>
+        <Text>heure : {this.props.navigation.state.params.chosenHour}</Text>
+        {/* <TouchableOpacity onPress={() => navigate("")}>
+          <Text>back</Text>
+        </TouchableOpacity> */}
       </View>
     );
   }
 }
-const styles = StyleSheet.create({
-  scrollView: {
-    flex: 1,
-    backgroundColor: "red"
-  },
-  button: {
-    height: 100,
-    width: 200,
-    backgroundColor: "yellow"
-  }
-});

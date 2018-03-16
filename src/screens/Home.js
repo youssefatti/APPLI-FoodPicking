@@ -94,7 +94,20 @@ export default class Home extends React.Component {
           )
         : null;
     }
-
+    let chooseHour = null;
+    let chooseHour1 = null;
+    let chooseHour2 = null;
+    let arrChoose = [];
+    if (this.state.hour === null) {
+      chooseHour = moment.unix(pickers[0].props.value).format("HH:mm");
+      chooseHour1 = moment.unix(pickers[0].props.value + 900).format("HH:mm");
+      chooseHour2 = moment.unix(pickers[0].props.value + 1800).format("HH:mm");
+    } else {
+      chooseHour = moment.unix(this.state.hour).format("HH:mm");
+      chooseHour1 = moment.unix(this.state.hour + 900).format("HH:mm");
+      chooseHour2 = moment.unix(this.state.hour + 1800).format("HH:mm");
+    }
+    arrChoose.push(chooseHour, chooseHour1, chooseHour2);
     console.log("rendering home page");
     const { navigate } = this.props.navigation;
     return (
@@ -106,8 +119,6 @@ export default class Home extends React.Component {
             justifyContent: "center"
           }}
         >
-          {/* <Text>Latitude: {this.state.latitude}</Text>
-          <Text>Longitude: {this.state.longitude}</Text> */}
           {this.state.error ? <Text>Error: {this.state.error}</Text> : null}
         </View>
         <Text style={styles.pickerText}>
@@ -117,7 +128,9 @@ export default class Home extends React.Component {
         <Picker
           selectedValue={this.state.hour}
           onValueChange={(itemValue, itemIndex) =>
-            this.setState({ hour: itemValue })
+            this.setState({
+              hour: itemValue
+            })
           }
         >
           {pickers}
@@ -129,7 +142,8 @@ export default class Home extends React.Component {
                 name: "Restaurant",
                 geoloc: this.state.geoloc,
                 hour: this.state.hour,
-                pick: pickers[1].props.value
+                pick: pickers[0].props.value,
+                arrChoose: arrChoose
               })
             }
           >
