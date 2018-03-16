@@ -11,6 +11,7 @@ import {
   TextInput
 } from "react-native";
 import AppStyle from "../../AppStyle";
+const styles = StyleSheet.create(AppStyle);
 import Stripe from "react-native-stripe-api";
 import axios from "axios";
 /* const styles = StyleSheet.create(AppStyle); */
@@ -24,7 +25,8 @@ export default class Payment extends React.Component {
     number: "",
     expMonth: "",
     expYear: "",
-    CVC: ""
+    CVC: "",
+    chosenHour: this.props.navigation.state.params.chosenHour
   };
 
   pay() {
@@ -50,7 +52,9 @@ export default class Payment extends React.Component {
               {
                 items: this.props.navigation.state.params.items,
                 token,
-                total
+                total,
+                chosenHour: this.state.chosenHour,
+                data: this.props.navigation.state.params.data.data._id
               }
             )
             .then(function(resp) {
@@ -73,9 +77,8 @@ export default class Payment extends React.Component {
 
   render() {
     const { navigate } = this.props.navigation;
-
-    console.log("number", this.state.number);
-    // console.log("cart", this.props.navigation.state.params);
+    console.log("chosenHour", this.state.chosenHour);
+    console.log("item", this.props.navigation.state.params.items);
     return (
       <View style={{ flex: 1, alignItems: "center" }}>
         <Text>PAIEMENT</Text>
@@ -117,17 +120,6 @@ export default class Payment extends React.Component {
             value={this.state.expYear}
           />
         </View>
-        {/* <TextInput
-          placeholder="Nom du titulaire de la carte"
-          style={{
-            height: 40,
-            borderColor: "gray",
-            borderWidth: 1,
-            width: "80%"
-          }}
-          onChangeText={text => this.setState({ text })}
-          value={this.state.text}
-        /> */}
         <TextInput
           placeholder="CCV"
           // value={"111"}
@@ -147,7 +139,11 @@ export default class Payment extends React.Component {
 
             navigate("Confirmation", {
               name: "Confirmation",
-              amount: this.state.cart
+              cart: this.state.cart,
+              chosenHour: this.state.chosenHour,
+              amount: this.props.navigation.state.params.amount,
+              arrChoose: this.props.navigation.state.params.arrChoose,
+              items: this.props.navigation.state.params.items
             });
           }}
         />
@@ -155,15 +151,3 @@ export default class Payment extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  scrollView: {
-    flex: 1,
-    backgroundColor: "red"
-  },
-  button: {
-    height: 100,
-    width: 200,
-    backgroundColor: "yellow"
-  }
-});

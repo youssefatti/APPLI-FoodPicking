@@ -9,7 +9,8 @@ import {
   TouchableOpacity,
   Modal,
   TouchableHighlight,
-  FlatList
+  FlatList,
+  Picker
 } from "react-native";
 import Items from "./Items";
 import axios from "axios";
@@ -30,7 +31,8 @@ export default class Menu extends React.Component {
     onMenu: false,
     menusRestaurant: [],
     popUpDisplay: false,
-    cancelCart: false
+    cancelCart: false,
+    chosenHour: null
   };
 
   addItem = item => {
@@ -137,12 +139,6 @@ export default class Menu extends React.Component {
   _renderItems() {
     let menuShow = [];
     console.log("affichage de l id la fonction item : ", this.state.menu.id);
-
-    // on affiche la suite que si l'id du resto de l'objet correspond à l'id reçu du resto
-    // if (
-    //   this.state.menu.id ===
-    //   Number(this.props.navigation.state.params.id_deliveroo)
-    // ) {
     for (let i = 0; i < this.state.menu.menu.categories.length; i++) {
       menuShow.push(
         <View key={i}>
@@ -156,12 +152,12 @@ export default class Menu extends React.Component {
             idCat={this.state.menu.menu.categories[i].id}
             idItem={this.state.menu.menu.items}
             items={this.state.items}
+            chooseHour={this.props.navigation.state.params.chooseHour}
           />
         </View>
       );
     }
     // }
-    console.log("itemmmmm", this.state.menu);
     return menuShow;
   }
 
@@ -180,18 +176,7 @@ export default class Menu extends React.Component {
               />
             </View>
             <View style={styles.blocMenuIn}>
-              {/* <Text>title: {this.props.navigation.state.params.name}</Text>
-      <Text>
-        id restaurant: {this.props.navigation.state.params.id_deliveroo}
-      </Text>
-      <Text>
-        lien restaurant: {this.props.navigation.state.params.link}
-      </Text> */}
               <View>
-                {/* <Text>
-          {this.state.menu ? (this.state.menu.infos.menu.menu_tags[0].name ) : null}
-          //this.state.menu.infos.menu.menu_tags[1].name 
-        </Text> */}
                 <View
                   style={{
                     backgroundColor: "#FBB252",
@@ -228,14 +213,15 @@ export default class Menu extends React.Component {
           transparent={false}
           visible={this.state.popUpDisplay}
         >
-          <View style={{ marginTop: 22, flex: 1 }}>
+          <View
+          // style={{ marginTop: 22, flex: 1 }}
+          >
             <View>
               <View style={styles.header}>
                 <View style={{ flex: 1 }}>
                   <Text style={styles.header}>Mon Panier</Text>
                 </View>
                 <TouchableOpacity
-                  style={{ flex: 1 }}
                   onPress={() => {
                     this.setModalVisible(this.state.isPopupVisible);
                   }}
@@ -248,19 +234,33 @@ export default class Menu extends React.Component {
                   />
                 </TouchableOpacity>
               </View>
+              <Picker
+                selectedValue={this.state.chosenHour}
+                onValueChange={(itemValue, itemIndex) =>
+                  this.setState({ chosenHour: itemValue })
+                }
+              >
+                <Picker.Item
+                  label={this.props.navigation.state.params.arrChoose[0]}
+                  value={this.props.navigation.state.params.arrChoose[0]}
+                />
+
+                <Picker.Item
+                  label={this.props.navigation.state.params.arrChoose[1]}
+                  value={this.props.navigation.state.params.arrChoose[1]}
+                />
+
+                <Picker.Item
+                  label={this.props.navigation.state.params.arrChoose[2]}
+                  value={this.props.navigation.state.params.arrChoose[2]}
+                />
+              </Picker>
+              <Text />
               <FlatList
                 keyExtractor={this._keyExtractor}
                 data={this.state.items}
                 renderItem={({ item }) => (
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      justifyContent: "space-around",
-                      flex: 1,
-                      alignItems: "center",
-                      borderBottomWidth: 1
-                    }}
-                  >
+                  <View>
                     <View
                       style={{
                         flexDirection: "row",
@@ -278,15 +278,13 @@ export default class Menu extends React.Component {
                       </Text>
                       <Button title="+" onPress={() => this.addItem(item)} />
                     </View>
-                    <Text>{item.quantity * item.raw_price}</Text>
+                    <Text>{(item.quantity * item.raw_price).toFixed(2)}</Text>
                   </View>
                 )}
               />
               <Text style={styles.strong}>
                 total = {parseFloat(this.state.cart).toFixed(2)} €
               </Text>
-              {/* <Text>Annuler la commande</Text>
-              </TouchableHighlight> */}
             </View>
           </View>
           <View>
@@ -295,7 +293,13 @@ export default class Menu extends React.Component {
                 this.setState({ popUpDisplay: false });
                 navigate("Payment", {
                   name: "Paiement",
-                  amount: this.state.cart
+                  amount: this.state.cart,
+                  chosenHour:
+                    this.state.chosenHour === null
+                      ? this.props.navigation.state.params.arrChoose[0]
+                      : this.state.chosenHour,
+                  arrChoose: this.props.navigation.state.params.arrChoose,
+                  items: this.state.items
                 });
               }}
               style={styles.button}
@@ -316,6 +320,7 @@ export default class Menu extends React.Component {
   }
 
   render() {
+    // console.log("picker", typeof this.props.navigation.state.params.chooseHour);
     console.log("render menu ....");
 
     return this.state.menu ? this._renderMenu() : null;

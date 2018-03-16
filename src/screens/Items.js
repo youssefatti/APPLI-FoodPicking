@@ -47,27 +47,10 @@ export default class Items extends React.Component {
         </View>
       );
     }
-    // this.setState(
-    //   {
-    //     itemsMenus: arrItems
-    //   },
-    //   () => {
-    //     console.log("affichage du itemsMenus : ", this.state.itemsMenus);
-    //   }
-    // );
-    return (
-      <View>
-        <View>
-          <Text>total : {this.props.state} €</Text>
-        </View>
-        {arrItems}
-      </View>
-    );
+    return <View>{arrItems}</View>;
   }
 
   render() {
-    console.log("render de items /;;;;;;");
-
     return this._renderItemsMenus();
   }
 }

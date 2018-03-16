@@ -7,7 +7,12 @@ import LogInScreen from "./src/screens/LogIn/LogInScreen";
 import Payment from "./src/screens/Payment";
 import Confirmation from "./src/screens/Confirmation";
 
-console.ignoredYellowBox = ["Warning: componentWill", "Remote debugger"];
+console.ignoredYellowBox = [
+  "Warning: componentWill",
+  "Remote debugger",
+  "Warning: Each child",
+  "Warning: Failed child"
+];
 
 const App = StackNavigator({
   LogIn: {
