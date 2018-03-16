@@ -55,8 +55,13 @@ export default class Restaurants extends React.Component {
 
   componentWillMount() {
     console.log("Will mount restaurants Page ");
+
     let hour = this.props.navigation.state.params.hour;
     let geohash = this.props.navigation.state.params.geoloc;
+
+    console.log("hour dans resto : ", hour);
+    console.log("geohash dans resto ", geohash);
+
     axios
       .get(
         hour === null || hour === this.props.navigation.state.params.pick
@@ -64,6 +69,7 @@ export default class Restaurants extends React.Component {
           : `https://consumer-ow-api.deliveroo.com/orderapp/v2/restaurants?delivery_time=${hour}&geohash=${geohash}`
       )
       .then(response => {
+        console.log("nombre de resto recu : ", response.data.data.length);
         this.props.navigation.setParams({
           title: response.data.meta.neighborhood_name
         });
@@ -76,17 +82,18 @@ export default class Restaurants extends React.Component {
             if (item.attributes.delivery_time === "10 - 20") {
               element.push(item);
             }
-            if (item.attributes.delivery_time === "15 - 25") {
-              element.push(item);
-            }
+            // if (item.attributes.delivery_time === "15 - 25") {
+            //   element.push(item);
+            // }
           } else {
             if (item.attributes.rating_percentage > 90) {
               element.push(item);
             }
-            if (item.attributes.rating_percentage > 80) {
-              element.push(item);
-            }
+            // if (item.attributes.rating_percentage > 80) {
+            //   element.push(item);
+            // }
           }
+          console.log("nombre de resto affiché : ", element.length);
           return element;
         });
         this.setState({
