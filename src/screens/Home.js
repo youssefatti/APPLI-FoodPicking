@@ -46,6 +46,7 @@ export default class Home extends React.Component {
           position.coords.latitude,
           position.coords.longitude
         );
+        console.log("geohash : ", geohash);
         this.setState({
           geoloc: geohash,
           error: null

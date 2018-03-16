@@ -48,7 +48,8 @@ export default class Payment extends React.Component {
           const total = this.props.navigation.state.params.amount;
           axios
             .post(
-              "https://foodpacking-serveur.herokuapp.com/api/payment/order",
+              "https://52bad6c0.ngrok.io/api/payment/order",
+              // "https://foodpacking-serveur.herokuapp.com/api/payment/order",
               {
                 items: this.props.navigation.state.params.items,
                 token,
