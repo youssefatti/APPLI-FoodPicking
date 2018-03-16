@@ -63,7 +63,7 @@ export default class Home extends React.Component {
     );
   }
 
-  componentWilllMount() {
+  componentWillMount() {
     console.log("id dans la page home : ", this.props.data);
     console.log("Will mount home page");
     this.getGeoLoc();
