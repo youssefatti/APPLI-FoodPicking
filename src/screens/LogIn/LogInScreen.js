@@ -72,7 +72,7 @@ export default class LogIn extends React.Component {
       })
       .then(function(response) {
         console.log(response);
-        alert("is finish");
+        //alert("is finish");
         cb(response);
       })
       .catch(function(error) {
