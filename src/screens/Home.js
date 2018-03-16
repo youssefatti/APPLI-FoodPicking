@@ -1,8 +1,6 @@
 import React from "react";
 import axios from "axios";
-
 import geo from "geo-hash";
-
 import moment from "moment";
 
 import {
@@ -14,6 +12,7 @@ import {
   Text,
   Picker
 } from "react-native";
+
 import AppStyle from "../../AppStyle";
 const styles = StyleSheet.create(AppStyle);
 
@@ -46,6 +45,7 @@ export default class Home extends React.Component {
           position.coords.latitude,
           position.coords.longitude
         );
+        //console.log("geo hash dans la fonction getgeoloc", geohash);
         this.setState({
           geoloc: geohash,
           error: null
@@ -62,7 +62,7 @@ export default class Home extends React.Component {
     );
   }
 
-  componentWilllMount() {
+  componentWillMount() {
     console.log("id dans la page home : ", this.props.data);
     console.log("Will mount home page");
     this.getGeoLoc();
@@ -109,9 +109,9 @@ export default class Home extends React.Component {
       chooseHour2 = moment.unix(this.state.hour + 1800).format("HH:mm");
     }
     arrChoose.push(chooseHour, chooseHour1, chooseHour2);
+
     console.log("rendering home page");
-    console.log("id dans la page home : ", this.props);
-    console.log("Will mount home page");
+
     const { navigate } = this.props.navigation;
     return (
       <ScrollView style={[styles.container, styles.style, styles.bgColorHome]}>
