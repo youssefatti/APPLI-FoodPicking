@@ -3,8 +3,6 @@ import Home from "./src/screens/Home";
 import Restaurants from "./src/screens/Restaurants";
 import Menu from "./src/screens/Menu";
 import LogInScreen from "./src/screens/LogIn/LogInScreen";
-import Account from "./src/screens/Account/Account";
-import Favorites from "./src/screens/Favorites/Favorites";
 
 import Payment from "./src/screens/Payment";
 import Confirmation from "./src/screens/Confirmation";
@@ -13,7 +11,7 @@ console.ignoredYellowBox = [
   "Warning: componentWill",
   "Remote debugger",
   "Warning: Each child",
-  "Warning: Failed"
+  "Warning: Failed child"
 ];
 
 const App = StackNavigator({
@@ -34,12 +32,6 @@ const App = StackNavigator({
   },
   Confirmation: {
     screen: Confirmation
-  },
-  Account: {
-    screen: Account
-  },
-  Favorites: {
-    screen: Favorites
   }
 });
 export default App;

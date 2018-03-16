@@ -106,16 +106,7 @@ const styles = {
   textItem: {
     flex: 1,
     paddingLeft: 10
-  },
-  UserNav: {
-    height: 60,
-    backgroundColor: "#FBB252",
-    flexDirection: "row",
-    justifyContent: "space-around"
   }
-  // userSpace: {
-  //   paddingBottom: 75
-  // }
   // header: {
   //   flex: 1,
   //   height: 50,

@@ -34,8 +34,7 @@ export default class Restaurants extends React.Component {
   state = {
     restaurants: [],
     isLoading: true,
-    length: null,
-    hour: this.props.navigation.state.params.hour
+    length: null
   };
 
   // shouldComponentUpdate(nextProps, nextState) {
@@ -134,8 +133,8 @@ export default class Restaurants extends React.Component {
         </View>
       );
     }
-    return [
-      <ScrollView style={[styles.containerIn, styles.style, styles.userSpace]}>
+    return (
+      <ScrollView style={[styles.containerIn, styles.style]}>
         <View style={styles.bloc}>
           // affichage des éléments
           {this.state.length === this.state.restaurants.length ? (
@@ -148,48 +147,7 @@ export default class Restaurants extends React.Component {
             />
           )}
         </View>
-      </ScrollView>,
-      <View style={styles.UserNav}>
-        <TouchableOpacity
-          onPress={() =>
-            navigate("Restaurants", {
-              name: "Restaurant",
-              geoloc: this.props.navigation.state.params.geoloc,
-              hour: this.props.navigation.state.params.hour,
-              pick: this.props.navigation.state.params.pick,
-              arrChoose: this.props.navigation.state.params.arrChoose
-            })
-          }
-        >
-          <Icon name="ios-restaurant" size={60} color="#fff" />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() =>
-            navigate("Favorites", {
-              name: "Favorites",
-              geoloc: this.props.navigation.state.params.geoloc,
-              hour: this.props.navigation.state.params.hour,
-              pick: this.props.navigation.state.params.pick,
-              arrChoose: this.props.navigation.state.params.arrChoose
-            })
-          }
-        >
-          <Icon name="ios-heart" size={60} color="#fff" />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() =>
-            navigate("Account", {
-              name: "Account",
-              geoloc: this.props.navigation.state.params.geoloc,
-              hour: this.props.navigation.state.params.hour,
-              pick: this.props.navigation.state.params.pick,
-              arrChoose: this.props.navigation.state.params.arrChoose
-            })
-          }
-        >
-          <Icon name="ios-contact" size={60} color="#fff" />
-        </TouchableOpacity>
-      </View>
-    ];
+      </ScrollView>
+    );
   }
 }
