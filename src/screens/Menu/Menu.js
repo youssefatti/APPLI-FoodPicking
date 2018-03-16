@@ -12,9 +12,9 @@ import {
   FlatList,
   Picker
 } from "react-native";
-import Items from "./Items";
+import Items from "../Items/Items";
 import axios from "axios";
-import AppStyle from "../../AppStyle";
+import AppStyle from "../../../AppStyle";
 import Icon from "react-native-vector-icons/Ionicons";
 
 const styles = StyleSheet.create(AppStyle);

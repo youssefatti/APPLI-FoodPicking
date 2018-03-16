@@ -11,7 +11,7 @@ import {
   ActivityIndicator,
   View
 } from "react-native";
-import AppStyle from "../../AppStyle";
+import AppStyle from "../../../AppStyle";
 const styles = StyleSheet.create(AppStyle);
 import Icon from "react-native-vector-icons/Ionicons";
 
