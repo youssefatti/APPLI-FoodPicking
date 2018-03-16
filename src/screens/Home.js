@@ -62,7 +62,8 @@ export default class Home extends React.Component {
     );
   }
 
-  componentWillMount() {
+  componentWilllMount() {
+    console.log("id dans la page home : ", this.props.data);
     console.log("Will mount home page");
     this.getGeoLoc();
   }
@@ -109,6 +110,8 @@ export default class Home extends React.Component {
     }
     arrChoose.push(chooseHour, chooseHour1, chooseHour2);
     console.log("rendering home page");
+    console.log("id dans la page home : ", this.props);
+    console.log("Will mount home page");
     const { navigate } = this.props.navigation;
     return (
       <ScrollView style={[styles.container, styles.style, styles.bgColorHome]}>
