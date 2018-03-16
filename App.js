@@ -1,13 +1,13 @@
 import { StackNavigator } from "react-navigation";
-import Home from "./src/screens/Home";
-import Restaurants from "./src/screens/Restaurants";
-import Menu from "./src/screens/Menu";
+import Home from "./src/screens/Home/Home";
+import Restaurants from "./src/screens/RestaurantList/RestaurantsList";
+import Menu from "./src/screens/Menu/Menu";
 import LogInScreen from "./src/screens/LogIn/LogInScreen";
 import Account from "./src/screens/Account/Account";
 import Favorites from "./src/screens/Favorites/Favorites";
 
-import Payment from "./src/screens/Payment";
-import Confirmation from "./src/screens/Confirmation";
+import Payment from "./src/screens/Payment/Payment";
+import Confirmation from "./src/screens/Confirmation/Confirmation";
 
 console.ignoredYellowBox = [
   "Warning: componentWill",

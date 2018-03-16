@@ -8,7 +8,7 @@ import {
   ActivityIndicator,
   FlatList
 } from "react-native";
-import AppStyle from "../../AppStyle";
+import AppStyle from "../../../AppStyle";
 const styles = StyleSheet.create(AppStyle);
 
 export default class Items extends React.Component {

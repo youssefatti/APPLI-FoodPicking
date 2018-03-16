@@ -10,7 +10,7 @@ import {
   TouchableHighlight,
   TextInput
 } from "react-native";
-import AppStyle from "../../AppStyle";
+import AppStyle from "../../../AppStyle";
 const styles = StyleSheet.create(AppStyle);
 import Stripe from "react-native-stripe-api";
 import axios from "axios";

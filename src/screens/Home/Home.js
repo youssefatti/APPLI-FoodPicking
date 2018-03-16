@@ -13,7 +13,7 @@ import {
   Picker
 } from "react-native";
 
-import AppStyle from "../../AppStyle";
+import AppStyle from "../../../AppStyle";
 const styles = StyleSheet.create(AppStyle);
 
 export default class Home extends React.Component {
