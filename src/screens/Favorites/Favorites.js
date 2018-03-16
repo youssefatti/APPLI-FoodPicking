@@ -11,13 +11,15 @@ import {
   ActivityIndicator,
   View
 } from "react-native";
-import AppStyle from "../../AppStyle";
+import AppStyle from "../../../AppStyle";
 const styles = StyleSheet.create(AppStyle);
+import StyleAccount from "./StyleFavorites";
+const styleAccount = StyleSheet.create(StyleAccount);
 import Icon from "react-native-vector-icons/Ionicons";
 
 const resto = {};
 
-export default class Restaurants extends React.Component {
+export default class Favorites extends React.Component {
   // static navigationOptions = ({ navigation }) => ({
   //   title: navigation.state.params.name
   // });
@@ -149,6 +151,7 @@ export default class Restaurants extends React.Component {
           )}
         </View>
       </ScrollView>,
+
       <View style={styles.UserNav}>
         <TouchableOpacity
           onPress={() =>
