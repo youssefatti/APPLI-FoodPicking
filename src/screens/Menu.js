@@ -213,7 +213,9 @@ export default class Menu extends React.Component {
           transparent={false}
           visible={this.state.popUpDisplay}
         >
-          <View style={{ marginTop: 20 }}>
+          <View
+          // style={{ marginTop: 22, flex: 1 }}
+          >
             <View>
               <View style={styles.header}>
                 <View style={{ flex: 1 }}>
@@ -225,6 +227,7 @@ export default class Menu extends React.Component {
                   }}
                 >
                   <Icon
+                    style={{ justifyContent: "flex-end" }}
                     name="ios-close-circle-outline"
                     size={30}
                     color="black"
