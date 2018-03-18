@@ -21,7 +21,8 @@ import axios from "axios";
 
 export default class Payment extends React.Component {
   static navigationOptions = ({ navigation }) => ({
-    title: "PAIEMENT"
+    title: "Paiement",
+    headerBackTitle: null
   });
   state = {
     cart: this.props.navigation.state.params.cart,

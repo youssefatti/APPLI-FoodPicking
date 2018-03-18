@@ -1,7 +1,6 @@
 const styles = {
   UserNav: {
-    height: 60,
-    backgroundColor: "#FBB252",
+    height: 40,
     flexDirection: "row",
     justifyContent: "space-around"
   }

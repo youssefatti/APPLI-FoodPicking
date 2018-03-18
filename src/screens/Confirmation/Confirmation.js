@@ -120,7 +120,7 @@ export default class Cart extends React.Component {
             })
           }
         >
-          <Icon name="ios-restaurant" size={60} color="#fff" />
+          <Icon name="ios-restaurant" size={40} color="#2A4D49" />
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() =>
@@ -134,7 +134,7 @@ export default class Cart extends React.Component {
             })
           }
         >
-          <Icon name="ios-heart" size={60} color="#fff" />
+          <Icon name="ios-heart" size={40} color="#2A4D49" />
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() =>
@@ -148,7 +148,7 @@ export default class Cart extends React.Component {
             })
           }
         >
-          <Icon name="ios-contact" size={60} color="#fff" />
+          <Icon name="ios-contact" size={40} color="#2A4D49" />
         </TouchableOpacity>
       </View>
       // <View>
