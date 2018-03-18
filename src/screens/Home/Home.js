@@ -73,6 +73,7 @@ export default class Home extends React.PureComponent {
   }
 
   render() {
+    console.log("data home:", this.props.navigation.state.params.data);
     console.log("rendering home page");
 
     /* PICKERS */
@@ -127,6 +128,7 @@ export default class Home extends React.PureComponent {
         >
           <Text style={commonStyles.foodPicking}>FoodPicking</Text>
         </View>
+
         {this.state.error ? (
           <View
             style={{
@@ -177,7 +179,8 @@ export default class Home extends React.PureComponent {
               flex: 2,
 
               justifyContent: "space-around"
-            }}
+            }}         
+
           >
             <TouchableOpacity
               style={commonStyles.button}
@@ -187,7 +190,8 @@ export default class Home extends React.PureComponent {
                   geoloc: this.state.geoloc,
                   hour: this.state.hour,
                   pick: pickers[0].props.value,
-                  arrChoose: arrChoose
+                  arrChoose: arrChoose,
+                  data: this.props.navigation.state.params.data
                 })
               }
             >

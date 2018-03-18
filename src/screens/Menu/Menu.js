@@ -294,12 +294,14 @@ export default class Menu extends React.Component {
                 navigate("Payment", {
                   name: "Paiement",
                   amount: this.state.cart,
+                  restaurantName: this.props.navigation.state.params.name,
                   chosenHour:
                     this.state.chosenHour === null
                       ? this.props.navigation.state.params.arrChoose[0]
                       : this.state.chosenHour,
                   arrChoose: this.props.navigation.state.params.arrChoose,
-                  items: this.state.items
+                  items: this.state.items,
+                  data: this.props.navigation.state.params.data
                 });
               }}
               style={styles.button}

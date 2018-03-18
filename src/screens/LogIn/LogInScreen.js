@@ -135,6 +135,7 @@ export default class LogIn extends React.PureComponent {
             value={this.state.passwordConfirmation}
           />
         ) : null}
+
         <View style={{ flex: 1, justifyContent: "space-around" }}>
           {!this.state.showLogin ? (
             <TouchableOpacity
@@ -178,7 +179,7 @@ export default class LogIn extends React.PureComponent {
             </TouchableOpacity>
           )}
         </View>
-      </View>
+
     );
   };
 

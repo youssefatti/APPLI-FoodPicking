@@ -54,7 +54,9 @@ export default class Payment extends React.Component {
                 token,
                 total,
                 chosenHour: this.state.chosenHour,
-                data: this.props.navigation.state.params.data.data._id
+                data: this.props.navigation.state.params.data.data._id,
+                restaurantName: this.props.navigation.state.params
+                  .restaurantName
               }
             )
             .then(function(resp) {
@@ -143,7 +145,8 @@ export default class Payment extends React.Component {
               chosenHour: this.state.chosenHour,
               amount: this.props.navigation.state.params.amount,
               arrChoose: this.props.navigation.state.params.arrChoose,
-              items: this.props.navigation.state.params.items
+              items: this.props.navigation.state.params.items,
+              data: this.props.navigation.state.params.data
             });
           }}
         />
