@@ -10,6 +10,8 @@ import {
 } from "react-native";
 import AppStyle from "../../../AppStyle";
 const styles = StyleSheet.create(AppStyle);
+import ItemsStyles from "./ItemsStyles";
+const itemsStyles = StyleSheet.create(ItemsStyles);
 
 export default class Items extends React.Component {
   state = {
@@ -37,9 +39,11 @@ export default class Items extends React.Component {
             <View style={styles.textItem}>
               <Text style={styles.strong}>{this.props.idItem[i].name}</Text>
               {this.props.idItem[i].description ? (
-                <Text>{this.props.idItem[i].description}</Text>
+                <Text style={itemsStyles.text}>
+                  {this.props.idItem[i].description}
+                </Text>
               ) : null}
-              <Text style={[styles.strong, styles.text]}>
+              <Text style={[styles.strong, itemsStyles.green, itemsStyles.end]}>
                 {this.props.idItem[i].price}
               </Text>
             </View>
