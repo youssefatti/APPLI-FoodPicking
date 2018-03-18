@@ -139,7 +139,7 @@ export default class LogIn extends React.PureComponent {
         <View style={{ flex: 1, justifyContent: "space-around" }}>
           {!this.state.showLogin ? (
             <TouchableOpacity
-              style={styles.button}
+              style={commonStyles.button}
               onPress={() => {
                 if (this.state.password === this.state.passwordConfirmation) {
                   this.signUpUser(
@@ -160,7 +160,7 @@ export default class LogIn extends React.PureComponent {
               }}
               data={this.state.data}
             >
-              <Text style={styles.textButton}>Créer un compte</Text>
+              <Text style={commonStyles.textButton}>Créer un compte</Text>
             </TouchableOpacity>
           ) : (
             <TouchableOpacity
