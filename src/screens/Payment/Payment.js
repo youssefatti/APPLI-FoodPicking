@@ -12,11 +12,17 @@ import {
 } from "react-native";
 import AppStyle from "../../../AppStyle";
 const styles = StyleSheet.create(AppStyle);
+
+import PaymentStyles from "./PaymentStyles";
+const paymentStyles = StyleSheet.create(PaymentStyles);
 import Stripe from "react-native-stripe-api";
 import axios from "axios";
 /* const styles = StyleSheet.create(AppStyle); */
 
 export default class Payment extends React.Component {
+  static navigationOptions = ({ navigation }) => ({
+    title: "PAIEMENT"
+  });
   state = {
     cart: this.props.navigation.state.params.cart,
     isValidateOrderVisible: true,
@@ -80,60 +86,65 @@ export default class Payment extends React.Component {
     console.log("chosenHour", this.state.chosenHour);
     console.log("item", this.props.navigation.state.params.items);
     return (
-      <View style={{ flex: 1, alignItems: "center" }}>
-        <Text>PAIEMENT</Text>
-        <TextInput
-          placeholder="N° de carte"
-          // value={"4242424242424242"}
-          style={{
-            height: 40,
-            borderColor: "gray",
-            borderWidth: 1,
-            width: "80%"
-          }}
-          onChangeText={number => this.setState({ number })}
-          value={this.state.number}
-        />
-        <View style={{ flexDirection: "row" }}>
+      <View style={paymentStyles.payment}>
+        <View style={[paymentStyles.paymentTitle, paymentStyles.paymentIn]}>
+          <Text style={[paymentStyles.footerText, paymentStyles.strong]}>
+            Montant à régler : {this.props.navigation.state.params.amount}€
+          </Text>
+        </View>
+        <View style={paymentStyles.payment}>
+          <View style={paymentStyles.left}>
+            <Text style={[paymentStyles.strong, paymentStyles.size]}>
+              Numéro de carte :
+            </Text>
+            <TextInput
+              placeholder="N° de carte"
+              // value={"4242424242424242"}
+              style={[
+                paymentStyles.numCard,
+                paymentStyles.paymentIn,
+                paymentStyles.air
+              ]}
+              onChangeText={number => this.setState({ number })}
+              value={this.state.number}
+            />
+            <Text style={[paymentStyles.strong, paymentStyles.size]}>
+              Date d'expiration :
+            </Text>
+            <View style={[paymentStyles.row, paymentStyles.paymentIn]}>
+              <TextInput
+                placeholder="MM"
+                // value={"09"}
+                style={[paymentStyles.monthCard, paymentStyles.air]}
+                onChangeText={expMonth => this.setState({ expMonth })}
+                value={this.state.expMonth}
+              />
+              <TextInput
+                placeholder="AA"
+                // value={"18"}
+                style={[paymentStyles.yearCard, paymentStyles.air]}
+                onChangeText={expYear => this.setState({ expYear })}
+                value={this.state.expYear}
+              />
+            </View>
+          </View>
+          <Text style={[paymentStyles.strong, paymentStyles.size]}>
+            CVC/CCV
+          </Text>
           <TextInput
-            placeholder="MM"
-            // value={"09"}
-            style={{
-              height: 40,
-              borderColor: "gray",
-              borderWidth: 1,
-              width: "40%"
-            }}
-            onChangeText={expMonth => this.setState({ expMonth })}
-            value={this.state.expMonth}
-          />
-          <TextInput
-            placeholder="AA"
-            // value={"18"}
-            style={{
-              height: 40,
-              borderColor: "gray",
-              borderWidth: 1,
-              width: "40%"
-            }}
-            onChangeText={expYear => this.setState({ expYear })}
-            value={this.state.expYear}
+            placeholder="CVC/CCV"
+            // value={"111"}
+            style={[
+              paymentStyles.ccvCard,
+              paymentStyles.paymentIn,
+              paymentStyles.air
+            ]}
+            onChangeText={CVC => this.setState({ CVC })}
+            value={this.state.CVC}
           />
         </View>
-        <TextInput
-          placeholder="CCV"
-          // value={"111"}
-          style={{
-            height: 40,
-            borderColor: "gray",
-            borderWidth: 1,
-            width: "30%"
-          }}
-          onChangeText={CVC => this.setState({ CVC })}
-          value={this.state.CVC}
-        />
-        <Button
-          title="Confirmer et payer"
+        <TouchableOpacity
+          style={paymentStyles.footerButton}
           onPress={() => {
             this.pay();
 
@@ -146,7 +157,11 @@ export default class Payment extends React.Component {
               items: this.props.navigation.state.params.items
             });
           }}
-        />
+        >
+          <Text style={[paymentStyles.footerText, paymentStyles.strong]}>
+            Confirmer et payer
+          </Text>
+        </TouchableOpacity>
       </View>
     );
   }
