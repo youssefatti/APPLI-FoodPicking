@@ -179,7 +179,7 @@ export default class LogIn extends React.PureComponent {
             </TouchableOpacity>
           )}
         </View>
-
+      </View>
     );
   };
 
