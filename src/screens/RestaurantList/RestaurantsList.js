@@ -1,6 +1,4 @@
 import React from "react";
-import axios from "axios";
-
 import {
   Button,
   StyleSheet,
@@ -11,10 +9,13 @@ import {
   ActivityIndicator,
   View
 } from "react-native";
-import AppStyle from "../../../AppStyle";
-const styles = StyleSheet.create(AppStyle);
+
+import axios from "axios";
 import Icon from "react-native-vector-icons/Ionicons";
 
+import AppStyle from "../../../AppStyle";
+
+const styles = StyleSheet.create(AppStyle);
 const resto = {};
 
 export default class Restaurants extends React.PureComponent {

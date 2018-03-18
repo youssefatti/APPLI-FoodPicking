@@ -5,13 +5,18 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  ImageBackground,
   Image,
   Button,
+  Dimensions,
   KeyboardAvoidingView
 } from "react-native";
-import { Bubbles } from "react-native-loader";
+
 import { styles } from "./StylesLogIn";
 import axios from "axios";
+
+const width = Dimensions.get("window").width;
+const height = Dimensions.get("window").height;
 
 export default class LogIn extends React.PureComponent {
   // Check the type of variable
@@ -29,10 +34,7 @@ export default class LogIn extends React.PureComponent {
   // Navigator option
 
   static navigationOptions = {
-    headerStyle: {
-      backgroundColor: "rgb(243,243,243)",
-      borderBottomWidth: 0
-    }
+    header: null
   };
 
   // Intialization of states
@@ -132,48 +134,49 @@ export default class LogIn extends React.PureComponent {
             value={this.state.passwordConfirmation}
           />
         ) : null}
-
-        {!this.state.showLogin ? (
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              if (this.state.password === this.state.passwordConfirmation) {
-                this.signUpUser(
-                  this.state.email,
-                  this.state.password,
-                  this.state.username,
-                  data => {
-                    navigate("Home", {
-                      navigation: this.props.navigation,
-                      userId: this.state.userId
-                    });
-                    this.setState({ data });
-                  }
-                );
-              } else {
-                alert("the password are not the same");
-              }
-            }}
-            data={this.state.data}
-          >
-            <Text style={styles.textButton}> Sign Up </Text>
-          </TouchableOpacity>
-        ) : (
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              this.logInUser(this.state.email, this.state.password, data => {
-                navigate("Home", {
-                  navigation: this.props.navigation
+        <View style={{ flex: 1, justifyContent: "space-around" }}>
+          {!this.state.showLogin ? (
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                if (this.state.password === this.state.passwordConfirmation) {
+                  this.signUpUser(
+                    this.state.email,
+                    this.state.password,
+                    this.state.username,
+                    data => {
+                      navigate("Home", {
+                        navigation: this.props.navigation,
+                        userId: this.state.userId
+                      });
+                      this.setState({ data });
+                    }
+                  );
+                } else {
+                  alert("the password are not the same");
+                }
+              }}
+              data={this.state.data}
+            >
+              <Text style={styles.textButton}>Créer un compte</Text>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                this.logInUser(this.state.email, this.state.password, data => {
+                  navigate("Home", {
+                    navigation: this.props.navigation
+                  });
+                  this.setState({ data });
                 });
-                this.setState({ data });
-              });
-            }}
-            data={this.state.data}
-          >
-            <Text style={styles.textButton}>{this.state.isLoading} Login </Text>
-          </TouchableOpacity>
-        )}
+              }}
+              data={this.state.data}
+            >
+              <Text style={styles.textButton}>Se connecter</Text>
+            </TouchableOpacity>
+          )}
+        </View>
       </View>
     );
   };
@@ -183,11 +186,10 @@ export default class LogIn extends React.PureComponent {
     const { navigate } = this.props.navigation;
     return (
       <KeyboardAvoidingView style={styles.container} behavior="padding">
-        <View style={{ flex: 1 }}>
-          <Image
-            source={require("../../../Images/order-pick-up.png")}
-            style={{ flex: 1, resizeMode: "contain" }}
-          />
+        <ImageBackground
+          style={{ flex: 1, width: width, height: height }}
+          source={require("../../../Images/backgroundPhoto.jpeg")}
+        >
           <View
             style={{
               flex: 1,
@@ -196,60 +198,65 @@ export default class LogIn extends React.PureComponent {
           >
             <Text style={styles.foodPicking}>FoodPicking</Text>
           </View>
-        </View>
 
-        <View style={styles.signUpLoginView}>
-          <TouchableOpacity
-            style={
-              this.state.showLogin
-                ? styles.toggleTouchLogin
-                : styles.toggleTouchSignUp
-            }
-            disabled={this.state.showSignUp}
-            onPress={() => {
-              this.toggleLoginSignUp();
-            }}
-          >
-            <Text
-              style={
-                this.state.showLogin
-                  ? styles.toggleTextLogin
-                  : styles.toggleTextSignUp
-              }
-            >
-              Sign Up
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={
-              this.state.showLogin
-                ? styles.toggleTouchSignUp
-                : styles.toggleTouchLogin
-            }
-            disabled={this.state.showLogin}
-            onPress={() => {
-              this.toggleLoginSignUp();
-            }}
-          >
-            <Text
-              style={
-                this.state.showLogin
-                  ? styles.toggleTextSignUp
-                  : styles.toggleTextLogin
-              }
-            >
-              Login
-            </Text>
-          </TouchableOpacity>
-        </View>
+          <View style={{ flex: 1, justifyContent: "space-around" }}>
+            {/* <View style={{ flex: 1 }}> */}
+            <View style={styles.signUpLoginView}>
+              <TouchableOpacity
+                style={
+                  this.state.showLogin
+                    ? styles.toggleTouchLogin
+                    : styles.toggleTouchSignUp
+                }
+                disabled={this.state.showSignUp}
+                onPress={() => {
+                  this.toggleLoginSignUp();
+                }}
+              >
+                <Text
+                  style={
+                    this.state.showLogin
+                      ? styles.toggleTextLogin
+                      : styles.toggleTextSignUp
+                  }
+                >
+                  Créer un compte
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={
+                  this.state.showLogin
+                    ? styles.toggleTouchSignUp
+                    : styles.toggleTouchLogin
+                }
+                disabled={this.state.showLogin}
+                onPress={() => {
+                  this.toggleLoginSignUp();
+                }}
+              >
+                <Text
+                  style={
+                    this.state.showLogin
+                      ? styles.toggleTextSignUp
+                      : styles.toggleTextLogin
+                  }
+                >
+                  Se connecter
+                </Text>
+              </TouchableOpacity>
+            </View>
 
-        <View
-          style={{
-            flex: 2
-          }}
-        >
-          {this._renderToggleLoginSignUp()}
-        </View>
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "space-around"
+              }}
+            >
+              {this._renderToggleLoginSignUp()}
+            </View>
+          </View>
+          {/* </View> */}
+        </ImageBackground>
       </KeyboardAvoidingView>
     );
   }

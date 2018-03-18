@@ -4,75 +4,78 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    backgroundColor: "rgb(243,243,243)"
+    backgroundColor: "rgb(50,75,72)"
     //padding: 10
   },
   inputText: {
-    borderColor: "grey",
+    flex: 1,
+    borderColor: "white",
     borderBottomWidth: 1,
     fontSize: 20,
     fontWeight: "bold",
     marginTop: 10,
     paddingLeft: 20,
     width: "100%",
-    height: 50,
-    color: "rgb(79,79,79)"
+    //height: 50,
+    color: "white"
   },
   textButton: {
-    color: "white",
+    color: "rgb(50,75,72)",
     width: "100%",
     fontWeight: "bold",
     fontSize: 20,
     textAlign: "center"
   },
   button: {
-    width: "100%",
-    height: 50,
-    backgroundColor: "rgb(69,95,219)",
+    //flex: 1,
+    width: "60%",
+    height: 40,
+    backgroundColor: "white",
     alignSelf: "center",
     justifyContent: "center",
-    borderRadius: 10
+    borderRadius: 20
   },
   SingUpLoginContain: {
     flex: 1,
     justifyContent: "space-around",
-    backgroundColor: "white",
+    //backgroundColor: "white",
     paddingLeft: 10,
     paddingRight: 10
   },
   toggleTouchLogin: {
-    flex: 1,
+    //flex: 1,
     //backgroundColor: "red",
-    height: "100%",
+    //height: "100%",
     alignItems: "center",
     justifyContent: "center"
   },
   toggleTouchSignUp: {
-    flex: 1,
-    backgroundColor: "white",
-    height: "100%",
+    //flex: 1,
+    //backgroundColor: "white",
+    //height: "100%",
     alignItems: "center",
     justifyContent: "center"
   },
   toggleTextSignUp: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "rgb(91,139,201)"
+    color: "grey"
   },
   toggleTextLogin: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "rgb(222,214,206)"
+    color: "white"
   },
   foodPicking: {
-    fontSize: 20,
+    fontSize: 40,
     fontWeight: "bold",
     textAlign: "center",
-    color: "rgb(91,139,201)"
+    color: "white"
   },
   signUpLoginView: {
+    //flex: 1,
     flexDirection: "row",
-    justifyContent: "space-around",
-    height: 50
+    justifyContent: "space-around"
+    //height: 50
   }
 });

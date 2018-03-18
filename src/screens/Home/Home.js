@@ -13,8 +13,10 @@ import {
   Picker
 } from "react-native";
 
-import AppStyle from "../../../AppStyle";
-const styles = StyleSheet.create(AppStyle);
+import { stylesHome } from "./StylesHome";
+
+// import AppStyle from "../../../AppStyle";
+// const styles = StyleSheet.create(AppStyle);
 
 export default class Home extends React.PureComponent {
   static navigationOptions = {
@@ -115,7 +117,7 @@ export default class Home extends React.PureComponent {
 
     const { navigate } = this.props.navigation;
     return (
-      <ScrollView style={[styles.container, styles.style, styles.bgColorHome]}>
+      <ScrollView style={stylesHome.container}>
         <View
           style={{
             flexGrow: 1,
@@ -125,7 +127,7 @@ export default class Home extends React.PureComponent {
         >
           {this.state.error ? <Text>Error: {this.state.error}</Text> : null}
         </View>
-        <Text style={styles.pickerText}>
+        <Text style={{}}>
           &Agrave; partir de quelle heure souhaitez-vous récupérer votre
           commande?{" "}
         </Text>
@@ -139,7 +141,7 @@ export default class Home extends React.PureComponent {
         >
           {pickers}
         </Picker>
-        <View style={styles.blocLogo}>
+        <View style={{}}>
           <TouchableOpacity
             onPress={() =>
               navigate("Restaurants", {
@@ -151,8 +153,8 @@ export default class Home extends React.PureComponent {
               })
             }
           >
-            <View style={styles.picHome}>
-              <Text style={styles.logoText}>FoodPicking</Text>
+            <View style={{}}>
+              <Text style={{}}>FoodPicking</Text>
             </View>
           </TouchableOpacity>
         </View>
