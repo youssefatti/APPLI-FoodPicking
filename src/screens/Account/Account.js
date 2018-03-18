@@ -8,33 +8,20 @@ import {
   View,
   TouchableOpacity
 } from "react-native";
-import AppStyle from "../../../AppStyle";
-const styles = StyleSheet.create(AppStyle);
+
 import StyleAccount from "./StyleAccount";
-const styleAccount = StyleSheet.create(StyleAccount);
+const styles = StyleSheet.create(StyleAccount);
+
 import Icon from "react-native-vector-icons/Ionicons";
 
-const resto = {};
-
 export default class Account extends React.Component {
-  // static navigationOptions = ({ navigation }) => ({
-  //   title: navigation.state.params.name
-  // });
-
   static navigationOptions = ({ navigation }) => ({
-    title: "Account"
+    title: "Mon compte"
   });
 
   state = {
     orders: null
   };
-
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   if (this.props.restaurants === nextProps.restaurants) {
-  //     return false;
-  //   }
-  //   return true;
-  // }
 
   componentWillMount() {
     console.log("Will mount restaurants Page ");
@@ -45,15 +32,10 @@ export default class Account extends React.Component {
 
       .get(`https://foodpacking-serveur.herokuapp.com/api/orders/${id}`)
       .then(response => {
-        console.log("data axios: ", id);
-
         this.setState({ orders: response.data });
-        console.log("acount", response.data.orders);
       })
       .catch(function(error) {
         console.log(error);
-        console.log("acount", response.data.orders);
-        alert("bouf");
       });
   }
 
@@ -61,8 +43,8 @@ export default class Account extends React.Component {
     const { navigate } = this.props.navigation;
 
     return [
-      <ScrollView>
-        <Text>Hello</Text>
+      <ScrollView style={{ backgroundColor: "white" }}>
+        <Text style={styles.orders}>Mes Commandes</Text>
         {this.state.orders === null ? (
           <View>
             <Text />
@@ -70,10 +52,19 @@ export default class Account extends React.Component {
         ) : (
           this.state.orders.orders.map((order, index) => {
             return (
-              <View>
-                <Text>{order.restaurantName}</Text>
-                <Text>{parseFloat(order.total).toFixed(2)} €</Text>
-                <Text>N° de commande : {order._id}</Text>
+              <View style={styles.container}>
+                <View style={styles.historic}>
+                  <View style={styles.namePrice}>
+                    <Text style={styles.twenty}>{order.restaurantName}</Text>
+                    <Text style={styles.twenty}>
+                      {parseFloat(order.total).toFixed(2)} €
+                    </Text>
+                  </View>
+
+                  <Text style={styles.numberOrder}>
+                    N° de commande : {order._id}
+                  </Text>
+                </View>
               </View>
             );
           })
