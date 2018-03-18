@@ -120,7 +120,8 @@ export default class Restaurants extends React.PureComponent {
                 rank: this.state.restaurants[i].attributes
                   .rating_formatted_count,
                 percent: this.state.restaurants[i].attributes.rating_percentage,
-                arrChoose: this.props.navigation.state.params.arrChoose
+                arrChoose: this.props.navigation.state.params.arrChoose,
+                data: this.props.navigation.state.params.data
               })
             }
           >
@@ -159,7 +160,8 @@ export default class Restaurants extends React.PureComponent {
               geoloc: this.props.navigation.state.params.geoloc,
               hour: this.props.navigation.state.params.hour,
               pick: this.props.navigation.state.params.pick,
-              arrChoose: this.props.navigation.state.params.arrChoose
+              arrChoose: this.props.navigation.state.params.arrChoose,
+              data: this.props.navigation.state.params.data
             })
           }
         >
@@ -172,7 +174,8 @@ export default class Restaurants extends React.PureComponent {
               geoloc: this.props.navigation.state.params.geoloc,
               hour: this.props.navigation.state.params.hour,
               pick: this.props.navigation.state.params.pick,
-              arrChoose: this.props.navigation.state.params.arrChoose
+              arrChoose: this.props.navigation.state.params.arrChoose,
+              data: this.props.navigation.state.params.data
             })
           }
         >
