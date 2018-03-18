@@ -1,6 +1,7 @@
 import React from "react";
 import {
   View,
+  Image,
   Text,
   ScrollView,
   StyleSheet,
@@ -84,17 +85,49 @@ export default class Cart extends React.Component {
     console.log("heure conf", this.props.navigation.state.params.chosenHour);
     const { navigate } = this.props.navigation;
     return (
-      <View style={{ flex: 1, alignItems: "center" }}>
-        <Text>Commande est confirmée.</Text>
-        <Text>Voici le récapitulatif de votre commande</Text>
-        <Text>
-          total : {this.props.navigation.state.params.amount.toFixed(2)}
-        </Text>
-        <Text>items : {arrCart}</Text>
-        <Text>heure : {this.props.navigation.state.params.chosenHour}</Text>
-        {/* <TouchableOpacity onPress={() => navigate("")}>
-          <Text>back</Text>
-        </TouchableOpacity> */}
+      // <View style={{ flex: 1, alignItems: "center" }}>
+      //   <Text>Commande est confirmée.</Text>
+      //   <Text>Voici le récapitulatif de votre commande</Text>
+      //   <Text>
+      //     total : {this.props.navigation.state.params.amount.toFixed(2)}
+      //   </Text>
+      //   <Text>items : {arrCart}</Text>
+      //   <Text>heure : {this.props.navigation.state.params.chosenHour}</Text>
+      //   {/* <TouchableOpacity onPress={() => navigate("")}>
+      //     <Text>back</Text>
+      //   </TouchableOpacity> */}
+      // </View>
+      <View>
+        <View>
+          <Image
+            style={{ width: "100%", height: "100%", blur: 5 }}
+            source={{
+              uri:
+                "https://i.pinimg.com/564x/90/39/15/903915f67ac95df8319e494d686446bb.jpg"
+            }}
+          />
+        </View>
+
+        <View
+          style={{
+            position: "absolute",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+            height: "100%"
+          }}
+        >
+          <Text
+            style={{
+              position: "absolute",
+              color: "white",
+              fontWeight: "bold",
+              fontSize: 40
+            }}
+          >
+            BONJOUUUUUR
+          </Text>
+        </View>
       </View>
     );
   }
