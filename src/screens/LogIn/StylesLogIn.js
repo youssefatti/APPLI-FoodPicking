@@ -63,5 +63,16 @@ export const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     color: "rgb(222,214,206)"
+  },
+  foodPicking: {
+    fontSize: 20,
+    fontWeight: "bold",
+    textAlign: "center",
+    color: "rgb(91,139,201)"
+  },
+  signUpLoginView: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    height: 50
   }
 });

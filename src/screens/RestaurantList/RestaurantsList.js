@@ -17,7 +17,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 
 const resto = {};
 
-export default class Restaurants extends React.Component {
+export default class Restaurants extends React.PureComponent {
   // static navigationOptions = ({ navigation }) => ({
   //   title: navigation.state.params.name
   // });
@@ -53,14 +53,14 @@ export default class Restaurants extends React.Component {
     }
   };
 
-  componentWillMount() {
-    console.log("Will mount restaurants Page ");
+  componentDidMount() {
+    console.log("Did mount restaurants Page ");
 
     let hour = this.props.navigation.state.params.hour;
     let geohash = this.props.navigation.state.params.geoloc;
 
-    console.log("hour dans resto : ", hour);
-    console.log("geohash dans resto ", geohash);
+    // console.log("hour dans resto : ", hour);
+    // console.log("geohash dans resto ", geohash);
 
     axios
       .get(
@@ -69,7 +69,6 @@ export default class Restaurants extends React.Component {
           : `https://consumer-ow-api.deliveroo.com/orderapp/v2/restaurants?delivery_time=${hour}&geohash=${geohash}`
       )
       .then(response => {
-        console.log("nombre de resto recu : ", response.data.data.length);
         this.props.navigation.setParams({
           title: response.data.meta.neighborhood_name
         });
@@ -79,12 +78,9 @@ export default class Restaurants extends React.Component {
             hour === null ||
             hour === this.props.navigation.state.params.pick
           ) {
-            if (item.attributes.delivery_time === "10 - 20") {
+            if (item.attributes.delivery_time === "30 - 40") {
               element.push(item);
             }
-            // if (item.attributes.delivery_time === "15 - 25") {
-            //   element.push(item);
-            // }
           } else {
             if (item.attributes.rating_percentage > 90) {
               element.push(item);
@@ -93,7 +89,7 @@ export default class Restaurants extends React.Component {
             //   element.push(item);
             // }
           }
-          console.log("nombre de resto affiché : ", element.length);
+
           return element;
         });
         this.setState({
@@ -144,7 +140,6 @@ export default class Restaurants extends React.Component {
     return [
       <ScrollView style={[styles.containerIn, styles.style, styles.userSpace]}>
         <View style={styles.bloc}>
-          // affichage des éléments
           {this.state.length === this.state.restaurants.length ? (
             <View>{arrResto}</View>
           ) : (
