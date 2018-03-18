@@ -1,6 +1,4 @@
 import React from "react";
-import axios from "axios";
-
 import {
   Button,
   StyleSheet,
@@ -8,12 +6,18 @@ import {
   Text,
   Image,
   TouchableOpacity,
+  Dimensions,
   ActivityIndicator,
   View
 } from "react-native";
-import AppStyle from "../../../AppStyle";
-const styles = StyleSheet.create(AppStyle);
+
+import axios from "axios";
 import Icon from "react-native-vector-icons/Ionicons";
+
+import { StyleRestaurant } from "./StyleRestaurant";
+
+const width = Dimensions.get("window").width;
+const height = Dimensions.get("window").height;
 
 const resto = {};
 
@@ -69,6 +73,7 @@ export default class Restaurants extends React.PureComponent {
           : `https://consumer-ow-api.deliveroo.com/orderapp/v2/restaurants?delivery_time=${hour}&geohash=${geohash}`
       )
       .then(response => {
+        console.log("reponse dans la liste des resto : ", response.data);
         this.props.navigation.setParams({
           title: response.data.meta.neighborhood_name
         });
@@ -108,8 +113,9 @@ export default class Restaurants extends React.PureComponent {
     const arrResto = [];
     for (let i = 0; i < this.state.restaurants.length; i++) {
       arrResto.push(
-        <View key={i} style={styles.bloc}>
+        <View key={i} style={{}}>
           <TouchableOpacity
+            style={{ flex: 1 }}
             onPress={() =>
               // passage du nom, id et lien à la page Menu
               navigate("Menu", {
@@ -126,21 +132,23 @@ export default class Restaurants extends React.PureComponent {
             }
           >
             <Image
-              style={styles.picRestaurant}
+              style={{ width: width, height: 150 }}
               source={{
                 uri: this.state.restaurants[i].attributes.image_url
               }}
             />
           </TouchableOpacity>
-          <View style={styles.blocIn}>
-            <Text>{this.state.restaurants[i].attributes.name}</Text>
+          <View style={{}}>
+            <Text style={{ fontSize: 20, fontWeight: "bold", padding: 10 }}>
+              {this.state.restaurants[i].attributes.name}
+            </Text>
           </View>
         </View>
       );
     }
     return [
-      <ScrollView style={[styles.containerIn, styles.style, styles.userSpace]}>
-        <View style={styles.bloc}>
+      <ScrollView style={{ flex: 1 }}>
+        <View style={{}}>
           {this.state.length === this.state.restaurants.length ? (
             <View>{arrResto}</View>
           ) : (
@@ -152,7 +160,14 @@ export default class Restaurants extends React.PureComponent {
           )}
         </View>
       </ScrollView>,
-      <View style={styles.UserNav}>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-around"
+          // paddingLeft: 10,
+          // paddingRight: 10
+        }}
+      >
         <TouchableOpacity
           onPress={() =>
             navigate("Restaurants", {
@@ -165,7 +180,7 @@ export default class Restaurants extends React.PureComponent {
             })
           }
         >
-          <Icon name="ios-restaurant" size={60} color="#fff" />
+          <Icon name="ios-restaurant" size={40} color="#2A4D49" />
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() =>
@@ -179,7 +194,7 @@ export default class Restaurants extends React.PureComponent {
             })
           }
         >
-          <Icon name="ios-heart" size={60} color="#fff" />
+          <Icon name="ios-heart" size={40} color="#2A4D49" />
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() =>
@@ -193,7 +208,7 @@ export default class Restaurants extends React.PureComponent {
             })
           }
         >
-          <Icon name="ios-contact" size={60} color="#fff" />
+          <Icon name="ios-contact" size={40} color="#2A4D49" />
         </TouchableOpacity>
       </View>
     ];
