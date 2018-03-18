@@ -278,6 +278,7 @@ export default class Menu extends React.Component {
               </View>
             </View>
 
+
             <Text style={[menuStyles.strong, menuStyles.size]}>
               Heure de récupération
             </Text>
@@ -315,7 +316,8 @@ export default class Menu extends React.Component {
                         ? this.props.navigation.state.params.arrChoose[0]
                         : this.state.chosenHour,
                     arrChoose: this.props.navigation.state.params.arrChoose,
-                    items: this.state.items
+                    items: this.state.items,
+                    data: this.props.navigation.state.params.data
                   });
                 }}
               >
@@ -325,6 +327,8 @@ export default class Menu extends React.Component {
               </TouchableOpacity>
             </View>
           </ScrollView>
+
+
         </Modal>
       </View>,
 
