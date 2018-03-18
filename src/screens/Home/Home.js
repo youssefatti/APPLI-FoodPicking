@@ -16,7 +16,7 @@ import {
 import AppStyle from "../../../AppStyle";
 const styles = StyleSheet.create(AppStyle);
 
-export default class Home extends React.Component {
+export default class Home extends React.PureComponent {
   static navigationOptions = {
     header: null
   };
@@ -28,9 +28,13 @@ export default class Home extends React.Component {
   };
 
   // Optimizing the rendering page, if the geoloc state not changing then we don't rendering
+  // instead we using PureComponent
 
   // shouldComponentUpdate(nextProps, nextState) {
-  //   if (this.props.geoloc === nextProps.geoloc) {
+  //   if (
+  //     //this.props.geoloc === nextProps.geoloc ||
+  //     this.state.hour === nextProps.hour
+  //   ) {
   //     return false;
   //   }
   //   return true;
@@ -45,12 +49,10 @@ export default class Home extends React.Component {
           position.coords.latitude,
           position.coords.longitude
         );
-        //console.log("geo hash dans la fonction getgeoloc", geohash);
         this.setState({
           geoloc: geohash,
           error: null
         });
-        //console.log("geo hash in home page  : ", geohash);
       },
       error => this.setState({ error: error.message }),
       {
@@ -63,12 +65,13 @@ export default class Home extends React.Component {
   }
 
   componentWillMount() {
-    console.log("id dans la page home : ", this.props.data);
-    console.log("Will mount home page");
+    console.log("Did mount home page");
     this.getGeoLoc();
   }
 
   render() {
+    console.log("rendering home page");
+
     /* PICKERS */
     const pickers = [];
 
@@ -109,8 +112,6 @@ export default class Home extends React.Component {
       chooseHour2 = moment.unix(this.state.hour + 1800).format("HH:mm");
     }
     arrChoose.push(chooseHour, chooseHour1, chooseHour2);
-
-    console.log("rendering home page");
 
     const { navigate } = this.props.navigation;
     return (

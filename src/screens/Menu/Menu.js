@@ -110,7 +110,7 @@ export default class Menu extends React.Component {
 
   _keyExtractor = (item, index) => item.id;
 
-  componentWillMount() {
+  componentDidMount() {
     console.log("params", this.props.navigation);
     console.log("did mount ");
     let link = this.props.navigation.state.params.link;

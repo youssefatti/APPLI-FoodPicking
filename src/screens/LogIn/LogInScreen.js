@@ -13,12 +13,20 @@ import { Bubbles } from "react-native-loader";
 import { styles } from "./StylesLogIn";
 import axios from "axios";
 
-export default class LogIn extends React.Component {
-  // static propTypes = {
-  //   mail: PropTypes.string.isRequired,
-  //   password: PropTypes.string.isRequired,
-  //   navigation: PropTypes.object
-  // };
+export default class LogIn extends React.PureComponent {
+  // Check the type of variable
+
+  static propTypes = {
+    email: PropTypes.string,
+    password: PropTypes.string,
+    passwordConfirmation: PropTypes.string,
+    navigation: PropTypes.object,
+    showLogin: PropTypes.bool,
+    showSignUp: PropTypes.bool,
+    username: PropTypes.string
+  };
+
+  // Navigator option
 
   static navigationOptions = {
     headerStyle: {
@@ -27,6 +35,8 @@ export default class LogIn extends React.Component {
     }
   };
 
+  // Intialization of states
+
   state = {
     email: "johndoe4@gmail.com",
     password: "azerty",
@@ -34,9 +44,11 @@ export default class LogIn extends React.Component {
     passwordConfirmation: "azerty",
     data: null,
     showLogin: true,
-    showSignUp: false,
-    userId: null
+    showSignUp: false
+    //isLoading: false will be used for the loader
   };
+
+  // Send request to server for Sign up
 
   signUpUser = (email, password, username, cb) => {
     axios
@@ -46,16 +58,7 @@ export default class LogIn extends React.Component {
         username
       })
       .then(function(response) {
-        console.log("reponse du sign up", response);
-        this.setState(
-          {
-            userId: response.data._id
-          },
-          () => {
-            console.log("id : ", this.state.userId);
-          }
-        );
-
+        //console.log(response);
         cb(response);
       })
       .catch(function(error) {
@@ -64,6 +67,8 @@ export default class LogIn extends React.Component {
       });
   };
 
+  // Send request to server and check authorisation
+
   logInUser = (email, password, cb) => {
     axios
       .post("https://foodpacking-serveur.herokuapp.com/api/user/log_in", {
@@ -71,15 +76,16 @@ export default class LogIn extends React.Component {
         password
       })
       .then(function(response) {
-        console.log(response);
-        //alert("is finish");
+        //console.log(response);
         cb(response);
       })
       .catch(function(error) {
-        console.log(error.response);
+        //console.log(error.response);
         alert(error.response.data.error);
       });
   };
+
+  // Toggle between Sign up and Login it's booleen value to check which one is selected
 
   toggleLoginSignUp = () => {
     this.setState({
@@ -87,6 +93,8 @@ export default class LogIn extends React.Component {
       showSignUp: !this.state.showSignUp
     });
   };
+
+  // Render Login View or Sign up
 
   _renderToggleLoginSignUp = () => {
     const { navigate } = this.props.navigation;
@@ -110,14 +118,14 @@ export default class LogIn extends React.Component {
         />
         <TextInput
           style={styles.inputText}
-          secureTextEntry="true"
+          secureTextEntry={true}
           onChangeText={password => this.setState({ password })}
           value={this.state.password}
         />
         {!this.state.showLogin ? (
           <TextInput
             style={styles.inputText}
-            secureTextEntry="true"
+            secureTextEntry={true}
             onChangeText={passwordConfirmation =>
               this.setState({ passwordConfirmation })
             }
@@ -163,7 +171,7 @@ export default class LogIn extends React.Component {
             }}
             data={this.state.data}
           >
-            <Text style={styles.textButton}> Login </Text>
+            <Text style={styles.textButton}>{this.state.isLoading} Login </Text>
           </TouchableOpacity>
         )}
       </View>
@@ -171,6 +179,7 @@ export default class LogIn extends React.Component {
   };
 
   render() {
+    console.log("rendering login screen");
     const { navigate } = this.props.navigation;
     return (
       <KeyboardAvoidingView style={styles.container} behavior="padding">
@@ -185,26 +194,11 @@ export default class LogIn extends React.Component {
               justifyContent: "center"
             }}
           >
-            <Text
-              style={{
-                fontSize: 20,
-                fontWeight: "bold",
-                textAlign: "center",
-                color: "rgb(91,139,201)"
-              }}
-            >
-              FoodPicking
-            </Text>
+            <Text style={styles.foodPicking}>FoodPicking</Text>
           </View>
         </View>
 
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-around",
-            height: 50
-          }}
-        >
+        <View style={styles.signUpLoginView}>
           <TouchableOpacity
             style={
               this.state.showLogin
