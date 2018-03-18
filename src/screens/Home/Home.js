@@ -179,8 +179,7 @@ export default class Home extends React.PureComponent {
               flex: 2,
 
               justifyContent: "space-around"
-            }}         
-
+            }}
           >
             <TouchableOpacity
               style={commonStyles.button}

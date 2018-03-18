@@ -24,6 +24,8 @@ export default class Account extends React.Component {
   };
 
   componentWillMount() {
+    console.log(this.props.navigation.state.params);
+
     console.log("Will mount restaurants Page ");
     const id = this.props.navigation.state.params.data.data._id;
     console.log("data: ", id);
@@ -45,7 +47,7 @@ export default class Account extends React.Component {
     return [
       <ScrollView style={{ backgroundColor: "white" }}>
         <Text style={styles.orders}>Mes Commandes</Text>
-        {this.state.orders === null ? (
+        {this.state.orders === null || undefined ? (
           <View>
             <Text />
           </View>
