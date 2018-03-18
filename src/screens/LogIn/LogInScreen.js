@@ -13,6 +13,7 @@ import {
 } from "react-native";
 
 import { styles } from "./StylesLogIn";
+import { commonStyles } from "../../../src/CommonStyles";
 import axios from "axios";
 
 const width = Dimensions.get("window").width;
@@ -162,7 +163,7 @@ export default class LogIn extends React.PureComponent {
             </TouchableOpacity>
           ) : (
             <TouchableOpacity
-              style={styles.button}
+              style={commonStyles.button}
               onPress={() => {
                 this.logInUser(this.state.email, this.state.password, data => {
                   navigate("Home", {
@@ -173,7 +174,7 @@ export default class LogIn extends React.PureComponent {
               }}
               data={this.state.data}
             >
-              <Text style={styles.textButton}>Se connecter</Text>
+              <Text style={commonStyles.textButton}>Se connecter</Text>
             </TouchableOpacity>
           )}
         </View>
@@ -196,7 +197,7 @@ export default class LogIn extends React.PureComponent {
               justifyContent: "center"
             }}
           >
-            <Text style={styles.foodPicking}>FoodPicking</Text>
+            <Text style={commonStyles.foodPicking}>FoodPicking</Text>
           </View>
 
           <View style={{ flex: 1, justifyContent: "space-around" }}>

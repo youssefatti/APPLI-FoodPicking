@@ -19,22 +19,6 @@ export const styles = StyleSheet.create({
     //height: 50,
     color: "white"
   },
-  textButton: {
-    color: "rgb(50,75,72)",
-    width: "100%",
-    fontWeight: "bold",
-    fontSize: 20,
-    textAlign: "center"
-  },
-  button: {
-    //flex: 1,
-    width: "60%",
-    height: 40,
-    backgroundColor: "white",
-    alignSelf: "center",
-    justifyContent: "center",
-    borderRadius: 20
-  },
   SingUpLoginContain: {
     flex: 1,
     justifyContent: "space-around",
@@ -64,12 +48,6 @@ export const styles = StyleSheet.create({
   toggleTextLogin: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "white"
-  },
-  foodPicking: {
-    fontSize: 40,
-    fontWeight: "bold",
-    textAlign: "center",
     color: "white"
   },
   signUpLoginView: {

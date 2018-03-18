@@ -14,6 +14,7 @@ import {
 } from "react-native";
 
 import { stylesHome } from "./StylesHome";
+import { commonStyles } from "../../../src/CommonStyles";
 
 // import AppStyle from "../../../AppStyle";
 // const styles = StyleSheet.create(AppStyle);
@@ -117,48 +118,84 @@ export default class Home extends React.PureComponent {
 
     const { navigate } = this.props.navigation;
     return (
-      <ScrollView style={stylesHome.container}>
+      <View style={stylesHome.container}>
         <View
           style={{
-            flexGrow: 1,
-            alignItems: "center",
+            flex: 1,
             justifyContent: "center"
           }}
         >
-          {this.state.error ? <Text>Error: {this.state.error}</Text> : null}
+          <Text style={commonStyles.foodPicking}>FoodPicking</Text>
         </View>
-        <Text style={{}}>
-          &Agrave; partir de quelle heure souhaitez-vous récupérer votre
-          commande?{" "}
-        </Text>
-        <Picker
-          selectedValue={this.state.hour}
-          onValueChange={(itemValue, itemIndex) =>
-            this.setState({
-              hour: itemValue
-            })
-          }
-        >
-          {pickers}
-        </Picker>
-        <View style={{}}>
-          <TouchableOpacity
-            onPress={() =>
-              navigate("Restaurants", {
-                name: "Restaurant",
-                geoloc: this.state.geoloc,
-                hour: this.state.hour,
-                pick: pickers[0].props.value,
-                arrChoose: arrChoose
-              })
-            }
+        {this.state.error ? (
+          <View
+            style={{
+              flexGrow: 1,
+              alignItems: "center",
+              justifyContent: "center"
+            }}
           >
-            <View style={{}}>
-              <Text style={{}}>FoodPicking</Text>
-            </View>
-          </TouchableOpacity>
+            <Text>Error: {this.state.error}</Text>
+          </View>
+        ) : null}
+        <View style={{ flex: 2 }}>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center"
+            }}
+          >
+            <Text
+              style={{
+                textAlign: "center",
+                padding: 10,
+                fontSize: 20,
+                color: "white"
+              }}
+            >
+              &Agrave; partir de quelle heure souhaitez-vous récupérer votre
+              commande?{" "}
+            </Text>
+          </View>
+          <View style={{ flex: 2 }}>
+            <Picker
+              itemStyle={{
+                color: "white"
+              }}
+              selectedValue={this.state.hour}
+              onValueChange={(itemValue, itemIndex) =>
+                this.setState({
+                  hour: itemValue
+                })
+              }
+            >
+              {pickers}
+            </Picker>
+          </View>
+          <View
+            style={{
+              flex: 2,
+
+              justifyContent: "space-around"
+            }}
+          >
+            <TouchableOpacity
+              style={commonStyles.button}
+              onPress={() =>
+                navigate("Restaurants", {
+                  name: "Restaurant",
+                  geoloc: this.state.geoloc,
+                  hour: this.state.hour,
+                  pick: pickers[0].props.value,
+                  arrChoose: arrChoose
+                })
+              }
+            >
+              <Text style={commonStyles.textButton}>C'est Parti</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </ScrollView>
+      </View>
     );
   }
 }
