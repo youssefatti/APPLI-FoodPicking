@@ -55,7 +55,7 @@ export default class Account extends React.Component {
     }
   };
 
-  componentWillMount() {
+  componentDidMount() {
     console.log("Will mount restaurants Page ");
     let hour = this.props.navigation.state.params.hour;
     let geohash = this.props.navigation.state.params.geoloc;

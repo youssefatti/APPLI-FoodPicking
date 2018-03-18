@@ -10,7 +10,8 @@ import Payment from "./src/screens/Payment/Payment";
 import Confirmation from "./src/screens/Confirmation/Confirmation";
 
 console.ignoredYellowBox = [
-  "Warning: componentWill",
+  "Warning: componentWillMount",
+  "Warning: componentWillReceiveProps",
   "Remote debugger",
   "Warning: Each child",
   "Warning: Failed"
