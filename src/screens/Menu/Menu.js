@@ -16,12 +16,16 @@ import Items from "../Items/Items";
 import axios from "axios";
 import AppStyle from "../../../AppStyle";
 import Icon from "react-native-vector-icons/Ionicons";
+import MenuStyles from "./MenuStyles";
 
 const styles = StyleSheet.create(AppStyle);
+const menuStyles = StyleSheet.create(MenuStyles);
 
 export default class Menu extends React.Component {
   static navigationOptions = ({ navigation }) => ({
-    title: navigation.state.params.name
+    title: navigation.state.params.name,
+
+    headerBackTitle: null
   });
 
   state = {
@@ -177,30 +181,26 @@ export default class Menu extends React.Component {
             </View>
             <View style={styles.blocMenuIn}>
               <View>
-                <View
-                  style={{
-                    backgroundColor: "#FBB252",
-                    position: "absolute",
-                    zIndex: 1,
-                    width: 80,
-                    height: 50,
-                    borderRadius: 10,
-                    paddingRight: 5,
-                    paddingLeft: 5,
-                    paddingTop: 5,
-                    paddingBottom: 5,
-                    right: 0,
-                    top: -70
-                  }}
-                >
-                  <Text style={styles.strong}>
-                    {this.props.navigation.state.params.percent}%
-                  </Text>
+                {this.props.navigation.state.params.percent &&
+                this.props.navigation.state.params.rank ? (
+                  <View style={menuStyles.bubble}>
+                    <Text style={[styles.strong, menuStyles.white]}>
+                      {this.props.navigation.state.params.percent}%
+                    </Text>
 
-                  <Text>{this.props.navigation.state.params.rank} avis</Text>
-                </View>
+                    <Text style={menuStyles.white}>
+                      {this.props.navigation.state.params.rank} avis
+                    </Text>
+                  </View>
+                ) : null}
               </View>
-              <Text style={[styles.text, styles.description]}>
+              <Text
+                style={[
+                  menuStyles.text,
+                  menuStyles.description,
+                  menuStyles.strong
+                ]}
+              >
                 {this.state.menu.infos.description}
               </Text>
               <View>{this._renderItems()}</View>
@@ -213,110 +213,137 @@ export default class Menu extends React.Component {
           transparent={false}
           visible={this.state.popUpDisplay}
         >
-          <View
-          // style={{ marginTop: 22, flex: 1 }}
-          >
+          <ScrollView style={menuStyles.scrollCart}>
             <View>
-              <View style={styles.header}>
-                <View style={{ flex: 1 }}>
-                  <Text style={styles.header}>Mon Panier</Text>
-                </View>
+              <View style={menuStyles.header}>
                 <TouchableOpacity
+                  style={menuStyles.cartClose}
                   onPress={() => {
                     this.setModalVisible(this.state.isPopupVisible);
                   }}
                 >
                   <Icon
-                    style={{ justifyContent: "flex-end" }}
                     name="ios-close-circle-outline"
-                    size={30}
-                    color="black"
+                    size={32}
+                    color="#2A4D49"
                   />
                 </TouchableOpacity>
+                <View style={menuStyles.cartTitle}>
+                  <Text style={[menuStyles.strong, menuStyles.size]}>
+                    Mon Panier
+                  </Text>
+                </View>
               </View>
-              <Picker
-                selectedValue={this.state.chosenHour}
-                onValueChange={(itemValue, itemIndex) =>
-                  this.setState({ chosenHour: itemValue })
-                }
-              >
-                <Picker.Item
-                  label={this.props.navigation.state.params.arrChoose[0]}
-                  value={this.props.navigation.state.params.arrChoose[0]}
-                />
 
-                <Picker.Item
-                  label={this.props.navigation.state.params.arrChoose[1]}
-                  value={this.props.navigation.state.params.arrChoose[1]}
-                />
-
-                <Picker.Item
-                  label={this.props.navigation.state.params.arrChoose[2]}
-                  value={this.props.navigation.state.params.arrChoose[2]}
-                />
-              </Picker>
               <Text />
+              <Text style={[menuStyles.strong, menuStyles.size]}>
+                Ma commande
+              </Text>
               <FlatList
                 keyExtractor={this._keyExtractor}
                 data={this.state.items}
                 renderItem={({ item }) => (
-                  <View>
-                    <View
-                      style={{
-                        flexDirection: "row",
-                        alignItems: "center"
+                  <View style={menuStyles.inCart}>
+                    <Icon
+                      style={menuStyles.scrollCart}
+                      name="ios-remove"
+                      size={32}
+                      color="#2A4D49"
+                      onPress={() => {
+                        this.removeItem(item);
                       }}
-                    >
-                      <Button
-                        title="-"
-                        onPress={() => {
-                          this.removeItem(item);
-                        }}
-                      />
-                      <Text>
-                        {item.quantity} x {item.name}{" "}
-                      </Text>
-                      <Button title="+" onPress={() => this.addItem(item)} />
-                    </View>
-                    <Text>{(item.quantity * item.raw_price).toFixed(2)}</Text>
+                    />
+                    <Text style={menuStyles.titleItem}>
+                      {item.quantity} x {item.name}{" "}
+                    </Text>
+
+                    <Icon
+                      style={menuStyles.scrollCart}
+                      name="ios-add"
+                      size={32}
+                      color="#2A4D49"
+                      onPress={() => this.addItem(item)}
+                    />
+
+                    <Text>{(item.quantity * item.raw_price).toFixed(2)} €</Text>
                   </View>
                 )}
               />
-              <Text style={styles.strong}>
-                total = {parseFloat(this.state.cart).toFixed(2)} €
-              </Text>
+              <View style={menuStyles.totalCart}>
+                <Text style={[styles.strong, menuStyles.size]}>Total</Text>
+
+                <Text style={[styles.strong, menuStyles.size]}>
+                  {parseFloat(this.state.cart).toFixed(2)} €
+                </Text>
+              </View>
             </View>
-          </View>
-          <View>
-            <Button
-              onPress={() => {
-                this.setState({ popUpDisplay: false });
-                navigate("Payment", {
-                  name: "Paiement",
-                  amount: this.state.cart,
-                  restaurantName: this.props.navigation.state.params.name,
-                  chosenHour:
-                    this.state.chosenHour === null
-                      ? this.props.navigation.state.params.arrChoose[0]
-                      : this.state.chosenHour,
-                  arrChoose: this.props.navigation.state.params.arrChoose,
-                  items: this.state.items,
-                  data: this.props.navigation.state.params.data
-                });
-              }}
-              style={styles.button}
-              title="Payer"
-            />
-          </View>
+
+
+            <Text style={[menuStyles.strong, menuStyles.size]}>
+              Heure de récupération
+            </Text>
+            <Picker
+              selectedValue={this.state.chosenHour}
+              onValueChange={(itemValue, itemIndex) =>
+                this.setState({ chosenHour: itemValue })
+              }
+            >
+              <Picker.Item
+                label={this.props.navigation.state.params.arrChoose[0]}
+                value={this.props.navigation.state.params.arrChoose[0]}
+              />
+
+              <Picker.Item
+                label={this.props.navigation.state.params.arrChoose[1]}
+                value={this.props.navigation.state.params.arrChoose[1]}
+              />
+
+              <Picker.Item
+                label={this.props.navigation.state.params.arrChoose[2]}
+                value={this.props.navigation.state.params.arrChoose[2]}
+              />
+            </Picker>
+            <View>
+              <TouchableOpacity
+                style={menuStyles.footerButton}
+                onPress={() => {
+                  this.setState({ popUpDisplay: false });
+                  navigate("Payment", {
+                    name: "Paiement",
+                    amount: this.state.cart,
+                    chosenHour:
+                      this.state.chosenHour === null
+                        ? this.props.navigation.state.params.arrChoose[0]
+                        : this.state.chosenHour,
+                    arrChoose: this.props.navigation.state.params.arrChoose,
+                    items: this.state.items,
+                    data: this.props.navigation.state.params.data
+                  });
+                }}
+              >
+                <Text style={[menuStyles.footerText, menuStyles.strong]}>
+                  Payer
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </ScrollView>
+
+
         </Modal>
       </View>,
 
-      <View>
-        <Text>total : {parseFloat(this.state.cart).toFixed(2)} €</Text>
-        <Button
-          title="Valider la commande"
+      <View style={menuStyles.footer}>
+        <Text style={menuStyles.strong}>
+          Total : {parseFloat(this.state.cart).toFixed(2)} €
+        </Text>
+        <TouchableOpacity
+          style={menuStyles.footerButton}
           onPress={() => this.setModalVisible(this.popUpDisplay)}
-        />
+        >
+          <Text style={[menuStyles.footerText, menuStyles.strong]}>
+            Valider la commande
+          </Text>
+        </TouchableOpacity>
       </View>
     ];
   }
