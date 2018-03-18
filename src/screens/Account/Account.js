@@ -1,17 +1,7 @@
 import React from "react";
 import axios from "axios";
 
-import {
-  Button,
-  FlatList,
-  StyleSheet,
-  ScrollView,
-  Text,
-  Image,
-  TouchableOpacity,
-  ActivityIndicator,
-  View
-} from "react-native";
+import { StyleSheet, ScrollView, Text, View } from "react-native";
 import AppStyle from "../../../AppStyle";
 const styles = StyleSheet.create(AppStyle);
 import StyleAccount from "./StyleAccount";
@@ -42,10 +32,10 @@ export default class Account extends React.Component {
 
   componentWillMount() {
     console.log("Will mount restaurants Page ");
-    let hour = this.props.navigation.state.params.hour;
-    let geohash = this.props.navigation.state.params.geoloc;
+    const id = this.props.navigation.state.params.data.data._id;
+
     axios
-      .get("http://localhost:3000/api/orders/5aaabb6f62c9f698cbd7f25c")
+      .get(`http://foodpacking-serveur.herokuapp.com/api/orders/${id}`)
       .then(response => {
         this.setState({ orders: response.data });
         console.log("acount", response.data.orders);
@@ -57,11 +47,10 @@ export default class Account extends React.Component {
 
   render() {
     const { navigate } = this.props.navigation;
-    // récupération du nom et de la photo
-    const arrResto = [];
+    console.log("data: ");
 
     return (
-      <View>
+      <ScrollView>
         <Text>Hello</Text>
         {this.state.orders === null ? (
           <View>
@@ -78,64 +67,7 @@ export default class Account extends React.Component {
             );
           })
         )}
-      </View>
+      </ScrollView>
     );
-    //     <ScrollView style={[styles.containerIn, styles.style, styles.userSpace]}>
-    //       <View style={styles.bloc}>
-    //         // affichage des éléments
-    //         {this.state.length === this.state.restaurants.length ? (
-    //           <View>{arrResto}</View>
-    //         ) : (
-    //           <ActivityIndicator
-    //             size="large"
-    //             color="#FBB252"
-    //             style={{ alignSelf: "center", flex: 1 }}
-    //           />
-    //         )}
-    //       </View>
-    //     </ScrollView>,
-
-    //     <View style={styles.UserNav}>
-    //       <TouchableOpacity
-    //         onPress={() =>
-    //           navigate("Restaurants", {
-    //             name: "Restaurant",
-    //             geoloc: this.props.navigation.state.params.geoloc,
-    //             hour: this.props.navigation.state.params.hour,
-    //             pick: this.props.navigation.state.params.pick,
-    //             arrChoose: this.props.navigation.state.params.arrChoose
-    //           })
-    //         }
-    //       >
-    //         <Icon name="ios-restaurant" size={60} color="#fff" />
-    //       </TouchableOpacity>
-    //       <TouchableOpacity
-    //         onPress={() =>
-    //           navigate("Favorites", {
-    //             name: "Favorites",
-    //             geoloc: this.props.navigation.state.params.geoloc,
-    //             hour: this.props.navigation.state.params.hour,
-    //             pick: this.props.navigation.state.params.pick,
-    //             arrChoose: this.props.navigation.state.params.arrChoose
-    //           })
-    //         }
-    //       >
-    //         <Icon name="ios-heart" size={60} color="#fff" />
-    //       </TouchableOpacity>
-    //       <TouchableOpacity
-    //         onPress={() =>
-    //           navigate("Account", {
-    //             name: "Account",
-    //             geoloc: this.props.navigation.state.params.geoloc,
-    //             hour: this.props.navigation.state.params.hour,
-    //             pick: this.props.navigation.state.params.pick,
-    //             arrChoose: this.props.navigation.state.params.arrChoose
-    //           })
-    //         }
-    //       >
-    //         <Icon name="ios-contact" size={60} color="#fff" />
-    //       </TouchableOpacity>
-    //     </View>
-    //   ];
   }
 }

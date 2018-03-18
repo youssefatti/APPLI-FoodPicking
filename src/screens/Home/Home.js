@@ -70,6 +70,7 @@ export default class Home extends React.PureComponent {
   }
 
   render() {
+    console.log("data home:", this.props.navigation.state.params.data);
     console.log("rendering home page");
 
     /* PICKERS */
@@ -147,7 +148,8 @@ export default class Home extends React.PureComponent {
                 geoloc: this.state.geoloc,
                 hour: this.state.hour,
                 pick: pickers[0].props.value,
-                arrChoose: arrChoose
+                arrChoose: arrChoose,
+                data: this.props.navigation.state.params.data
               })
             }
           >
