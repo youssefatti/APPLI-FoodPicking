@@ -143,11 +143,12 @@ export default class LogIn extends React.PureComponent {
                   this.state.password,
                   this.state.username,
                   data => {
+                    this.setState({ data });
                     navigate("Home", {
                       navigation: this.props.navigation,
-                      userId: this.state.userId
+                      userId: this.state.userId,
+                      data: this.state.data
                     });
-                    this.setState({ data });
                   }
                 );
               } else {
@@ -163,10 +164,11 @@ export default class LogIn extends React.PureComponent {
             style={styles.button}
             onPress={() => {
               this.logInUser(this.state.email, this.state.password, data => {
+                this.setState({ data });
                 navigate("Home", {
+                  data: this.state.data,
                   navigation: this.props.navigation
                 });
-                this.setState({ data });
               });
             }}
             data={this.state.data}

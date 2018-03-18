@@ -185,7 +185,8 @@ export default class Restaurants extends React.PureComponent {
               geoloc: this.props.navigation.state.params.geoloc,
               hour: this.props.navigation.state.params.hour,
               pick: this.props.navigation.state.params.pick,
-              arrChoose: this.props.navigation.state.params.arrChoose
+              arrChoose: this.props.navigation.state.params.arrChoose,
+              data: this.props.navigation.state.params.data
             })
           }
         >
