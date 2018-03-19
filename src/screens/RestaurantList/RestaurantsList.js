@@ -27,6 +27,11 @@ export default class Restaurants extends React.PureComponent {
   // });
 
   static navigationOptions = ({ navigation }) => ({
+    headerStyle: {
+      backgroundColor: "white",
+      borderBottomWidth: 0
+    },
+    headerTintColor: "black",
     title:
       typeof navigation.state.params === "undefined" ||
       typeof navigation.state.params.title === "undefined"
@@ -55,6 +60,12 @@ export default class Restaurants extends React.PureComponent {
     } else {
       this.setState({ isLoading: true });
     }
+  };
+
+  // Generate random number to populate rank '%' and 'Avis'
+
+  GenerateRandomNumber = () => {
+    return (RandomNumber = Math.floor(Math.random() * 100) + 1);
   };
 
   componentDidMount() {
@@ -113,9 +124,8 @@ export default class Restaurants extends React.PureComponent {
     const arrResto = [];
     for (let i = 0; i < this.state.restaurants.length; i++) {
       arrResto.push(
-        <View key={i} style={{}}>
+        <View key={i} style={StyleRestaurant.container}>
           <TouchableOpacity
-            style={{ flex: 1 }}
             onPress={() =>
               // passage du nom, id et lien à la page Menu
               navigate("Menu", {
@@ -132,16 +142,27 @@ export default class Restaurants extends React.PureComponent {
             }
           >
             <Image
-              style={{ width: width, height: 150 }}
+              style={{ width: "100%", height: height / 5 }}
               source={{
                 uri: this.state.restaurants[i].attributes.image_url
               }}
             />
           </TouchableOpacity>
-          <View style={{}}>
-            <Text style={{ fontSize: 20, fontWeight: "bold", padding: 10 }}>
-              {this.state.restaurants[i].attributes.name}
-            </Text>
+          <View style={StyleRestaurant.restaurantNameView}>
+            <View style={{}}>
+              <Text style={StyleRestaurant.restaurantName}>
+                {this.state.restaurants[i].attributes.name}
+              </Text>
+            </View>
+
+            <View style={StyleRestaurant.rankView}>
+              <Text style={StyleRestaurant.textAvis}>
+                {this.GenerateRandomNumber()}%
+              </Text>
+              <Text style={StyleRestaurant.textAvis}>
+                + {this.GenerateRandomNumber()} Avis
+              </Text>
+            </View>
           </View>
         </View>
       );
@@ -150,7 +171,7 @@ export default class Restaurants extends React.PureComponent {
       <ScrollView style={{ flex: 1 }}>
         <View style={{}}>
           {this.state.length === this.state.restaurants.length ? (
-            <View>{arrResto}</View>
+            <View style={{}}>{arrResto}</View>
           ) : (
             <ActivityIndicator
               size="large"
