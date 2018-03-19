@@ -103,7 +103,7 @@ export default class LogIn extends React.PureComponent {
     const { navigate } = this.props.navigation;
     return (
       <View style={styles.SingUpLoginContain}>
-        {this.state.showLogin ? (
+        {!this.state.showLogin ? (
           <TextInput
             style={styles.inputText}
             keyboardType="default"
@@ -125,7 +125,7 @@ export default class LogIn extends React.PureComponent {
           onChangeText={password => this.setState({ password })}
           value={this.state.password}
         />
-        {this.state.showLogin ? (
+        {!this.state.showLogin ? (
           <TextInput
             style={styles.inputText}
             secureTextEntry={true}
@@ -137,7 +137,7 @@ export default class LogIn extends React.PureComponent {
         ) : null}
 
         <View style={{ flex: 1, justifyContent: "space-around" }}>
-          {this.state.showLogin ? (
+          {!this.state.showLogin ? (
             <TouchableOpacity
               style={commonStyles.button}
               onPress={() => {
@@ -212,14 +212,14 @@ export default class LogIn extends React.PureComponent {
                     ? styles.toggleTouchLogin
                     : styles.toggleTouchSignUp
                 }
-                disabled={this.state.showSignUp}
+                disabled={this.state.showLogin}
                 onPress={() => {
                   this.toggleLoginSignUp();
                 }}
               >
                 <Text
                   style={
-                    !this.state.showLogin
+                    this.state.showLogin
                       ? styles.toggleTextLogin
                       : styles.toggleTextSignUp
                   }
@@ -233,14 +233,14 @@ export default class LogIn extends React.PureComponent {
                     ? styles.toggleTouchSignUp
                     : styles.toggleTouchLogin
                 }
-                disabled={this.state.showLogin}
+                disabled={this.state.showSignUp}
                 onPress={() => {
                   this.toggleLoginSignUp();
                 }}
               >
                 <Text
                   style={
-                    !this.state.showLogin
+                    this.state.showLogin
                       ? styles.toggleTextSignUp
                       : styles.toggleTextLogin
                   }
