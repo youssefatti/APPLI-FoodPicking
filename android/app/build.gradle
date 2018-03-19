@@ -142,6 +142,7 @@ dependencies {
     compile project(':react-native-vector-icons')
     compile project(':react-native-vector-icons')
     compile project(':react-native-vector-icons')
+    compile project(':react-native-vector-icons')
 <<<<<<< HEAD
 =======
     compile project(':react-native-vector-icons')

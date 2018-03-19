@@ -95,7 +95,7 @@ export default class Payment extends React.Component {
             Montant à régler : {this.props.navigation.state.params.amount}€
           </Text>
         </View>
-        <View style={paymentStyles.payment}>
+        <View style={[paymentStyles.payment, paymentStyles.center]}>
           <View style={paymentStyles.left}>
             <Text style={[paymentStyles.strong, paymentStyles.size]}>
               Numéro de carte :
