@@ -154,7 +154,7 @@ export default class Restaurants extends React.PureComponent {
           ) : (
             <ActivityIndicator
               size="large"
-              color="#FBB252"
+              color="#2A4D49"
               style={{ alignSelf: "center", flex: 1 }}
             />
           )}
