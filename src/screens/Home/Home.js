@@ -126,7 +126,7 @@ export default class Home extends React.PureComponent {
             justifyContent: "center"
           }}
         >
-          <Text style={commonStyles.foodPicking}>FoodPicking</Text>
+          <Text style={commonStyles.foodPicking}>Food Picking</Text>
         </View>
 
         {this.state.error ? (
@@ -179,8 +179,7 @@ export default class Home extends React.PureComponent {
               flex: 2,
 
               justifyContent: "space-around"
-            }}         
-
+            }}
           >
             <TouchableOpacity
               style={commonStyles.button}
@@ -195,7 +194,7 @@ export default class Home extends React.PureComponent {
                 })
               }
             >
-              <Text style={commonStyles.textButton}>C'est Parti</Text>
+              <Text style={commonStyles.textButton}>C'est Parti ?</Text>
             </TouchableOpacity>
           </View>
         </View>

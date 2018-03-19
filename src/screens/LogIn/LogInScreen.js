@@ -103,7 +103,7 @@ export default class LogIn extends React.PureComponent {
     const { navigate } = this.props.navigation;
     return (
       <View style={styles.SingUpLoginContain}>
-        {!this.state.showLogin ? (
+        {this.state.showLogin ? (
           <TextInput
             style={styles.inputText}
             keyboardType="default"
@@ -125,7 +125,7 @@ export default class LogIn extends React.PureComponent {
           onChangeText={password => this.setState({ password })}
           value={this.state.password}
         />
-        {!this.state.showLogin ? (
+        {this.state.showLogin ? (
           <TextInput
             style={styles.inputText}
             secureTextEntry={true}
@@ -137,7 +137,7 @@ export default class LogIn extends React.PureComponent {
         ) : null}
 
         <View style={{ flex: 1, justifyContent: "space-around" }}>
-          {!this.state.showLogin ? (
+          {this.state.showLogin ? (
             <TouchableOpacity
               style={commonStyles.button}
               onPress={() => {
@@ -147,11 +147,12 @@ export default class LogIn extends React.PureComponent {
                     this.state.password,
                     this.state.username,
                     data => {
+                      this.setState({ data });
                       navigate("Home", {
+                        data: this.state.data,
                         navigation: this.props.navigation,
                         userId: this.state.userId
                       });
-                      this.setState({ data });
                     }
                   );
                 } else {
@@ -167,10 +168,12 @@ export default class LogIn extends React.PureComponent {
               style={commonStyles.button}
               onPress={() => {
                 this.logInUser(this.state.email, this.state.password, data => {
+                  this.setState({ data });
+
                   navigate("Home", {
+                    data: this.state.data,
                     navigation: this.props.navigation
                   });
-                  this.setState({ data });
                 });
               }}
               data={this.state.data}
@@ -198,15 +201,14 @@ export default class LogIn extends React.PureComponent {
               justifyContent: "center"
             }}
           >
-            <Text style={commonStyles.foodPicking}>FoodPicking</Text>
+            <Text style={commonStyles.foodPicking}>Food Picking</Text>
           </View>
 
           <View style={{ flex: 1, justifyContent: "space-around" }}>
-            {/* <View style={{ flex: 1 }}> */}
             <View style={styles.signUpLoginView}>
               <TouchableOpacity
                 style={
-                  this.state.showLogin
+                  !this.state.showLogin
                     ? styles.toggleTouchLogin
                     : styles.toggleTouchSignUp
                 }
@@ -217,17 +219,17 @@ export default class LogIn extends React.PureComponent {
               >
                 <Text
                   style={
-                    this.state.showLogin
+                    !this.state.showLogin
                       ? styles.toggleTextLogin
                       : styles.toggleTextSignUp
                   }
                 >
-                  Créer un compte
+                  Se connecter
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={
-                  this.state.showLogin
+                  !this.state.showLogin
                     ? styles.toggleTouchSignUp
                     : styles.toggleTouchLogin
                 }
@@ -238,12 +240,12 @@ export default class LogIn extends React.PureComponent {
               >
                 <Text
                   style={
-                    this.state.showLogin
+                    !this.state.showLogin
                       ? styles.toggleTextSignUp
                       : styles.toggleTextLogin
                   }
                 >
-                  Se connecter
+                  Créer un compte
                 </Text>
               </TouchableOpacity>
             </View>
@@ -257,7 +259,6 @@ export default class LogIn extends React.PureComponent {
               {this._renderToggleLoginSignUp()}
             </View>
           </View>
-          {/* </View> */}
         </ImageBackground>
       </KeyboardAvoidingView>
     );
