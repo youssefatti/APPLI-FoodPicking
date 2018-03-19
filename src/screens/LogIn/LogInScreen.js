@@ -192,7 +192,11 @@ export default class LogIn extends React.PureComponent {
     return (
       <KeyboardAvoidingView style={styles.container} behavior="padding">
         <ImageBackground
-          style={{ flex: 1, width: width, height: height }}
+          style={{
+            flex: 1,
+            width: width,
+            height: height
+          }}
           source={require("../../../Images/backgroundPhoto.jpeg")}
         >
           <View
@@ -204,7 +208,12 @@ export default class LogIn extends React.PureComponent {
             <Text style={commonStyles.foodPicking}>Food Picking</Text>
           </View>
 
-          <View style={{ flex: 1, justifyContent: "space-around" }}>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "space-around"
+            }}
+          >
             <View style={styles.signUpLoginView}>
               <TouchableOpacity
                 style={
