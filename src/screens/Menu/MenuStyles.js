@@ -77,7 +77,7 @@ const menuStyles = {
     borderTopWidth: 1,
     paddingBottom: 3,
     paddingTop: 3,
-    marginBottom: 5
+    marginBottom: 100
   },
   inCart: {
     flexDirection: "row",

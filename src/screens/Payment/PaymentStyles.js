@@ -15,12 +15,18 @@ const paymentStyles = {
     color: "#fff",
     fontSize: 20
   },
+  footerIn: {
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%"
+  },
   strong: {
     fontWeight: "bold"
   },
   payment: {
     width: "100%",
-    alignItems: "center"
+    alignItems: "center",
+    flex: 1
   },
   paymentIn: {
     marginBottom: 10

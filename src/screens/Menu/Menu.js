@@ -213,122 +213,123 @@ export default class Menu extends React.Component {
           transparent={false}
           visible={this.state.popUpDisplay}
         >
-          <ScrollView style={menuStyles.scrollCart}>
+          <ScrollView style={[menuStyles.scrollCart, { flex: 1 }]}>
             <View>
-              <View style={menuStyles.header}>
-                <TouchableOpacity
-                  style={menuStyles.cartClose}
-                  onPress={() => {
-                    this.setModalVisible(this.state.isPopupVisible);
-                  }}
-                >
-                  <Icon
-                    name="ios-close-circle-outline"
-                    size={32}
-                    color="#2A4D49"
-                  />
-                </TouchableOpacity>
-                <View style={menuStyles.cartTitle}>
-                  <Text style={[menuStyles.strong, menuStyles.size]}>
-                    Mon Panier
+              <View>
+                <View style={menuStyles.header}>
+                  <TouchableOpacity
+                    style={menuStyles.cartClose}
+                    onPress={() => {
+                      this.setModalVisible(this.state.isPopupVisible);
+                    }}
+                  >
+                    <Icon
+                      name="ios-close-circle-outline"
+                      size={32}
+                      color="#2A4D49"
+                    />
+                  </TouchableOpacity>
+                  <View style={menuStyles.cartTitle}>
+                    <Text style={[menuStyles.strong, menuStyles.size]}>
+                      Mon Panier
+                    </Text>
+                  </View>
+                </View>
+
+                <Text />
+                <Text style={[menuStyles.strong, menuStyles.size]}>
+                  Ma commande
+                </Text>
+                <FlatList
+                  keyExtractor={this._keyExtractor}
+                  data={this.state.items}
+                  renderItem={({ item }) => (
+                    <View style={menuStyles.inCart}>
+                      <Icon
+                        style={menuStyles.scrollCart}
+                        name="ios-remove"
+                        size={32}
+                        color="#2A4D49"
+                        onPress={() => {
+                          this.removeItem(item);
+                        }}
+                      />
+                      <Text style={menuStyles.titleItem}>
+                        {item.quantity} x {item.name}{" "}
+                      </Text>
+
+                      <Icon
+                        style={menuStyles.scrollCart}
+                        name="ios-add"
+                        size={32}
+                        color="#2A4D49"
+                        onPress={() => this.addItem(item)}
+                      />
+
+                      <Text>
+                        {(item.quantity * item.raw_price).toFixed(2)} €
+                      </Text>
+                    </View>
+                  )}
+                />
+                <View style={menuStyles.totalCart}>
+                  <Text style={[styles.strong, menuStyles.size]}>Total</Text>
+
+                  <Text style={[styles.strong, menuStyles.size]}>
+                    {parseFloat(this.state.cart).toFixed(2)} €
                   </Text>
                 </View>
               </View>
 
-              <Text />
               <Text style={[menuStyles.strong, menuStyles.size]}>
-                Ma commande
+                Heure de récupération
               </Text>
-              <FlatList
-                keyExtractor={this._keyExtractor}
-                data={this.state.items}
-                renderItem={({ item }) => (
-                  <View style={menuStyles.inCart}>
-                    <Icon
-                      style={menuStyles.scrollCart}
-                      name="ios-remove"
-                      size={32}
-                      color="#2A4D49"
-                      onPress={() => {
-                        this.removeItem(item);
-                      }}
-                    />
-                    <Text style={menuStyles.titleItem}>
-                      {item.quantity} x {item.name}{" "}
-                    </Text>
-
-                    <Icon
-                      style={menuStyles.scrollCart}
-                      name="ios-add"
-                      size={32}
-                      color="#2A4D49"
-                      onPress={() => this.addItem(item)}
-                    />
-
-                    <Text>{(item.quantity * item.raw_price).toFixed(2)} €</Text>
-                  </View>
-                )}
-              />
-              <View style={menuStyles.totalCart}>
-                <Text style={[styles.strong, menuStyles.size]}>Total</Text>
-
-                <Text style={[styles.strong, menuStyles.size]}>
-                  {parseFloat(this.state.cart).toFixed(2)} €
-                </Text>
-              </View>
-            </View>
-
-
-            <Text style={[menuStyles.strong, menuStyles.size]}>
-              Heure de récupération
-            </Text>
-            <Picker
-              selectedValue={this.state.chosenHour}
-              onValueChange={(itemValue, itemIndex) =>
-                this.setState({ chosenHour: itemValue })
-              }
-            >
-              <Picker.Item
-                label={this.props.navigation.state.params.arrChoose[0]}
-                value={this.props.navigation.state.params.arrChoose[0]}
-              />
-
-              <Picker.Item
-                label={this.props.navigation.state.params.arrChoose[1]}
-                value={this.props.navigation.state.params.arrChoose[1]}
-              />
-
-              <Picker.Item
-                label={this.props.navigation.state.params.arrChoose[2]}
-                value={this.props.navigation.state.params.arrChoose[2]}
-              />
-            </Picker>
-            <View>
-              <TouchableOpacity
-                style={menuStyles.footerButton}
-                onPress={() => {
-                  this.setState({ popUpDisplay: false });
-                  navigate("Payment", {
-                    name: "Paiement",
-                    amount: this.state.cart,
-                    chosenHour:
-                      this.state.chosenHour === null
-                        ? this.props.navigation.state.params.arrChoose[0]
-                        : this.state.chosenHour,
-                    arrChoose: this.props.navigation.state.params.arrChoose,
-                    items: this.state.items,
-                    data: this.props.navigation.state.params.data
-                  });
-                }}
+              <Picker
+                selectedValue={this.state.chosenHour}
+                onValueChange={(itemValue, itemIndex) =>
+                  this.setState({ chosenHour: itemValue })
+                }
               >
-                <Text style={[menuStyles.footerText, menuStyles.strong]}>
-                  Payer
-                </Text>
-              </TouchableOpacity>
+                <Picker.Item
+                  label={this.props.navigation.state.params.arrChoose[0]}
+                  value={this.props.navigation.state.params.arrChoose[0]}
+                />
+
+                <Picker.Item
+                  label={this.props.navigation.state.params.arrChoose[1]}
+                  value={this.props.navigation.state.params.arrChoose[1]}
+                />
+
+                <Picker.Item
+                  label={this.props.navigation.state.params.arrChoose[2]}
+                  value={this.props.navigation.state.params.arrChoose[2]}
+                />
+              </Picker>
             </View>
           </ScrollView>
-
-
+          <View>
+            <TouchableOpacity
+              style={menuStyles.footerButton}
+              onPress={() => {
+                this.setState({ popUpDisplay: false });
+                navigate("Payment", {
+                  name: "Paiement",
+                  amount: this.state.cart,
+                  chosenHour:
+                    this.state.chosenHour === null
+                      ? this.props.navigation.state.params.arrChoose[0]
+                      : this.state.chosenHour,
+                  arrChoose: this.props.navigation.state.params.arrChoose,
+                  items: this.state.items,
+                  data: this.props.navigation.state.params.data
+                });
+              }}
+            >
+              <Text style={[menuStyles.footerText, menuStyles.strong]}>
+                Payer
+              </Text>
+            </TouchableOpacity>
+          </View>
         </Modal>
       </View>,
 

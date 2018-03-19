@@ -21,7 +21,8 @@ import axios from "axios";
 
 export default class Payment extends React.Component {
   static navigationOptions = ({ navigation }) => ({
-    title: "PAIEMENT"
+    title: "PAIEMENT",
+    headerBackTitle: null
   });
   state = {
     cart: this.props.navigation.state.params.cart,
@@ -87,7 +88,7 @@ export default class Payment extends React.Component {
     const { navigate } = this.props.navigation;
     console.log("chosenHour", this.state.chosenHour);
     console.log("item", this.props.navigation.state.params.items);
-    return (
+    return [
       <View style={paymentStyles.payment}>
         <View style={[paymentStyles.paymentTitle, paymentStyles.paymentIn]}>
           <Text style={[paymentStyles.footerText, paymentStyles.strong]}>
@@ -145,6 +146,8 @@ export default class Payment extends React.Component {
             value={this.state.CVC}
           />
         </View>
+      </View>,
+      <View style={paymentStyles.footerIn}>
         <TouchableOpacity
           style={paymentStyles.footerButton}
           onPress={() => {
@@ -166,6 +169,6 @@ export default class Payment extends React.Component {
           </Text>
         </TouchableOpacity>
       </View>
-    );
+    ];
   }
 }
