@@ -321,7 +321,8 @@ export default class Menu extends React.Component {
                       : this.state.chosenHour,
                   arrChoose: this.props.navigation.state.params.arrChoose,
                   items: this.state.items,
-                  data: this.props.navigation.state.params.data
+                  data: this.props.navigation.state.params.data,
+                  restaurantName: this.state.menu.infos.name
                 });
               }}
             >
