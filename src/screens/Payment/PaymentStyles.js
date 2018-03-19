@@ -3,8 +3,6 @@ const paymentStyles = {
     backgroundColor: "#2A4D49",
     marginRight: 10,
     marginLeft: 10,
-    marginBottom: 10,
-    marginTop: 150,
     height: 50,
     borderRadius: 20,
     justifyContent: "center",
@@ -18,7 +16,8 @@ const paymentStyles = {
   footerIn: {
     justifyContent: "center",
     alignItems: "center",
-    width: "100%"
+    width: "100%",
+    height: 70
   },
   strong: {
     fontWeight: "bold"
@@ -30,6 +29,11 @@ const paymentStyles = {
   },
   paymentIn: {
     marginBottom: 10
+  },
+  center: {
+    justifyContent: "center",
+    alignItems: "center",
+    flex: 1
   },
   paymentTitle: {
     width: "80%",
