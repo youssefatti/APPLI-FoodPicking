@@ -57,7 +57,11 @@ export default class Account extends React.Component {
           </View>
         ) : (
           this.state.orders.orders.map((order, index) => {
-            order._id = "FDF093";
+            const splice = order._id
+              .split("")
+              .slice(18, 25)
+              .join("");
+            console.log(splice);
             return (
               <View style={styles.container}>
                 <View style={styles.historic}>
@@ -77,7 +81,7 @@ export default class Account extends React.Component {
                   </View>
 
                   <Text style={styles.numberOrder}>
-                    N° de commande : {order._id}
+                    N° de commande : {splice}
                   </Text>
                 </View>
               </View>
