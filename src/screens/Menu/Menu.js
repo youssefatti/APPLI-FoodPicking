@@ -24,7 +24,7 @@ const menuStyles = StyleSheet.create(MenuStyles);
 export default class Menu extends React.Component {
   static navigationOptions = ({ navigation }) => ({
     title: navigation.state.params.name,
-
+    headerTintColor: "#7FC149",
     headerBackTitle: null
   });
 
@@ -147,7 +147,7 @@ export default class Menu extends React.Component {
       menuShow.push(
         <View key={i}>
           {/* on récupere le nom de la catégorie et on envoie les infos au composent items */}
-          <Text style={styles.titleCategory}>
+          <Text style={menuStyles.titleCategory}>
             {this.state.menu.menu.categories[i].name}
           </Text>
           <Items
@@ -194,13 +194,7 @@ export default class Menu extends React.Component {
                   </View>
                 ) : null}
               </View>
-              <Text
-                style={[
-                  menuStyles.text,
-                  menuStyles.description,
-                  menuStyles.strong
-                ]}
-              >
+              <Text style={[menuStyles.text, menuStyles.description]}>
                 {this.state.menu.infos.description}
               </Text>
               <View>{this._renderItems()}</View>
@@ -223,46 +217,43 @@ export default class Menu extends React.Component {
                       this.setModalVisible(this.state.isPopupVisible);
                     }}
                   >
-                    <Icon
-                      name="ios-close-circle-outline"
-                      size={32}
-                      color="#2A4D49"
-                    />
+                    <Icon name="md-close" size={32} color="#7FC149" />
                   </TouchableOpacity>
                   <View style={menuStyles.cartTitle}>
-                    <Text style={[menuStyles.strong, menuStyles.size]}>
+                    {" "}
+                    <Icon name="ios-cart-outline" size={40} color="#7FC149" />
+                  </View>
+                  {/* <View style={menuStyles.cartTitle}>
+                    <Text style={menuStyles.titleCategory}>
                       Mon Panier
                     </Text>
-                  </View>
+                  </View> */}
                 </View>
 
                 <Text />
-                <Text style={[menuStyles.strong, menuStyles.size]}>
-                  Ma commande
-                </Text>
                 <FlatList
                   keyExtractor={this._keyExtractor}
                   data={this.state.items}
                   renderItem={({ item }) => (
                     <View style={menuStyles.inCart}>
+                      <Text style={menuStyles.titleItem}>
+                        {item.quantity} x {item.name}{" "}
+                      </Text>
                       <Icon
                         style={menuStyles.scrollCart}
-                        name="ios-remove"
+                        name="ios-remove-circle"
                         size={32}
-                        color="#2A4D49"
+                        color="#7FC149"
                         onPress={() => {
                           this.removeItem(item);
                         }}
                       />
-                      <Text style={menuStyles.titleItem}>
-                        {item.quantity} x {item.name}{" "}
-                      </Text>
 
                       <Icon
                         style={menuStyles.scrollCart}
-                        name="ios-add"
+                        name="ios-add-circle"
                         size={32}
-                        color="#2A4D49"
+                        color="#7FC149"
                         onPress={() => this.addItem(item)}
                       />
 
@@ -273,15 +264,15 @@ export default class Menu extends React.Component {
                   )}
                 />
                 <View style={menuStyles.totalCart}>
-                  <Text style={[styles.strong, menuStyles.size]}>Total</Text>
+                  <Text style={menuStyles.titleCategory}>Total</Text>
 
-                  <Text style={[styles.strong, menuStyles.size]}>
+                  <Text style={menuStyles.titleCategory}>
                     {parseFloat(this.state.cart).toFixed(2)} €
                   </Text>
                 </View>
               </View>
 
-              <Text style={[menuStyles.strong, menuStyles.size]}>
+              <Text style={menuStyles.titleCategory}>
                 Heure de récupération
               </Text>
               <Picker
@@ -334,16 +325,13 @@ export default class Menu extends React.Component {
         </Modal>
       </View>,
 
-      <View style={menuStyles.footer}>
-        <Text style={menuStyles.strong}>
-          Total : {parseFloat(this.state.cart).toFixed(2)} €
-        </Text>
+      <View>
         <TouchableOpacity
           style={menuStyles.footerButton}
           onPress={() => this.setModalVisible(this.popUpDisplay)}
         >
           <Text style={[menuStyles.footerText, menuStyles.strong]}>
-            Valider la commande
+            Valider mon panier : {parseFloat(this.state.cart).toFixed(2)} €
           </Text>
         </TouchableOpacity>
       </View>

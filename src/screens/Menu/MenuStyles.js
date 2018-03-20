@@ -1,11 +1,8 @@
 const menuStyles = {
-  green: { color: "#2A4D49" },
+  green: { color: "#7FC149" },
 
   text: {
     color: "#4A4A4A"
-  },
-  strong: {
-    fontWeight: "bold"
   },
   description: {
     textAlign: "justify",
@@ -13,17 +10,12 @@ const menuStyles = {
     marginBottom: 20,
     marginTop: 10
   },
-  footer: {
-    backgroundColor: "#fff"
+  strong: {
+    fontWeight: "bold"
   },
   footerButton: {
-    backgroundColor: "#2A4D49",
-    marginRight: 10,
-    marginLeft: 10,
-    marginBottom: 10,
-    marginTop: 5,
-    height: 50,
-    borderRadius: 20,
+    backgroundColor: "#7FC149",
+    height: 80,
     justifyContent: "center",
     alignItems: "center"
   },
@@ -36,17 +28,14 @@ const menuStyles = {
     marginTop: 40
   },
   bubble: {
-    backgroundColor: "#2A4D49",
+    backgroundColor: "#7FC149",
     position: "absolute",
     zIndex: 1,
-    width: 80,
-    height: 50,
-    borderRadius: 10,
-    paddingRight: 5,
-    paddingLeft: 5,
-    paddingTop: 5,
-    paddingBottom: 5,
-    right: 0,
+    paddingRight: 10,
+    paddingLeft: 10,
+    paddingTop: 10,
+    paddingBottom: 10,
+    right: -10,
     top: -70
   },
   white: {
@@ -72,8 +61,6 @@ const menuStyles = {
   titleItem: { width: 200 },
   totalCart: {
     flexDirection: "row",
-    justifyContent: "space-between",
-    borderBottomWidth: 1,
     borderTopWidth: 1,
     paddingBottom: 3,
     paddingTop: 3,
@@ -84,6 +71,13 @@ const menuStyles = {
     alignItems: "center",
     paddingTop: 10,
     paddingBottom: 10
+  },
+  titleCategory: {
+    textAlign: "center",
+    fontSize: 16,
+    fontWeight: "bold",
+    marginTop: 10,
+    marginBottom: 10
   }
 };
 
