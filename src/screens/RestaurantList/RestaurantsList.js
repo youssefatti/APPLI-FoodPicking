@@ -84,12 +84,24 @@ export default class Restaurants extends React.PureComponent {
           : `https://consumer-ow-api.deliveroo.com/orderapp/v2/restaurants?delivery_time=${hour}&geohash=${geohash}`
       )
       .then(response => {
-        console.log("reponse dans la liste des resto : ", response.data);
+        // console.log("reponse dans la liste des resto : ", response.data.data);
+        // console.log(
+        //   "reponse dans la liste pour type : ",
+        //   response.data.included
+        // );
         this.props.navigation.setParams({
           title: response.data.meta.neighborhood_name
         });
         const element = [];
+        const restaurantTypeId = [];
         response.data.data.map((item, index) => {
+          //console.log("test : ", response.data.data[index].relationships);
+          //restaurantTypeId.push(response.data.data[index].relationships);
+          // response.data.data[index].attributes.relationships.menu_tags.data.map(
+          //   (item, idex) => {
+          //     restaurantTypeId.push(item);
+          //   }
+          // );
           if (
             hour === null ||
             hour === this.props.navigation.state.params.pick
@@ -105,9 +117,15 @@ export default class Restaurants extends React.PureComponent {
             //   element.push(item);
             // }
           }
-
+          //rating_percentage / rating_formatted_count / price_category
           return element;
         });
+        // console.log("element du tab : ", element);
+        // console.log("restaurantTypeId  : ", restaurantTypeId);
+        // restaurantTypeId.map((item,index)=>{
+
+        // })
+
         this.setState({
           restaurants: element,
           length: element.length
@@ -157,10 +175,11 @@ export default class Restaurants extends React.PureComponent {
 
             <View style={StyleRestaurant.rankView}>
               <Text style={StyleRestaurant.textAvis}>
-                {this.GenerateRandomNumber()}%
+                {this.state.restaurants[i].attributes.rating_percentage}%
               </Text>
               <Text style={StyleRestaurant.textAvis}>
-                + {this.GenerateRandomNumber()} Avis
+                {this.state.restaurants[i].attributes.rating_formatted_count}{" "}
+                Avis
               </Text>
             </View>
           </View>
