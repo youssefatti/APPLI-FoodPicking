@@ -194,7 +194,7 @@ export default class Home extends React.PureComponent {
                 })
               }
             >
-              <Text style={commonStyles.textButton}>C'est Parti ?</Text>
+              <Text style={commonStyles.textButton}>C'est Parti !</Text>
             </TouchableOpacity>
           </View>
         </View>
