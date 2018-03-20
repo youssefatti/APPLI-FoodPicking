@@ -25,7 +25,8 @@ export default class Menu extends React.Component {
   static navigationOptions = ({ navigation }) => ({
     title: navigation.state.params.name,
     headerTintColor: "#7FC149",
-    headerBackTitle: null
+    headerBackTitle: null,
+    headerLeft: null
   });
 
   state = {
@@ -121,9 +122,7 @@ export default class Menu extends React.Component {
     let id = this.props.navigation.state.params.id_deliveroo;
 
     axios
-      .get(
-        `https://foodpacking-serveur.herokuapp.com/api/restaurant/menu/?id=${id}&link=${link}`
-      )
+      .get(`http://localhost:3000/api/restaurant/menu/?id=${id}&link=${link}`)
       .then(response => {
         //menu = response.data;
         this.setState(

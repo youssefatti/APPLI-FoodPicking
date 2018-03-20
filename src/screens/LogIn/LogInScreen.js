@@ -55,7 +55,7 @@ export default class LogIn extends React.PureComponent {
 
   signUpUser = (email, password, username, cb) => {
     axios
-      .post("https://foodpacking-serveur.herokuapp.com/api/user/sign_up", {
+      .post("http://localhost:3000/api/user/sign_up", {
         email,
         password,
         username
@@ -74,7 +74,7 @@ export default class LogIn extends React.PureComponent {
 
   logInUser = (email, password, cb) => {
     axios
-      .post("https://foodpacking-serveur.herokuapp.com/api/user/log_in", {
+      .post("http://localhost:3000/api/user/log_in", {
         email,
         password
       })

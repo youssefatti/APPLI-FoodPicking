@@ -25,7 +25,10 @@ import moment from "moment";
 /* const styles = StyleSheet.create(AppStyle); */
 export default class Cart extends React.Component {
   static navigationOptions = {
-    title: "Confirmation"
+    title: "Confirmation",
+    headerTintColor: "#7FC149",
+    headerBackTitle: null,
+    headerLeft: null
   };
   state = {
     cart: this.props.navigation.state.params.cart,
@@ -78,12 +81,15 @@ export default class Cart extends React.Component {
             marginTop: 20,
             fontSize: 20,
             fontWeight: "bold",
-            marginBottom: 15
+            marginBottom: 15,
+            color: "#4A4A4A"
           }}
         >
           Votre commande est confirmée
         </Text>
-        <Text>Faites Scanner ce code pour récupérer la commande</Text>
+        <Text style={{ color: "#4A4A4A" }}>
+          Faites Scanner ce code pour récupérer la commande
+        </Text>
         <Image
           style={{ width: 200, height: 200 }}
           source={{
@@ -107,7 +113,14 @@ export default class Cart extends React.Component {
           </Text>
         </View> */}
 
-        <Text style={{ marginTop: 30, fontWeight: "bold", fontSize: 15 }}>
+        <Text
+          style={{
+            marginTop: 30,
+            fontWeight: "bold",
+            fontSize: 15,
+            color: "#4A4A4A"
+          }}
+        >
           Vous pouvez récupérer la commande dans :
         </Text>
 
@@ -141,7 +154,7 @@ export default class Cart extends React.Component {
             })
           }
         >
-          <Icon name="ios-restaurant" size={40} color="#FFEB60" />
+          <Icon name="ios-restaurant" size={40} color="#7FC149" />
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() =>
@@ -155,7 +168,7 @@ export default class Cart extends React.Component {
             })
           }
         >
-          <Icon name="ios-heart" size={40} color="#FFEB60" />
+          <Icon name="ios-heart" size={40} color="#7FC149" />
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() =>
@@ -169,7 +182,7 @@ export default class Cart extends React.Component {
             })
           }
         >
-          <Icon name="ios-list-outline" size={40} color="#FFEB60" />
+          <Icon name="ios-list-outline" size={40} color="#7FC149" />
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() =>
@@ -183,7 +196,7 @@ export default class Cart extends React.Component {
             })
           }
         >
-          <Icon name="ios-person" size={40} color="#FFEB60" />
+          <Icon name="ios-person" size={40} color="#7FC149" />
         </TouchableOpacity>
       </View>
       // <View>
