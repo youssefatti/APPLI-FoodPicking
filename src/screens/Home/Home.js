@@ -180,23 +180,22 @@ export default class Home extends React.PureComponent {
 
               justifyContent: "space-around"
             }}
+          />
+          <TouchableOpacity
+            style={commonStyles.button}
+            onPress={() =>
+              navigate("Restaurants", {
+                name: "Restaurant",
+                geoloc: this.state.geoloc,
+                hour: this.state.hour,
+                pick: pickers[0].props.value,
+                arrChoose: arrChoose,
+                data: this.props.navigation.state.params.data
+              })
+            }
           >
-            <TouchableOpacity
-              style={commonStyles.button}
-              onPress={() =>
-                navigate("Restaurants", {
-                  name: "Restaurant",
-                  geoloc: this.state.geoloc,
-                  hour: this.state.hour,
-                  pick: pickers[0].props.value,
-                  arrChoose: arrChoose,
-                  data: this.props.navigation.state.params.data
-                })
-              }
-            >
-              <Text style={commonStyles.textButton}>C'est Parti ?</Text>
-            </TouchableOpacity>
-          </View>
+            <Text style={commonStyles.textButton}>C'est Parti ?</Text>
+          </TouchableOpacity>
         </View>
       </View>
     );
