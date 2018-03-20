@@ -103,85 +103,85 @@ export default class LogIn extends React.PureComponent {
     const { navigate } = this.props.navigation;
     return (
       <View style={styles.SingUpLoginContain}>
-        {!this.state.showLogin ? (
+        <View style={{ flex: 1, justifyContent: "space-around" }}>
+          {!this.state.showLogin ? (
+            <TextInput
+              style={styles.inputText}
+              keyboardType="default"
+              placeholder="Username"
+              onChangeText={username => this.setState({ username })}
+              value={this.state.username}
+            />
+          ) : null}
+
           <TextInput
             style={styles.inputText}
-            keyboardType="default"
-            placeholder="Username"
-            onChangeText={username => this.setState({ username })}
-            value={this.state.username}
+            keyboardType="email-address"
+            onChangeText={email => this.setState({ email })}
+            value={this.state.email}
           />
-        ) : null}
-
-        <TextInput
-          style={styles.inputText}
-          keyboardType="email-address"
-          onChangeText={email => this.setState({ email })}
-          value={this.state.email}
-        />
-        <TextInput
-          style={styles.inputText}
-          secureTextEntry={true}
-          onChangeText={password => this.setState({ password })}
-          value={this.state.password}
-        />
-        {!this.state.showLogin ? (
           <TextInput
             style={styles.inputText}
             secureTextEntry={true}
-            onChangeText={passwordConfirmation =>
-              this.setState({ passwordConfirmation })
-            }
-            value={this.state.passwordConfirmation}
+            onChangeText={password => this.setState({ password })}
+            value={this.state.password}
           />
-        ) : null}
-
-        <View style={{ flex: 1, justifyContent: "space-around" }}>
           {!this.state.showLogin ? (
-            <TouchableOpacity
-              style={commonStyles.button}
-              onPress={() => {
-                if (this.state.password === this.state.passwordConfirmation) {
-                  this.signUpUser(
-                    this.state.email,
-                    this.state.password,
-                    this.state.username,
-                    data => {
-                      this.setState({ data });
-                      navigate("Home", {
-                        data: this.state.data,
-                        navigation: this.props.navigation,
-                        userId: this.state.userId
-                      });
-                    }
-                  );
-                } else {
-                  alert("the password are not the same");
-                }
-              }}
-              data={this.state.data}
-            >
-              <Text style={commonStyles.textButton}>Créer un compte</Text>
-            </TouchableOpacity>
-          ) : (
-            <TouchableOpacity
-              style={commonStyles.button}
-              onPress={() => {
-                this.logInUser(this.state.email, this.state.password, data => {
-                  this.setState({ data });
-
-                  navigate("Home", {
-                    data: this.state.data,
-                    navigation: this.props.navigation
-                  });
-                });
-              }}
-              data={this.state.data}
-            >
-              <Text style={commonStyles.textButton}>Se connecter</Text>
-            </TouchableOpacity>
-          )}
+            <TextInput
+              style={styles.inputText}
+              secureTextEntry={true}
+              onChangeText={passwordConfirmation =>
+                this.setState({ passwordConfirmation })
+              }
+              value={this.state.passwordConfirmation}
+            />
+          ) : null}
         </View>
+        <View style={{ justifyContent: "flex-end" }} />
+        {!this.state.showLogin ? (
+          <TouchableOpacity
+            style={commonStyles.button}
+            onPress={() => {
+              if (this.state.password === this.state.passwordConfirmation) {
+                this.signUpUser(
+                  this.state.email,
+                  this.state.password,
+                  this.state.username,
+                  data => {
+                    this.setState({ data });
+                    navigate("Home", {
+                      data: this.state.data,
+                      navigation: this.props.navigation,
+                      userId: this.state.userId
+                    });
+                  }
+                );
+              } else {
+                alert("the password are not the same");
+              }
+            }}
+            data={this.state.data}
+          >
+            <Text style={commonStyles.textButton}>Créer un compte</Text>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            style={commonStyles.button}
+            onPress={() => {
+              this.logInUser(this.state.email, this.state.password, data => {
+                this.setState({ data });
+
+                navigate("Home", {
+                  data: this.state.data,
+                  navigation: this.props.navigation
+                });
+              });
+            }}
+            data={this.state.data}
+          >
+            <Text style={commonStyles.textButton}>Se connecter</Text>
+          </TouchableOpacity>
+        )}
       </View>
     );
   };

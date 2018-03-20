@@ -10,12 +10,12 @@ export const commonStyles = StyleSheet.create({
   },
   button: {
     //flex: 1,
-    width: "60%",
-    height: 40,
+    width: "100%",
+    height: 50,
     backgroundColor: "white",
     alignSelf: "center",
-    justifyContent: "center",
-    borderRadius: 20
+    justifyContent: "center"
+    // borderRadius: 20
   },
   foodPicking: {
     fontSize: 40,
