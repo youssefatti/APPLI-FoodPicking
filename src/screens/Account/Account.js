@@ -19,7 +19,9 @@ import Icon from "react-native-vector-icons/Ionicons";
 
 export default class Account extends React.Component {
   static navigationOptions = ({ navigation }) => ({
-    title: "Mon compte"
+    title: "Mon compte",
+    headerTintColor: "#7FC149",
+    headerBackTitle: null
   });
 
   state = {
@@ -33,7 +35,7 @@ export default class Account extends React.Component {
 
     axios
 
-      .get(`http://localhost:3000/api/orders/${id}`)
+      .get(`https://foodpacking-serveur.herokuapp.com/api/orders/${id}`)
       .then(response => {
         this.setState({ orders: response.data });
         console.log("bouh", this.state.orders);
@@ -47,7 +49,7 @@ export default class Account extends React.Component {
     const { navigate } = this.props.navigation;
 
     return [
-      <ScrollView>
+      <ScrollView style={{ backgroundColor: "white" }}>
         <Text style={styles.orders}>Mes Commandes</Text>
         {this.state.orders === null || undefined ? (
           <View>
@@ -55,12 +57,21 @@ export default class Account extends React.Component {
           </View>
         ) : (
           this.state.orders.orders.map((order, index) => {
+            order._id = "FDF093";
             return (
               <View style={styles.container}>
                 <View style={styles.historic}>
                   <View style={styles.namePrice}>
                     <Text style={styles.twenty}>{order.restaurantName}</Text>
-                    <Text style={styles.twenty}>
+                    <Text
+                      style={
+                        (styles.twenty,
+                        {
+                          fontWeight: "bold",
+                          color: "#7FC149"
+                        })
+                      }
+                    >
                       {parseFloat(order.total).toFixed(2)} €
                     </Text>
                   </View>
@@ -87,7 +98,7 @@ export default class Account extends React.Component {
             })
           }
         >
-          <Icon name="ios-restaurant" size={40} color="#2A4D49" />
+          <Icon name="ios-restaurant" size={40} color="#7FC149" />
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() =>
@@ -101,7 +112,7 @@ export default class Account extends React.Component {
             })
           }
         >
-          <Icon name="ios-heart" size={40} color="#2A4D49" />
+          <Icon name="ios-heart" size={40} color="#7FC149" />
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() =>
@@ -115,7 +126,21 @@ export default class Account extends React.Component {
             })
           }
         >
-          <Icon name="ios-contact" size={40} color="#2A4D49" />
+          <Icon name="ios-list-box" size={40} color="#7FC149" />
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() =>
+            navigate("Account", {
+              name: "Account",
+              geoloc: this.props.navigation.state.params.geoloc,
+              hour: this.props.navigation.state.params.hour,
+              pick: this.props.navigation.state.params.pick,
+              arrChoose: this.props.navigation.state.params.arrChoose,
+              data: this.props.navigation.state.params.data
+            })
+          }
+        >
+          <Icon name="ios-person" size={40} color="#7FC149" />
         </TouchableOpacity>
       </View>
     ];
