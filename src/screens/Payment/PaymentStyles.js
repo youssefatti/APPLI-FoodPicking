@@ -1,24 +1,13 @@
 const paymentStyles = {
   footerButton: {
-    backgroundColor: "#2A4D49",
-    marginRight: 10,
-    marginLeft: 10,
-    marginBottom: 10,
-    marginTop: 150,
+    backgroundColor: "#7FC149",
     height: 50,
-    borderRadius: 20,
     justifyContent: "center",
-    alignItems: "center",
-    width: "90%"
+    alignItems: "center"
   },
   footerText: {
     color: "#fff",
     fontSize: 20
-  },
-  footerIn: {
-    justifyContent: "center",
-    alignItems: "center",
-    width: "100%"
   },
   strong: {
     fontWeight: "bold"
@@ -29,12 +18,17 @@ const paymentStyles = {
     flex: 1
   },
   paymentIn: {
-    marginBottom: 10
+    marginBottom: 30
+  },
+  center: {
+    justifyContent: "center",
+    alignItems: "center",
+    flex: 1
   },
   paymentTitle: {
     width: "80%",
     height: 100,
-    backgroundColor: "#2A4D49",
+    backgroundColor: "#7FC149",
     justifyContent: "center",
     alignItems: "center",
     width: "100%"
@@ -45,23 +39,11 @@ const paymentStyles = {
     borderWidth: 1,
     width: "100%"
   },
-  monthCard: {
+  input: {
     height: 40,
     borderColor: "gray",
     borderWidth: 1,
-    width: "45%"
-  },
-  yearCard: {
-    height: 40,
-    borderColor: "gray",
-    borderWidth: 1,
-    width: "45%"
-  },
-  ccvCard: {
-    height: 40,
-    borderColor: "gray",
-    borderWidth: 1,
-    width: "40%"
+    width: 80
   },
   row: {
     flexDirection: "row",
@@ -70,6 +52,12 @@ const paymentStyles = {
   },
   size: {
     fontSize: 20
+  },
+  titleCategory: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginTop: 10,
+    marginBottom: 10
   },
   left: {
     alignItems: "flex-start",
@@ -80,7 +68,10 @@ const paymentStyles = {
     paddingBottom: 5,
     paddingLeft: 5,
     paddingRight: 5,
-    marginTop: 10
+    marginTop: 10,
+    borderWidth: 0,
+    borderBottomWidth: 1,
+    borderBottomColor: "#7FC149"
   }
 };
 

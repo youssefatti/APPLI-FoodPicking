@@ -174,28 +174,25 @@ export default class Home extends React.PureComponent {
               {pickers}
             </Picker>
           </View>
-          <View
-            style={{
-              flex: 2,
+      
 
-              justifyContent: "space-around"
-            }}
-          />
-          <TouchableOpacity
-            style={commonStyles.button}
-            onPress={() =>
-              navigate("Restaurants", {
-                name: "Restaurant",
-                geoloc: this.state.geoloc,
-                hour: this.state.hour,
-                pick: pickers[0].props.value,
-                arrChoose: arrChoose,
-                data: this.props.navigation.state.params.data
-              })
-            }
-          >
-            <Text style={commonStyles.textButton}>C'est Parti ?</Text>
-          </TouchableOpacity>
+            <TouchableOpacity
+              style={commonStyles.button}
+              onPress={() =>
+                navigate("Restaurants", {
+                  name: "Restaurant",
+                  geoloc: this.state.geoloc,
+                  hour: this.state.hour,
+                  pick: pickers[0].props.value,
+                  arrChoose: arrChoose,
+                  data: this.props.navigation.state.params.data
+                })
+              }
+            >
+              <Text style={commonStyles.textButton}>C'est Parti !</Text>
+            </TouchableOpacity>
+          
+
         </View>
       </View>
     );

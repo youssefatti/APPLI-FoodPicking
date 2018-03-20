@@ -23,20 +23,25 @@ export default class Items extends React.Component {
     // on boucle sur le tableau items
     for (let i = 0; i < this.props.idItem.length; i++) {
       arrItems.push(
-        <View key={i} style={styles.blocItem}>
+        <View key={i} style={itemsStyles.blocItem}>
           <TouchableOpacity
-            style={styles.row}
+            style={itemsStyles.row}
             onPress={() => this.props.addItem(this.props.idItem[i])}
           >
             {this.props.idItem[i].image ? (
               <Image
-                style={styles.picRestaurant}
+                style={itemsStyles.picRestaurant}
                 source={{
                   uri: `https:${this.props.idItem[i].image}`
                 }}
               />
             ) : null}
-            <View style={styles.textItem}>
+            <View
+              style={[
+                itemsStyles.textItem,
+                this.props.idItem[i].image ? itemsStyles.spaceText : null
+              ]}
+            >
               <Text style={styles.strong}>{this.props.idItem[i].name}</Text>
               {this.props.idItem[i].description ? (
                 <Text style={itemsStyles.text}>
@@ -44,7 +49,7 @@ export default class Items extends React.Component {
                 </Text>
               ) : null}
               <Text style={[styles.strong, itemsStyles.green, itemsStyles.end]}>
-                {this.props.idItem[i].price}
+                {this.props.idItem[i].raw_price.toFixed(2)} €
               </Text>
             </View>
           </TouchableOpacity>

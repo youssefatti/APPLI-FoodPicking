@@ -13,6 +13,8 @@ import {
 import AppStyle from "../../../AppStyle";
 const styles = StyleSheet.create(AppStyle);
 
+import Icon from "react-native-vector-icons/Ionicons";
+
 import PaymentStyles from "./PaymentStyles";
 const paymentStyles = StyleSheet.create(PaymentStyles);
 import Stripe from "react-native-stripe-api";
@@ -21,7 +23,7 @@ import axios from "axios";
 
 export default class Payment extends React.Component {
   static navigationOptions = ({ navigation }) => ({
-    title: "PAIEMENT",
+    title: "Paiement",
     headerBackTitle: null
   });
   state = {
@@ -29,11 +31,13 @@ export default class Payment extends React.Component {
     isValidateOrderVisible: true,
     modalVisible: false,
     isPopupVisible: false,
-    number: "",
-    expMonth: "",
-    expYear: "",
-    CVC: "",
-    chosenHour: this.props.navigation.state.params.chosenHour
+    number: "4242424242424242",
+    expMonth: "11",
+    expYear: "21",
+    CVC: "111",
+    chosenHour: this.props.navigation.state.params.chosenHour,
+    titulaire: "",
+    token: null
   };
 
   pay() {
@@ -47,38 +51,31 @@ export default class Payment extends React.Component {
         exp_year: this.state.expYear,
         cvc: this.state.CVC
       })
-      .then(
-        // { token },
-        resp => {
-          console.log("resp", resp);
-          const token = resp;
-          const total = this.props.navigation.state.params.amount;
-          axios
-            .post(
-              "https://foodpacking-serveur.herokuapp.com/api/payment/order",
-              {
-                items: this.props.navigation.state.params.items,
-                token,
-                total,
-                chosenHour: this.state.chosenHour,
-                data: this.props.navigation.state.params.data.data._id,
-                restaurantName: this.props.navigation.state.params
-                  .restaurantName
-              }
-            )
-            .then(function(resp) {
-              console.log(resp);
-              alert("Votre commande a bien été prise en compte");
-            })
-            .catch(function(error) {
-              console.log(error);
-              console.log("axios", token);
-              console.log("axios", total);
-              alert("erreur");
-            });
-          console.log("token", token);
-        }
-      )
+      .then(resp => {
+        const token = resp;
+        const total = this.props.navigation.state.params.amount;
+
+        axios
+          .post("https://foodpacking-serveur.herokuapp.com/api/payment/order", {
+            items: this.props.navigation.state.params.items,
+            token,
+            total,
+            chosenHour: this.state.chosenHour,
+            data: this.props.navigation.state.params.data.data._id,
+            restaurantName: this.props.navigation.state.params.restaurantName
+          })
+          .then(resp => {
+            this.setState({ token: resp.data });
+            alert("Votre commande a bien été prise en compte");
+          })
+          .catch(function(error) {
+            console.log(error);
+            console.log("axios", token);
+            console.log("axios", total);
+            alert("erreur");
+          });
+        console.log("token", token);
+      })
       .catch(err => {
         console.log(err);
       });
@@ -86,20 +83,30 @@ export default class Payment extends React.Component {
 
   render() {
     const { navigate } = this.props.navigation;
-    console.log("chosenHour", this.state.chosenHour);
+    console.log("chosenHour", this.state.token);
     console.log("item", this.props.navigation.state.params.items);
     return [
       <View style={paymentStyles.payment}>
         <View style={[paymentStyles.paymentTitle, paymentStyles.paymentIn]}>
           <Text style={[paymentStyles.footerText, paymentStyles.strong]}>
-            Montant à régler : {this.props.navigation.state.params.amount}€
+            Montant à régler :{" "}
+            {this.props.navigation.state.params.amount.toFixed(2)} €
           </Text>
         </View>
-        <View style={paymentStyles.payment}>
+        <View style={[paymentStyles.payment, paymentStyles.center]}>
+          <Icon name="ios-card" size={100} color="#7FC149" />
+
           <View style={paymentStyles.left}>
-            <Text style={[paymentStyles.strong, paymentStyles.size]}>
-              Numéro de carte :
-            </Text>
+            <TextInput
+              placeholder="Nom du titulaire"
+              style={[
+                paymentStyles.numCard,
+                paymentStyles.paymentIn,
+                paymentStyles.air
+              ]}
+              onChangeText={titulaire => this.setState({ titulaire })}
+              value={this.state.titulaire}
+            />
             <TextInput
               placeholder="N° de carte"
               // value={"4242424242424242"}
@@ -111,43 +118,33 @@ export default class Payment extends React.Component {
               onChangeText={number => this.setState({ number })}
               value={this.state.number}
             />
-            <Text style={[paymentStyles.strong, paymentStyles.size]}>
-              Date d'expiration :
-            </Text>
             <View style={[paymentStyles.row, paymentStyles.paymentIn]}>
               <TextInput
                 placeholder="MM"
                 // value={"09"}
-                style={[paymentStyles.monthCard, paymentStyles.air]}
+                style={[paymentStyles.input, paymentStyles.air]}
                 onChangeText={expMonth => this.setState({ expMonth })}
                 value={this.state.expMonth}
               />
               <TextInput
                 placeholder="AA"
                 // value={"18"}
-                style={[paymentStyles.yearCard, paymentStyles.air]}
+                style={[paymentStyles.input, paymentStyles.air]}
                 onChangeText={expYear => this.setState({ expYear })}
                 value={this.state.expYear}
               />
+              <TextInput
+                placeholder="CVC"
+                // value={"111"}
+                style={[paymentStyles.input, paymentStyles.air]}
+                onChangeText={CVC => this.setState({ CVC })}
+                value={this.state.CVC}
+              />
             </View>
           </View>
-          <Text style={[paymentStyles.strong, paymentStyles.size]}>
-            CVC/CCV
-          </Text>
-          <TextInput
-            placeholder="CVC/CCV"
-            // value={"111"}
-            style={[
-              paymentStyles.ccvCard,
-              paymentStyles.paymentIn,
-              paymentStyles.air
-            ]}
-            onChangeText={CVC => this.setState({ CVC })}
-            value={this.state.CVC}
-          />
         </View>
       </View>,
-      <View style={paymentStyles.footerIn}>
+      <View>
         <TouchableOpacity
           style={paymentStyles.footerButton}
           onPress={() => {
@@ -160,7 +157,8 @@ export default class Payment extends React.Component {
               amount: this.props.navigation.state.params.amount,
               arrChoose: this.props.navigation.state.params.arrChoose,
               items: this.props.navigation.state.params.items,
-              data: this.props.navigation.state.params.data
+              data: this.props.navigation.state.params.data,
+              timeOrder: this.state.token
             });
           }}
         >
