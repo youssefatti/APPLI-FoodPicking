@@ -18,6 +18,9 @@ import AppStyle from "./SyleConfirmation";
 const styles = StyleSheet.create(AppStyle);
 import Stripe from "react-native-stripe-api";
 import axios from "axios";
+import Moment from "react-moment";
+import "moment-timezone";
+import moment from "moment";
 
 /* const styles = StyleSheet.create(AppStyle); */
 export default class Cart extends React.Component {
@@ -37,6 +40,22 @@ export default class Cart extends React.Component {
 
   render() {
     const arrCart = [];
+    const date = new Date();
+    const timestamp = moment(
+      date.getFullYear() +
+        "-0" +
+        parseInt(date.getMonth() + 1) +
+        "-" +
+        date.getDate() +
+        "T" +
+        this.props.navigation.state.params.chosenHour
+    ).unix();
+    // console.log("time", timestamp);
+    const time = moment(this.props.navigation.state.params.hour).unix();
+    const diff = timestamp - time;
+    // console.log("arrch", time);
+    // console.log("tok", this.props.navigation.state.params.chosenHour);
+
     for (let i = 0; i < this.props.navigation.state.params.items.length; i++) {
       arrCart.push(
         <Text>
@@ -49,8 +68,8 @@ export default class Cart extends React.Component {
         </Text>
       );
     }
-    console.log("items", this.props.navigation.state.params.items);
-    console.log("heure conf", this.props.navigation.state.params.chosenHour);
+    // console.log("items", this.props.navigation.state.params.items);
+    // console.log("heure conf", this.props.navigation.state.params.chosenHour);
     const { navigate } = this.props.navigation;
     return [
       <View style={{ flex: 1, alignItems: "center", backgroundColor: "white" }}>
@@ -91,21 +110,20 @@ export default class Cart extends React.Component {
         <Text style={{ marginTop: 30, fontWeight: "bold", fontSize: 15 }}>
           Vous pouvez récupérer la commande dans :
         </Text>
-        <Text
-          style={{
-            borderWidth: 1,
-            paddingLeft: 30,
-            paddingRight: 30,
-            paddingTop: 5,
-            paddingBottom: 5,
 
-            marginTop: 50,
-            fontWeight: "bold",
-            fontSize: 30
+        <CountDown
+          style={{
+            marginTop: 50
           }}
-        >
-          {this.props.navigation.state.params.chosenHour}
-        </Text>
+          timeToShow={diff < 3600 ? ["M", "S"] : ["H", "M", "S"]}
+          digitBgColor={"#7FC149"}
+          digitTxtColor={"white"}
+          until={diff}
+          onFinish={() => alert("C'est Prêt!")}
+          onPress={() => alert("Patientez, c'est bientôt prêt!")}
+          size={30}
+        />
+
         {/* <TouchableOpacity onPress={() => navigate("")}>
           <Text>back</Text>
         </TouchableOpacity> */}

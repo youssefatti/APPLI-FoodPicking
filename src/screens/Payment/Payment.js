@@ -29,11 +29,12 @@ export default class Payment extends React.Component {
     isValidateOrderVisible: true,
     modalVisible: false,
     isPopupVisible: false,
-    number: "",
-    expMonth: "",
-    expYear: "",
-    CVC: "",
-    chosenHour: this.props.navigation.state.params.chosenHour
+    number: "4242424242424242",
+    expMonth: "11",
+    expYear: "21",
+    CVC: "111",
+    chosenHour: this.props.navigation.state.params.chosenHour,
+    token: null
   };
 
   pay() {
@@ -47,38 +48,31 @@ export default class Payment extends React.Component {
         exp_year: this.state.expYear,
         cvc: this.state.CVC
       })
-      .then(
-        // { token },
-        resp => {
-          console.log("resp", resp);
-          const token = resp;
-          const total = this.props.navigation.state.params.amount;
-          axios
-            .post(
-              "https://foodpacking-serveur.herokuapp.com/api/payment/order",
-              {
-                items: this.props.navigation.state.params.items,
-                token,
-                total,
-                chosenHour: this.state.chosenHour,
-                data: this.props.navigation.state.params.data.data._id,
-                restaurantName: this.props.navigation.state.params
-                  .restaurantName
-              }
-            )
-            .then(function(resp) {
-              console.log(resp);
-              alert("Votre commande a bien été prise en compte");
-            })
-            .catch(function(error) {
-              console.log(error);
-              console.log("axios", token);
-              console.log("axios", total);
-              alert("erreur");
-            });
-          console.log("token", token);
-        }
-      )
+      .then(resp => {
+        const token = resp;
+        const total = this.props.navigation.state.params.amount;
+
+        axios
+          .post("https://foodpacking-serveur.herokuapp.com/api/payment/order", {
+            items: this.props.navigation.state.params.items,
+            token,
+            total,
+            chosenHour: this.state.chosenHour,
+            data: this.props.navigation.state.params.data.data._id,
+            restaurantName: this.props.navigation.state.params.restaurantName
+          })
+          .then(resp => {
+            this.setState({ token: resp.data });
+            alert("Votre commande a bien été prise en compte");
+          })
+          .catch(function(error) {
+            console.log(error);
+            console.log("axios", token);
+            console.log("axios", total);
+            alert("erreur");
+          });
+        console.log("token", token);
+      })
       .catch(err => {
         console.log(err);
       });
@@ -86,7 +80,7 @@ export default class Payment extends React.Component {
 
   render() {
     const { navigate } = this.props.navigation;
-    console.log("chosenHour", this.state.chosenHour);
+    console.log("chosenHour", this.state.token);
     console.log("item", this.props.navigation.state.params.items);
     return [
       <View style={paymentStyles.payment}>
@@ -160,7 +154,8 @@ export default class Payment extends React.Component {
               amount: this.props.navigation.state.params.amount,
               arrChoose: this.props.navigation.state.params.arrChoose,
               items: this.props.navigation.state.params.items,
-              data: this.props.navigation.state.params.data
+              data: this.props.navigation.state.params.data,
+              timeOrder: this.state.token
             });
           }}
         >
