@@ -1,31 +1,33 @@
 const styles = {
   UserNav: {
+    backgroundColor: "white",
     height: 40,
     flexDirection: "row",
-    justifyContent: "space-around"
+    justifyContent: "space-around",
+    borderTopWidth: 1,
+    borderColor: "#DDDFE3"
   },
   orders: {
-    marginTop: 10,
+    marginTop: 20,
     marginBottom: 10,
     marginLeft: 10,
     fontWeight: "bold",
     fontSize: 17
   },
   historic: {
-    width: "98%",
-    height: 60,
-    borderWidth: 1,
-    borderColor: "#9B9B9B",
+    width: "95%",
+    height: 70,
     flex: 1,
-    justifyContent: "center",
-    marginBottom: 5,
-    backgroundColor: "white"
+    marginBottom: 10,
+    backgroundColor: "#F4F4F4"
   },
   namePrice: {
+    marginTop: 10,
+
     flexDirection: "row",
     justifyContent: "space-between",
-    marginLeft: 6,
-    marginRight: 6
+    marginLeft: 10,
+    marginRight: 10
   },
   container: {
     alignItems: "center"
@@ -35,8 +37,8 @@ const styles = {
     fontWeight: "bold"
   },
   numberOrder: {
-    marginLeft: 6,
-    marginTop: 4
+    marginLeft: 10,
+    marginTop: 10
   }
 };
 export default styles;
