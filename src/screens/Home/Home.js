@@ -174,13 +174,8 @@ export default class Home extends React.PureComponent {
               {pickers}
             </Picker>
           </View>
-          <View
-            style={{
-              flex: 2,
+      
 
-              justifyContent: "space-around"
-            }}
-          >
             <TouchableOpacity
               style={commonStyles.button}
               onPress={() =>
@@ -196,7 +191,8 @@ export default class Home extends React.PureComponent {
             >
               <Text style={commonStyles.textButton}>C'est Parti !</Text>
             </TouchableOpacity>
-          </View>
+          
+
         </View>
       </View>
     );

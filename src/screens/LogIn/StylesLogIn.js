@@ -8,23 +8,25 @@ export const styles = StyleSheet.create({
     //padding: 10
   },
   inputText: {
-    flex: 1,
+    //flex: 1,
     borderColor: "white",
     borderBottomWidth: 1,
     fontSize: 20,
+    lineHeight: 30,
     fontWeight: "bold",
-    marginTop: 10,
+    //marginTop: 10,
     paddingLeft: 20,
+    height: 50,
     width: "100%",
     //height: 50,
     color: "white"
   },
   SingUpLoginContain: {
     flex: 1,
-    justifyContent: "space-around",
+    justifyContent: "space-around"
     //backgroundColor: "white",
-    paddingLeft: 10,
-    paddingRight: 10
+    // paddingLeft: 10,
+    // paddingRight: 10
   },
   toggleTouchLogin: {
     //flex: 1,
