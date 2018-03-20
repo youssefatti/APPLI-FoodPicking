@@ -13,6 +13,8 @@ import {
 import AppStyle from "../../../AppStyle";
 const styles = StyleSheet.create(AppStyle);
 
+import Icon from "react-native-vector-icons/Ionicons";
+
 import PaymentStyles from "./PaymentStyles";
 const paymentStyles = StyleSheet.create(PaymentStyles);
 import Stripe from "react-native-stripe-api";
@@ -33,6 +35,7 @@ export default class Payment extends React.Component {
     expMonth: "",
     expYear: "",
     CVC: "",
+    titulaire: "",
     chosenHour: this.props.navigation.state.params.chosenHour
   };
 
@@ -92,14 +95,24 @@ export default class Payment extends React.Component {
       <View style={paymentStyles.payment}>
         <View style={[paymentStyles.paymentTitle, paymentStyles.paymentIn]}>
           <Text style={[paymentStyles.footerText, paymentStyles.strong]}>
-            Montant à régler : {this.props.navigation.state.params.amount}€
+            Montant à régler :{" "}
+            {this.props.navigation.state.params.amount.toFixed(2)} €
           </Text>
         </View>
         <View style={[paymentStyles.payment, paymentStyles.center]}>
+          <Icon name="ios-card" size={100} color="#7FC149" />
+
           <View style={paymentStyles.left}>
-            <Text style={[paymentStyles.strong, paymentStyles.size]}>
-              Numéro de carte :
-            </Text>
+            <TextInput
+              placeholder="Nom du titulaire"
+              style={[
+                paymentStyles.numCard,
+                paymentStyles.paymentIn,
+                paymentStyles.air
+              ]}
+              onChangeText={titulaire => this.setState({ titulaire })}
+              value={this.state.titulaire}
+            />
             <TextInput
               placeholder="N° de carte"
               // value={"4242424242424242"}
@@ -111,43 +124,33 @@ export default class Payment extends React.Component {
               onChangeText={number => this.setState({ number })}
               value={this.state.number}
             />
-            <Text style={[paymentStyles.strong, paymentStyles.size]}>
-              Date d'expiration :
-            </Text>
             <View style={[paymentStyles.row, paymentStyles.paymentIn]}>
               <TextInput
                 placeholder="MM"
                 // value={"09"}
-                style={[paymentStyles.monthCard, paymentStyles.air]}
+                style={[paymentStyles.input, paymentStyles.air]}
                 onChangeText={expMonth => this.setState({ expMonth })}
                 value={this.state.expMonth}
               />
               <TextInput
                 placeholder="AA"
                 // value={"18"}
-                style={[paymentStyles.yearCard, paymentStyles.air]}
+                style={[paymentStyles.input, paymentStyles.air]}
                 onChangeText={expYear => this.setState({ expYear })}
                 value={this.state.expYear}
               />
+              <TextInput
+                placeholder="CVC"
+                // value={"111"}
+                style={[paymentStyles.input, paymentStyles.air]}
+                onChangeText={CVC => this.setState({ CVC })}
+                value={this.state.CVC}
+              />
             </View>
           </View>
-          <Text style={[paymentStyles.strong, paymentStyles.size]}>
-            CVC/CCV
-          </Text>
-          <TextInput
-            placeholder="CVC/CCV"
-            // value={"111"}
-            style={[
-              paymentStyles.ccvCard,
-              paymentStyles.paymentIn,
-              paymentStyles.air
-            ]}
-            onChangeText={CVC => this.setState({ CVC })}
-            value={this.state.CVC}
-          />
         </View>
       </View>,
-      <View style={paymentStyles.footerIn}>
+      <View>
         <TouchableOpacity
           style={paymentStyles.footerButton}
           onPress={() => {

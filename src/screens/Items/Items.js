@@ -49,7 +49,7 @@ export default class Items extends React.Component {
                 </Text>
               ) : null}
               <Text style={[styles.strong, itemsStyles.green, itemsStyles.end]}>
-                {this.props.idItem[i].price}
+                {this.props.idItem[i].raw_price.toFixed(2)} €
               </Text>
             </View>
           </TouchableOpacity>

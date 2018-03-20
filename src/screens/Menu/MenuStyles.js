@@ -15,7 +15,7 @@ const menuStyles = {
   },
   footerButton: {
     backgroundColor: "#7FC149",
-    height: 80,
+    height: 50,
     justifyContent: "center",
     alignItems: "center"
   },
@@ -58,13 +58,14 @@ const menuStyles = {
     paddingLeft: 10,
     paddingRight: 10
   },
-  titleItem: { width: 200 },
+  titleItem: { width: 190 },
   totalCart: {
     flexDirection: "row",
     borderTopWidth: 1,
     paddingBottom: 3,
     paddingTop: 3,
-    marginBottom: 100
+    marginBottom: 60,
+    justifyContent: "space-between"
   },
   inCart: {
     flexDirection: "row",
@@ -78,6 +79,17 @@ const menuStyles = {
     fontWeight: "bold",
     marginTop: 10,
     marginBottom: 10
+  },
+  end: {
+    flex: 1
+  },
+  textEnd: {
+    textAlign: "right"
+  },
+  icon: {
+    width: 60,
+    flexDirection: "row",
+    justifyContent: "space-between"
   }
 };
 

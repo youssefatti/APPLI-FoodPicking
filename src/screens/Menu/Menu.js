@@ -221,52 +221,46 @@ export default class Menu extends React.Component {
                   </TouchableOpacity>
                   <View style={menuStyles.cartTitle}>
                     {" "}
-                    <Icon name="ios-cart-outline" size={40} color="#7FC149" />
+                    <Icon name="ios-cart-outline" size={80} color="#7FC149" />
                   </View>
-                  {/* <View style={menuStyles.cartTitle}>
-                    <Text style={menuStyles.titleCategory}>
-                      Mon Panier
-                    </Text>
-                  </View> */}
                 </View>
-
-                <Text />
                 <FlatList
                   keyExtractor={this._keyExtractor}
                   data={this.state.items}
                   renderItem={({ item }) => (
                     <View style={menuStyles.inCart}>
-                      <Text style={menuStyles.titleItem}>
+                      <Text style={[menuStyles.titleItem, menuStyles.text]}>
                         {item.quantity} x {item.name}{" "}
                       </Text>
-                      <Icon
-                        style={menuStyles.scrollCart}
-                        name="ios-remove-circle"
-                        size={32}
-                        color="#7FC149"
-                        onPress={() => {
-                          this.removeItem(item);
-                        }}
-                      />
+                      <View style={menuStyles.icon}>
+                        <Icon
+                          name="ios-remove-circle"
+                          size={32}
+                          color="#7FC149"
+                          onPress={() => {
+                            this.removeItem(item);
+                          }}
+                        />
 
-                      <Icon
-                        style={menuStyles.scrollCart}
-                        name="ios-add-circle"
-                        size={32}
-                        color="#7FC149"
-                        onPress={() => this.addItem(item)}
-                      />
-
-                      <Text>
-                        {(item.quantity * item.raw_price).toFixed(2)} €
-                      </Text>
+                        <Icon
+                          name="ios-add-circle"
+                          size={32}
+                          color="#7FC149"
+                          onPress={() => this.addItem(item)}
+                        />
+                      </View>
+                      <View style={menuStyles.end}>
+                        <Text style={[menuStyles.textEnd, menuStyles.text]}>
+                          {(item.quantity * item.raw_price).toFixed(2)} €
+                        </Text>
+                      </View>
                     </View>
                   )}
                 />
                 <View style={menuStyles.totalCart}>
                   <Text style={menuStyles.titleCategory}>Total</Text>
 
-                  <Text style={menuStyles.titleCategory}>
+                  <Text style={[menuStyles.titleCategory, menuStyles.text]}>
                     {parseFloat(this.state.cart).toFixed(2)} €
                   </Text>
                 </View>
