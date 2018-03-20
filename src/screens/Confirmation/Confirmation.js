@@ -9,14 +9,16 @@ import {
   Button,
   Modal,
   TouchableHighlight,
-  TextInput
+  TextInput,
+  Time
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
-
+import CountDown from "react-native-countdown-component";
 import AppStyle from "./SyleConfirmation";
 const styles = StyleSheet.create(AppStyle);
 import Stripe from "react-native-stripe-api";
 import axios from "axios";
+
 /* const styles = StyleSheet.create(AppStyle); */
 export default class Cart extends React.Component {
   static navigationOptions = {
@@ -60,9 +62,9 @@ export default class Cart extends React.Component {
             marginBottom: 15
           }}
         >
-          Votre commande est confirmée.
+          Votre commande est confirmée
         </Text>
-        <Text>N° de Commande : </Text>
+        <Text>Faites Scanner ce code pour récupérer la commande</Text>
         <Image
           style={{ width: 200, height: 200 }}
           source={{
@@ -70,7 +72,7 @@ export default class Cart extends React.Component {
               "https://camo.githubusercontent.com/c79f9b11d3b822c9648fd8e0fc9a646c8ac23f0b/68747470733a2f2f7261772e6769746875622e636f6d2f6d65746566696368612f6469616772616d732d7172636f64652f6d61737465722f6578616d706c65732f7172636f64652e706e67"
           }}
         />
-        <View
+        {/* <View
           style={{
             borderWidth: 2,
             flexDirection: "row",
@@ -84,7 +86,8 @@ export default class Cart extends React.Component {
             {" "}
             {this.props.navigation.state.params.amount.toFixed(2)}
           </Text>
-        </View>
+        </View> */}
+
         <Text style={{ marginTop: 30, fontWeight: "bold", fontSize: 15 }}>
           Vous pouvez récupérer la commande dans :
         </Text>
@@ -120,7 +123,7 @@ export default class Cart extends React.Component {
             })
           }
         >
-          <Icon name="ios-restaurant" size={40} color="#2A4D49" />
+          <Icon name="ios-restaurant" size={40} color="#FFEB60" />
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() =>
@@ -134,7 +137,7 @@ export default class Cart extends React.Component {
             })
           }
         >
-          <Icon name="ios-heart" size={40} color="#2A4D49" />
+          <Icon name="ios-heart" size={40} color="#FFEB60" />
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() =>
@@ -148,7 +151,21 @@ export default class Cart extends React.Component {
             })
           }
         >
-          <Icon name="ios-contact" size={40} color="#2A4D49" />
+          <Icon name="ios-list-outline" size={40} color="#FFEB60" />
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() =>
+            navigate("Account", {
+              name: "Account",
+              geoloc: this.props.navigation.state.params.geoloc,
+              hour: this.props.navigation.state.params.hour,
+              pick: this.props.navigation.state.params.pick,
+              arrChoose: this.props.navigation.state.params.arrChoose,
+              data: this.props.navigation.state.params.data
+            })
+          }
+        >
+          <Icon name="ios-person" size={40} color="#FFEB60" />
         </TouchableOpacity>
       </View>
       // <View>
@@ -174,7 +191,7 @@ export default class Cart extends React.Component {
       //     {/* <Text
       //       style={{
       //         position: "absolute",
-      //         color: "white",
+      //         color: "#5C4CD0",
       //         fontWeight: "bold",
       //         fontSize: 40
       //       }}
