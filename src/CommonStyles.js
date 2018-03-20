@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 export const commonStyles = StyleSheet.create({
   textButton: {
-    color: "rgb(50,75,72)",
+    color: "#7FC149",
     width: "100%",
     fontWeight: "bold",
     fontSize: 20,
