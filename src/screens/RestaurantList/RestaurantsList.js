@@ -8,7 +8,8 @@ import {
   TouchableOpacity,
   Dimensions,
   ActivityIndicator,
-  View
+  View,
+  StatusBar
 } from "react-native";
 
 import axios from "axios";
@@ -31,7 +32,7 @@ export default class Restaurants extends React.PureComponent {
       backgroundColor: "white",
       borderBottomWidth: 0
     },
-    headerTintColor: "black",
+    headerTintColor: "#7FC149",
     title:
       typeof navigation.state.params === "undefined" ||
       typeof navigation.state.params.title === "undefined"
@@ -143,6 +144,7 @@ export default class Restaurants extends React.PureComponent {
     for (let i = 0; i < this.state.restaurants.length; i++) {
       arrResto.push(
         <View key={i} style={StyleRestaurant.container}>
+          <StatusBar barStyle="dark-content" />
           <TouchableOpacity
             onPress={() =>
               // passage du nom, id et lien à la page Menu
@@ -194,20 +196,13 @@ export default class Restaurants extends React.PureComponent {
           ) : (
             <ActivityIndicator
               size="large"
-              color="#2A4D49"
+              color="#7FC149"
               style={{ alignSelf: "center", flex: 1 }}
             />
           )}
         </View>
       </ScrollView>,
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-around"
-          // paddingLeft: 10,
-          // paddingRight: 10
-        }}
-      >
+      <View style={StyleRestaurant.UserNav}>
         <TouchableOpacity
           onPress={() =>
             navigate("Restaurants", {
@@ -220,21 +215,7 @@ export default class Restaurants extends React.PureComponent {
             })
           }
         >
-          <Icon name="ios-restaurant" size={40} color="#2A4D49" />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() =>
-            navigate("Favorites", {
-              name: "Favorites",
-              geoloc: this.props.navigation.state.params.geoloc,
-              hour: this.props.navigation.state.params.hour,
-              pick: this.props.navigation.state.params.pick,
-              arrChoose: this.props.navigation.state.params.arrChoose,
-              data: this.props.navigation.state.params.data
-            })
-          }
-        >
-          <Icon name="ios-heart" size={40} color="#2A4D49" />
+          <Icon name="ios-restaurant" size={40} color="#7FC149" />
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() =>
@@ -248,7 +229,35 @@ export default class Restaurants extends React.PureComponent {
             })
           }
         >
-          <Icon name="ios-contact" size={40} color="#2A4D49" />
+          <Icon name="ios-heart" size={40} color="#7FC149" />
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() =>
+            navigate("Account", {
+              name: "Account",
+              geoloc: this.props.navigation.state.params.geoloc,
+              hour: this.props.navigation.state.params.hour,
+              pick: this.props.navigation.state.params.pick,
+              arrChoose: this.props.navigation.state.params.arrChoose,
+              data: this.props.navigation.state.params.data
+            })
+          }
+        >
+          <Icon name="ios-list-box" size={40} color="#7FC149" />
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() =>
+            navigate("Account", {
+              name: "Account",
+              geoloc: this.props.navigation.state.params.geoloc,
+              hour: this.props.navigation.state.params.hour,
+              pick: this.props.navigation.state.params.pick,
+              arrChoose: this.props.navigation.state.params.arrChoose,
+              data: this.props.navigation.state.params.data
+            })
+          }
+        >
+          <Icon name="ios-person" size={40} color="#7FC149" />
         </TouchableOpacity>
       </View>
     ];
