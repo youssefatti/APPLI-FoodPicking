@@ -15,6 +15,7 @@ import {
 
 import { stylesHome } from "./StylesHome";
 import { commonStyles } from "../../../src/CommonStyles";
+import Icon from "react-native-vector-icons/Ionicons";
 
 // import AppStyle from "../../../AppStyle";
 // const styles = StyleSheet.create(AppStyle);
@@ -123,10 +124,12 @@ export default class Home extends React.PureComponent {
         <View
           style={{
             flex: 1,
-            justifyContent: "center"
+            justifyContent: "center",
+            alignItems: "center"
           }}
         >
-          <Text style={commonStyles.foodPicking}>Food Picking</Text>
+          <Icon name="ios-time" size={100} color="#fff" />
+          {/* <Text style={commonStyles.foodPicking}>Food Picking</Text> */}
         </View>
 
         {this.state.error ? (
@@ -174,25 +177,22 @@ export default class Home extends React.PureComponent {
               {pickers}
             </Picker>
           </View>
-      
 
-            <TouchableOpacity
-              style={commonStyles.button}
-              onPress={() =>
-                navigate("Restaurants", {
-                  name: "Restaurant",
-                  geoloc: this.state.geoloc,
-                  hour: this.state.hour,
-                  pick: pickers[0].props.value,
-                  arrChoose: arrChoose,
-                  data: this.props.navigation.state.params.data
-                })
-              }
-            >
-              <Text style={commonStyles.textButton}>C'est Parti !</Text>
-            </TouchableOpacity>
-          
-
+          <TouchableOpacity
+            style={commonStyles.button}
+            onPress={() =>
+              navigate("Restaurants", {
+                name: "Restaurant",
+                geoloc: this.state.geoloc,
+                hour: this.state.hour,
+                pick: pickers[0].props.value,
+                arrChoose: arrChoose,
+                data: this.props.navigation.state.params.data
+              })
+            }
+          >
+            <Text style={commonStyles.textButton}>C'est Parti !</Text>
+          </TouchableOpacity>
         </View>
       </View>
     );

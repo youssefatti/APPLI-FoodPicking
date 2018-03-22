@@ -9,12 +9,15 @@ import {
   Image,
   Button,
   Dimensions,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  StatusBar
 } from "react-native";
 
 import { styles } from "./StylesLogIn";
 import { commonStyles } from "../../../src/CommonStyles";
 import axios from "axios";
+
+import LinearGradient from "react-native-linear-gradient";
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
@@ -103,7 +106,12 @@ export default class LogIn extends React.PureComponent {
     const { navigate } = this.props.navigation;
     return (
       <View style={styles.SingUpLoginContain}>
-        <View style={{ flex: 1, justifyContent: "space-around" }}>
+        <View
+          style={{
+            flex: 1,
+            alignItems: "center"
+          }}
+        >
           {!this.state.showLogin ? (
             <TextInput
               style={styles.inputText}
@@ -137,10 +145,14 @@ export default class LogIn extends React.PureComponent {
             />
           ) : null}
         </View>
-        <View style={{ justifyContent: "flex-end" }} />
+        <View
+          style={{
+            justifyContent: "flex-end"
+          }}
+        />
         {!this.state.showLogin ? (
           <TouchableOpacity
-            style={commonStyles.button}
+            style={commonStyles.buttonBis}
             onPress={() => {
               if (this.state.password === this.state.passwordConfirmation) {
                 this.signUpUser(
@@ -162,11 +174,11 @@ export default class LogIn extends React.PureComponent {
             }}
             data={this.state.data}
           >
-            <Text style={commonStyles.textButton}>Créer un compte</Text>
+            <Text style={commonStyles.textButtonBis}>Créer un compte</Text>
           </TouchableOpacity>
         ) : (
           <TouchableOpacity
-            style={commonStyles.button}
+            style={commonStyles.buttonBis}
             onPress={() => {
               this.logInUser(this.state.email, this.state.password, data => {
                 this.setState({ data });
@@ -179,7 +191,7 @@ export default class LogIn extends React.PureComponent {
             }}
             data={this.state.data}
           >
-            <Text style={commonStyles.textButton}>Se connecter</Text>
+            <Text style={commonStyles.textButtonBis}>Se connecter</Text>
           </TouchableOpacity>
         )}
       </View>
@@ -191,6 +203,7 @@ export default class LogIn extends React.PureComponent {
     const { navigate } = this.props.navigation;
     return (
       <KeyboardAvoidingView style={styles.container} behavior="padding">
+        <StatusBar barStyle="light-content" />
         <ImageBackground
           style={{
             flex: 1,
@@ -199,75 +212,80 @@ export default class LogIn extends React.PureComponent {
           }}
           source={require("../../../Images/backgroundPhoto.jpeg")}
         >
-          <View
-            style={{
-              flex: 1,
-              justifyContent: "center"
-            }}
-          >
-            <Text style={commonStyles.foodPicking}>Food Picking</Text>
-          </View>
-
-          <View
-            style={{
-              flex: 1,
-              justifyContent: "space-around"
-            }}
-          >
-            <View style={styles.signUpLoginView}>
-              <TouchableOpacity
-                style={
-                  !this.state.showLogin
-                    ? styles.toggleTouchLogin
-                    : styles.toggleTouchSignUp
-                }
-                disabled={this.state.showLogin}
-                onPress={() => {
-                  this.toggleLoginSignUp();
-                }}
-              >
-                <Text
-                  style={
-                    this.state.showLogin
-                      ? styles.toggleTextLogin
-                      : styles.toggleTextSignUp
-                  }
-                >
-                  Se connecter
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={
-                  !this.state.showLogin
-                    ? styles.toggleTouchSignUp
-                    : styles.toggleTouchLogin
-                }
-                disabled={this.state.showSignUp}
-                onPress={() => {
-                  this.toggleLoginSignUp();
-                }}
-              >
-                <Text
-                  style={
-                    this.state.showLogin
-                      ? styles.toggleTextSignUp
-                      : styles.toggleTextLogin
-                  }
-                >
-                  Créer un compte
-                </Text>
-              </TouchableOpacity>
+          <LinearGradient colors={["#000000", "#a6000000"]} style={{ flex: 1 }}>
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "center"
+              }}
+            >
+              <Text style={commonStyles.foodPicking}>Food Picking</Text>
             </View>
 
             <View
               style={{
-                flex: 1,
+                flex: 2,
                 justifyContent: "space-around"
               }}
             >
-              {this._renderToggleLoginSignUp()}
+              <View style={styles.signUpLoginView}>
+                <View style={styles.signUpLoginViewFirst}>
+                  <View style={styles.signUpLoginViewIn}>
+                    <TouchableOpacity
+                      style={
+                        !this.state.showLogin
+                          ? styles.toggleTouchLogin
+                          : styles.toggleTouchSignUp
+                      }
+                      disabled={this.state.showLogin}
+                      onPress={() => {
+                        this.toggleLoginSignUp();
+                      }}
+                    >
+                      <Text
+                        style={
+                          this.state.showLogin
+                            ? styles.toggleTextLogin
+                            : styles.toggleTextSignUp
+                        }
+                      >
+                        Se connecter
+                      </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={
+                        !this.state.showLogin
+                          ? styles.toggleTouchSignUp
+                          : styles.toggleTouchLogin
+                      }
+                      disabled={this.state.showSignUp}
+                      onPress={() => {
+                        this.toggleLoginSignUp();
+                      }}
+                    >
+                      <Text
+                        style={
+                          this.state.showLogin
+                            ? styles.toggleTextSignUp
+                            : styles.toggleTextLogin
+                        }
+                      >
+                        Créer un compte
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+                <View
+                  style={{
+                    flex: 1,
+                    justifyContent: "space-around"
+                  }}
+                >
+                  {this._renderToggleLoginSignUp()}
+                </View>
+              </View>
             </View>
-          </View>
+          </LinearGradient>
         </ImageBackground>
       </KeyboardAvoidingView>
     );

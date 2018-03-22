@@ -15,7 +15,8 @@ const paymentStyles = {
   payment: {
     width: "100%",
     alignItems: "center",
-    flex: 1
+    flex: 1,
+    backgroundColor: "#fff"
   },
   paymentIn: {
     marginBottom: 30

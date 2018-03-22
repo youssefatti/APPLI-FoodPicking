@@ -9,17 +9,15 @@ export const styles = StyleSheet.create({
   },
   inputText: {
     //flex: 1,
-    borderColor: "white",
+    borderBottomColor: "white",
     borderBottomWidth: 1,
     fontSize: 20,
     lineHeight: 30,
-    fontWeight: "bold",
-    //marginTop: 10,
     paddingLeft: 20,
     height: 50,
-    width: "100%",
-    //height: 50,
-    color: "white"
+    width: "90%",
+    color: "white",
+    marginTop: 30
   },
   SingUpLoginContain: {
     flex: 1,
@@ -45,17 +43,27 @@ export const styles = StyleSheet.create({
   toggleTextSignUp: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "grey"
+    color: "#7FC149"
   },
   toggleTextLogin: {
     fontSize: 20,
     fontWeight: "bold",
     color: "white"
   },
-  signUpLoginView: {
+  signUpLoginViewIn: {
     //flex: 1,
     flexDirection: "row",
-    justifyContent: "space-around"
+    justifyContent: "space-between",
+    width: "90%"
     //height: 50
+  },
+  signUpLoginViewFirst: {
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  signUpLoginView: {
+    flex: 1,
+    justifyContent: "center"
   }
 });

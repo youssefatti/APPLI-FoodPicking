@@ -159,8 +159,8 @@ export default class Cart extends React.Component {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() =>
-            navigate("Favorites", {
-              name: "Favorites",
+            navigate("Account", {
+              name: "Account",
               geoloc: this.props.navigation.state.params.geoloc,
               hour: this.props.navigation.state.params.hour,
               pick: this.props.navigation.state.params.pick,

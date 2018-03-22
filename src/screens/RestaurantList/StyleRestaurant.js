@@ -6,12 +6,12 @@ export const StyleRestaurant = StyleSheet.create({
   },
   textAvis: {
     fontSize: 14,
-    color: "#2A4D49",
+    color: "#7FC149",
     fontWeight: "bold",
     textAlign: "center"
   },
   restaurantName: {
-    fontSize: 17,
+    fontSize: 16,
     fontWeight: "bold"
   },
   restaurantNameView: {
@@ -26,5 +26,13 @@ export const StyleRestaurant = StyleSheet.create({
     width: 90,
     height: 30,
     justifyContent: "center"
+  },
+  UserNav: {
+    backgroundColor: "white",
+    height: 40,
+    flexDirection: "row",
+    justifyContent: "space-around",
+    borderTopWidth: 1,
+    borderColor: "#DDDFE3"
   }
 });
