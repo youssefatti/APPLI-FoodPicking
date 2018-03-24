@@ -8,7 +8,8 @@ const menuStyles = {
     textAlign: "justify",
     fontSize: 16,
     marginBottom: 20,
-    marginTop: 10
+    marginTop: 10,
+    fontFamily: "Lato-Regular"
   },
   strong: {
     fontWeight: "bold"
@@ -21,7 +22,8 @@ const menuStyles = {
   },
   footerText: {
     color: "#fff",
-    fontSize: 20
+    fontSize: 20,
+    fontFamily: "Lato-Regular"
   },
   header: {
     flexDirection: "row-reverse",
@@ -52,7 +54,8 @@ const menuStyles = {
     width: 50
   },
   size: {
-    fontSize: 20
+    fontSize: 20,
+    fontFamily: "Lato-Regular"
   },
   scrollCart: {
     paddingLeft: 10,
@@ -78,7 +81,8 @@ const menuStyles = {
     fontSize: 16,
     fontWeight: "bold",
     marginTop: 10,
-    marginBottom: 10
+    marginBottom: 10,
+    fontFamily: "Lato-Bold"
   },
   end: {
     flex: 1
