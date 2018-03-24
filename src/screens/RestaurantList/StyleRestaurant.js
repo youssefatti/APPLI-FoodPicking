@@ -7,12 +7,12 @@ export const StyleRestaurant = StyleSheet.create({
   textAvis: {
     fontSize: 14,
     color: "#7FC149",
-    fontWeight: "bold",
-    textAlign: "center"
+    textAlign: "center",
+    fontFamily: "Lato-Bold"
   },
   restaurantName: {
     fontSize: 16,
-    fontWeight: "bold"
+    fontFamily: "Lato-Bold"
   },
   restaurantNameView: {
     flexDirection: "row",

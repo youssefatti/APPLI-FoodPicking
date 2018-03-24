@@ -4,9 +4,9 @@ export const commonStyles = StyleSheet.create({
   textButton: {
     color: "#7FC149",
     width: "100%",
-    fontWeight: "bold",
     fontSize: 20,
-    textAlign: "center"
+    textAlign: "center",
+    fontFamily: "Lato-Bold"
   },
   button: {
     //flex: 1,
@@ -20,9 +20,9 @@ export const commonStyles = StyleSheet.create({
   textButtonBis: {
     color: "#fff",
     width: "100%",
-    fontWeight: "bold",
     fontSize: 20,
-    textAlign: "center"
+    textAlign: "center",
+    fontFamily: "Lato-Bold"
   },
   buttonBis: {
     //flex: 1,
@@ -35,8 +35,8 @@ export const commonStyles = StyleSheet.create({
   },
   foodPicking: {
     fontSize: 40,
-    fontWeight: "bold",
     textAlign: "center",
-    color: "white"
+    color: "#7FC149",
+    fontFamily: "Lato-Bold"
   }
 });

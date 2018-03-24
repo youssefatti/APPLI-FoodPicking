@@ -34,7 +34,7 @@ const styles = {
   },
   twenty: {
     fontSize: 15,
-    fontWeight: "bold"
+    fontFamily: "Lato-Bold"
   },
   numberOrder: {
     marginLeft: 10,

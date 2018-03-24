@@ -80,9 +80,9 @@ export default class Cart extends React.Component {
           style={{
             marginTop: 20,
             fontSize: 20,
-            fontWeight: "bold",
             marginBottom: 15,
-            color: "black"
+            color: "black",
+            fontFamily: "Lato-Bold"
           }}
         >
           Votre commande est confirmée
@@ -117,7 +117,7 @@ export default class Cart extends React.Component {
         <View style={{ flex: 1 }}>
           <Text
             style={{
-              fontWeight: "bold",
+              fontFamily: "Lato-Bold",
               fontSize: 15,
               color: "#4A4A4A"
             }}

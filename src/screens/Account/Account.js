@@ -70,7 +70,7 @@ export default class Account extends React.Component {
                       style={
                         (styles.twenty,
                         {
-                          fontWeight: "bold",
+                          fontFamily: "Lato-Bold",
                           color: "#7FC149"
                         })
                       }

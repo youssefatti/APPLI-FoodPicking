@@ -56,9 +56,9 @@ const paymentStyles = {
   },
   titleCategory: {
     fontSize: 16,
-    fontWeight: "bold",
     marginTop: 10,
-    marginBottom: 10
+    marginBottom: 10,
+    fontFamily: "Lato-BOLD"
   },
   left: {
     alignItems: "flex-start",

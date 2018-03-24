@@ -155,7 +155,8 @@ export default class Home extends React.PureComponent {
                 textAlign: "center",
                 padding: 10,
                 fontSize: 20,
-                color: "white"
+                color: "white",
+                fontFamily: "Lato-Regular"
               }}
             >
               &Agrave; partir de quelle heure souhaitez-vous récupérer votre

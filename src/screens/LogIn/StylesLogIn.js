@@ -17,7 +17,8 @@ export const styles = StyleSheet.create({
     height: 50,
     width: "90%",
     color: "white",
-    marginTop: 30
+    marginTop: 30,
+    fontFamily: "Lato-Regular"
   },
   SingUpLoginContain: {
     flex: 1,
@@ -43,12 +44,14 @@ export const styles = StyleSheet.create({
   toggleTextSignUp: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "#7FC149"
+    color: "#7FC149",
+    fontFamily: "Lato-Regular"
   },
   toggleTextLogin: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "white"
+    color: "white",
+    fontFamily: "Lato-Regular"
   },
   signUpLoginViewIn: {
     //flex: 1,
