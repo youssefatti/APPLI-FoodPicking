@@ -144,7 +144,6 @@ export default class Restaurants extends React.PureComponent {
     for (let i = 0; i < this.state.restaurants.length; i++) {
       arrResto.push(
         <View key={i} style={StyleRestaurant.container}>
-          <StatusBar barStyle="dark-content" />
           <TouchableOpacity
             onPress={() =>
               // passage du nom, id et lien à la page Menu
@@ -189,10 +188,35 @@ export default class Restaurants extends React.PureComponent {
       );
     }
     return [
-      <ScrollView style={{ flex: 1 }}>
-        <View style={{}}>
+      <ScrollView style={{ flex: 1, backgroundColor: "#fff" }}>
+        <StatusBar barStyle="dark-content" />
+        <View>
           {this.state.length === this.state.restaurants.length ? (
-            <View style={{}}>{arrResto}</View>
+            this.state.length === 0 && this.state.restaurants.length === 0 ? (
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: "center",
+                  alignItems: "center"
+                }}
+              >
+                <Icon name="ios-alert" size={100} color="#7FC149" />
+                <Text
+                  style={{
+                    fontSize: 18,
+                    fontFamily: "Lato-Regular",
+                    color: "#4A4A4A",
+                    textAlign: "center"
+                  }}
+                >
+                  Nous sommes désolés ! Aucun restaurant ne peut livrer à{" "}
+                  {this.props.navigation.state.params.title} à l'heure
+                  sélectionnée
+                </Text>
+              </View>
+            ) : (
+              <View>{arrResto}</View>
+            )
           ) : (
             <ActivityIndicator
               size="large"
