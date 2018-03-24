@@ -21,7 +21,11 @@ export default class Account extends React.Component {
   static navigationOptions = ({ navigation }) => ({
     title: "Mon compte",
     headerTintColor: "#7FC149",
-    headerBackTitle: null
+    headerBackTitle: null,
+    headerStyle: {
+      backgroundColor: "white",
+      borderBottomWidth: 0
+    }
   });
 
   state = {
