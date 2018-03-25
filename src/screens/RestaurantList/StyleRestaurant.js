@@ -17,8 +17,8 @@ export const StyleRestaurant = StyleSheet.create({
   restaurantNameView: {
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingBottom: 20,
-    paddingTop: 20,
+    paddingBottom: 30,
+    paddingTop: 10,
     paddingLeft: 10,
     paddingRight: 10
   },

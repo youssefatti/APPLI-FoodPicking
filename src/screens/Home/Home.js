@@ -70,7 +70,7 @@ export default class Home extends React.PureComponent {
 
   // Listen if geoloc change
 
-  componentWillUnmount() {
+  UNSAFE_componentWillMount() {
     navigator.geolocation.clearWatch(this.watchId);
   }
 

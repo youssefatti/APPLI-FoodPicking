@@ -48,25 +48,12 @@ export default class Restaurants extends React.PureComponent {
     hour: this.props.navigation.state.params.hour
   };
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   if (this.props.restaurants === nextProps.restaurants) {
-  //     return false;
-  //   }
-  //   return true;
-  // }
-
   ShowHideActivityIndicator = () => {
     if (this.state.isLoading == true) {
       this.setState({ isLoading: false });
     } else {
       this.setState({ isLoading: true });
     }
-  };
-
-  // Generate random number to populate rank '%' and 'Avis'
-
-  GenerateRandomNumber = () => {
-    return (RandomNumber = Math.floor(Math.random() * 100) + 1);
   };
 
   componentDidMount() {
@@ -76,7 +63,7 @@ export default class Restaurants extends React.PureComponent {
     let geohash = this.props.navigation.state.params.geoloc;
 
     // console.log("hour dans resto : ", hour);
-    // console.log("geohash dans resto ", geohash);
+    //console.log("geohash dans resto ", geohash);
 
     axios
       .get(
@@ -85,7 +72,8 @@ export default class Restaurants extends React.PureComponent {
           : `https://consumer-ow-api.deliveroo.com/orderapp/v2/restaurants?delivery_time=${hour}&geohash=${geohash}`
       )
       .then(response => {
-        // console.log("reponse dans la liste des resto : ", response.data.data);
+        // console.log("response seule : ", response);
+        console.log("reponse dans la liste des resto : ", response.data.data);
         // console.log(
         //   "reponse dans la liste pour type : ",
         //   response.data.included
@@ -93,40 +81,56 @@ export default class Restaurants extends React.PureComponent {
         this.props.navigation.setParams({
           title: response.data.meta.neighborhood_name
         });
-        const element = [];
-        const restaurantTypeId = [];
+        let element = [];
+        const time1 = [];
+        const time2 = [];
+
         response.data.data.map((item, index) => {
-          //console.log("test : ", response.data.data[index].relationships);
-          //restaurantTypeId.push(response.data.data[index].relationships);
-          // response.data.data[index].attributes.relationships.menu_tags.data.map(
-          //   (item, idex) => {
-          //     restaurantTypeId.push(item);
-          //   }
-          // );
           if (
             hour === null ||
             hour === this.props.navigation.state.params.pick
           ) {
+            if (item.attributes.delivery_time === "15 - 25") {
+              item.relationships.menu_tags.data = item.relationships.menu_tags.data.map(
+                obj => response.data.included.find(o => o.id === obj.id) || obj
+              );
+              time1.push(item);
+            }
             if (item.attributes.delivery_time === "30 - 40") {
-              element.push(item);
+              item.relationships.menu_tags.data = item.relationships.menu_tags.data.map(
+                obj => response.data.included.find(o => o.id === obj.id) || obj
+              );
+              time2.push(item);
             }
           } else {
-            if (item.attributes.rating_percentage > 90) {
-              element.push(item);
+            if (
+              item.attributes.rating_percentage > 90 &&
+              item.attributes.rating_percentage !== null
+            ) {
+              item.relationships.menu_tags.data = item.relationships.menu_tags.data.map(
+                obj => response.data.included.find(o => o.id === obj.id) || obj
+              );
+              time1.push(item);
             }
-            // if (item.attributes.rating_percentage > 80) {
-            //   element.push(item);
-            // }
+            if (
+              item.attributes.rating_percentage > 85 &&
+              item.attributes.rating_percentage < 90 &&
+              item.attributes.rating_percentage !== null
+            ) {
+              item.relationships.menu_tags.data = item.relationships.menu_tags.data.map(
+                obj => response.data.included.find(o => o.id === obj.id) || obj
+              );
+              time2.push(item);
+            }
           }
-          //rating_percentage / rating_formatted_count / price_category
-          return element;
+          if (time1.length > 3) {
+            return (element = time1);
+          } else {
+            return (element = time2);
+          }
         });
-        // console.log("element du tab : ", element);
-        // console.log("restaurantTypeId  : ", restaurantTypeId);
-        // restaurantTypeId.map((item,index)=>{
 
-        // })
-
+        console.log("restaurantTypeId  : ", element);
         this.setState({
           restaurants: element,
           length: element.length
@@ -141,6 +145,7 @@ export default class Restaurants extends React.PureComponent {
     const { navigate } = this.props.navigation;
     // récupération du nom et de la photo
     const arrResto = [];
+    const test = [];
     for (let i = 0; i < this.state.restaurants.length; i++) {
       arrResto.push(
         <View key={i} style={StyleRestaurant.container}>
@@ -172,6 +177,28 @@ export default class Restaurants extends React.PureComponent {
               <Text style={StyleRestaurant.restaurantName}>
                 {this.state.restaurants[i].attributes.name}
               </Text>
+              <View
+                style={{
+                  width: "50%",
+                  flexDirection: "row",
+                  paddingTop: 10
+                }}
+              >
+                {this.state.restaurants[i].relationships.menu_tags.data.map(
+                  (item1, index1) => {
+                    if (item1.attributes.tag_type !== "Collection") {
+                      return (
+                        <Text
+                          key={index1}
+                          style={{ color: "grey", paddingRight: 10 }}
+                        >
+                          {item1.attributes.name}
+                        </Text>
+                      );
+                    }
+                  }
+                )}
+              </View>
             </View>
 
             <View style={StyleRestaurant.rankView}>
