@@ -68,7 +68,13 @@ export default class Home extends React.PureComponent {
     );
   }
 
-  componentWillMount() {
+  // Listen if geoloc change
+
+  componentWillUnmount() {
+    navigator.geolocation.clearWatch(this.watchId);
+  }
+
+  componentDidMount() {
     console.log("Did mount home page");
     this.getGeoLoc();
   }
