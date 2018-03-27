@@ -40,7 +40,7 @@ export default class Cart extends React.Component {
     expMonth: "",
     expYear: "",
     CVC: "",
-    text: null
+    text: "https://foodpacking-serveur.herokuapp.com/"
   };
 
   render() {
@@ -73,10 +73,7 @@ export default class Cart extends React.Component {
         </Text>
       );
     }
-    this.setState({ text: arrCart }),
-      () => {
-        console.log("text", this.state.text);
-      };
+
     // console.log("items", this.props.navigation.state.params.items);
     // console.log("heure conf", this.props.navigation.state.params.chosenHour);
     const { navigate } = this.props.navigation;
@@ -97,9 +94,8 @@ export default class Cart extends React.Component {
           Faites scanner ce code pour récupérer la commande
         </Text>
         <View style={{ flex: 1, justifyContent: "center" }}>
-          {/* <TextInput style={styles.input} onChangeText={this.state.cart} /> */}
           <QRCode
-            value={this.state.cart}
+            value={this.state.text}
             size={200}
             bgColor="#7FC149"
             fgColor="white"
