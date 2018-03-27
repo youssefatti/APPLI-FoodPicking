@@ -21,6 +21,7 @@ import axios from "axios";
 import Moment from "react-moment";
 import "moment-timezone";
 import moment from "moment";
+import QRCode from "react-native-qrcode";
 
 /* const styles = StyleSheet.create(AppStyle); */
 export default class Cart extends React.Component {
@@ -38,7 +39,8 @@ export default class Cart extends React.Component {
     number: "",
     expMonth: "",
     expYear: "",
-    CVC: ""
+    CVC: "",
+    text: null
   };
 
   render() {
@@ -71,6 +73,10 @@ export default class Cart extends React.Component {
         </Text>
       );
     }
+    this.setState({ text: arrCart }),
+      () => {
+        console.log("text", this.state.text);
+      };
     // console.log("items", this.props.navigation.state.params.items);
     // console.log("heure conf", this.props.navigation.state.params.chosenHour);
     const { navigate } = this.props.navigation;
@@ -91,12 +97,12 @@ export default class Cart extends React.Component {
           Faites scanner ce code pour récupérer la commande
         </Text>
         <View style={{ flex: 1, justifyContent: "center" }}>
-          <Image
-            style={{ width: 200, height: 200 }}
-            source={{
-              uri:
-                "https://camo.githubusercontent.com/c79f9b11d3b822c9648fd8e0fc9a646c8ac23f0b/68747470733a2f2f7261772e6769746875622e636f6d2f6d65746566696368612f6469616772616d732d7172636f64652f6d61737465722f6578616d706c65732f7172636f64652e706e67"
-            }}
+          {/* <TextInput style={styles.input} onChangeText={this.state.cart} /> */}
+          <QRCode
+            value={this.state.cart}
+            size={200}
+            bgColor="#7FC149"
+            fgColor="white"
           />
         </View>
         {/* <View
