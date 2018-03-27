@@ -1,6 +1,6 @@
 const menuStyles = {
   green: { color: "#7FC149" },
-
+  backGreen: { backgroundColor: "#7FC149", paddingLeft: 10 },
   text: {
     color: "#4A4A4A"
   },
@@ -77,7 +77,6 @@ const menuStyles = {
     paddingBottom: 10
   },
   titleCategory: {
-    textAlign: "center",
     fontSize: 16,
     fontWeight: "bold",
     marginTop: 10,

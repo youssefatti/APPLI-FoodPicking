@@ -20,11 +20,11 @@ export const StyleRestaurant = StyleSheet.create({
     paddingBottom: 30,
     paddingTop: 10,
     paddingLeft: 10,
-    paddingRight: 10
+    paddingRight: 10,
+    flex: 1
   },
   rankView: {
     width: 90,
-    height: 30,
     justifyContent: "center"
   },
   UserNav: {
@@ -34,5 +34,13 @@ export const StyleRestaurant = StyleSheet.create({
     justifyContent: "space-around",
     borderTopWidth: 1,
     borderColor: "#DDDFE3"
+  },
+  flex: {
+    flex: 1
+  },
+  menuTag: {
+    flexDirection: "row",
+    paddingTop: 10,
+    flexWrap: "wrap"
   }
 });
