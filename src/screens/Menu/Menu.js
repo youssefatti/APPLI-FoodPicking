@@ -147,9 +147,11 @@ export default class Menu extends React.Component {
       menuShow.push(
         <View key={i}>
           {/* on récupere le nom de la catégorie et on envoie les infos au composent items */}
-          <Text style={menuStyles.titleCategory}>
-            {this.state.menu.menu.categories[i].name}
-          </Text>
+          <View style={menuStyles.backGreen}>
+            <Text style={menuStyles.titleCategory}>
+              {this.state.menu.menu.categories[i].name}
+            </Text>
+          </View>
           <Items
             state={this.state.cart}
             addItem={this.addItem}

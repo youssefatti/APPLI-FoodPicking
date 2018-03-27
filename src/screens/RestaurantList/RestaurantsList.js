@@ -56,6 +56,28 @@ export default class Restaurants extends React.PureComponent {
     }
   };
 
+  priceRank = i => {
+    const priceRanking = [];
+    for (
+      let j = 0;
+      j < this.state.restaurants[i].attributes.price_category;
+      j++
+    ) {
+      priceRanking.push(
+        <Text
+          style={{
+            color: "#7FC149",
+            fontFamily: "Lato-Bold",
+            lineHeight: 20
+          }}
+        >
+          {this.state.restaurants[i].attributes.price_category_symbol}
+        </Text>
+      );
+    }
+    return priceRanking;
+  };
+
   componentDidMount() {
     console.log("Did mount restaurants Page ");
 
@@ -142,8 +164,8 @@ export default class Restaurants extends React.PureComponent {
   }
   render() {
     console.log("rendering restaurants Page");
+    console.log("resto", this.state.restaurants);
     const { navigate } = this.props.navigation;
-    // récupération du nom et de la photo
     const arrResto = [];
     for (let i = 0; i < this.state.restaurants.length; i++) {
       arrResto.push(
@@ -172,31 +194,39 @@ export default class Restaurants extends React.PureComponent {
             />
           </TouchableOpacity>
           <View style={StyleRestaurant.restaurantNameView}>
-            <View style={{}}>
+            <View style={StyleRestaurant.flex}>
               <Text style={StyleRestaurant.restaurantName}>
                 {this.state.restaurants[i].attributes.name}
               </Text>
-              <View
-                style={{
-                  width: "50%",
-                  flexDirection: "row",
-                  paddingTop: 10
-                }}
-              >
+              <View style={StyleRestaurant.menuTag}>
                 {this.state.restaurants[i].relationships.menu_tags.data.map(
                   (item1, index1) => {
                     if (item1.attributes.tag_type !== "Collection") {
-                      return (
+                      return [
                         <Text
                           key={index1}
-                          style={{ color: "grey", paddingRight: 10 }}
+                          style={{
+                            color: "#4A4A4A",
+                            lineHeight: 20
+                          }}
                         >
                           {item1.attributes.name}
+                        </Text>,
+                        <Text
+                          key={index1 + "tag"}
+                          style={{
+                            color: "#4A4A4A",
+                            lineHeight: 20
+                          }}
+                        >
+                          {" "}
+                          &middot;{" "}
                         </Text>
-                      );
+                      ];
                     }
                   }
                 )}
+                {this.priceRank(i)}
               </View>
             </View>
 

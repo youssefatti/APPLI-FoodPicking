@@ -19,7 +19,6 @@ export default class Items extends React.Component {
   };
 
   _renderItemsMenus() {
-    console.log("manssita", this.props.idItem);
     let arrItems = [];
     for (let i = 0; i < this.props.idItem.length; i++) {
       arrItems.push(
