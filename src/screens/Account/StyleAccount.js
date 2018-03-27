@@ -14,15 +14,20 @@ const styles = {
     fontWeight: "bold",
     fontSize: 17
   },
+  date: {
+    marginLeft: 10,
+
+    marginTop: 10
+  },
   historic: {
     width: "95%",
-    height: 70,
+    height: 80,
     flex: 1,
     marginBottom: 10,
     backgroundColor: "#F4F4F4"
   },
   namePrice: {
-    marginTop: 10,
+    marginTop: 5,
 
     flexDirection: "row",
     justifyContent: "space-between",
@@ -38,7 +43,7 @@ const styles = {
   },
   numberOrder: {
     marginLeft: 10,
-    marginTop: 10
+    marginTop: 5
   }
 };
 export default styles;
