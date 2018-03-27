@@ -69,9 +69,12 @@ export default class Account extends React.Component {
             return (
               <View style={styles.container}>
                 <View style={styles.historic}>
+                  <View style={styles.date}>
+                    <Moment element={Text}>{order.created_at}</Moment>
+                  </View>
+
                   <View style={styles.namePrice}>
                     <Text style={styles.twenty}>{order.restaurantName}</Text>
-                    <Moment element={Text}>{order.created_at}</Moment>
                     <Text
                       style={
                         (styles.twenty,
