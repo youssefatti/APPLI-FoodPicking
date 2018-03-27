@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import Moment from "react-moment";
 import "moment-timezone";
-import moment from "moment";
+
 import {
   StyleSheet,
   ScrollView,
@@ -10,13 +10,14 @@ import {
   View,
   TouchableOpacity
 } from "react-native";
+import moment from "moment";
 import CountDown from "react-native-countdown-component";
 
 import StyleAccount from "./StyleAccount";
 const styles = StyleSheet.create(StyleAccount);
 
 import Icon from "react-native-vector-icons/Ionicons";
-
+Moment.globalFormat = "DD/MM/YYYY";
 export default class Account extends React.Component {
   static navigationOptions = ({ navigation }) => ({
     title: "Mon compte",
@@ -70,6 +71,7 @@ export default class Account extends React.Component {
                 <View style={styles.historic}>
                   <View style={styles.namePrice}>
                     <Text style={styles.twenty}>{order.restaurantName}</Text>
+                    <Moment element={Text}>{order.created_at}</Moment>
                     <Text
                       style={
                         (styles.twenty,
