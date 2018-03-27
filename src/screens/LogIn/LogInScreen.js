@@ -10,7 +10,8 @@ import {
   Button,
   Dimensions,
   KeyboardAvoidingView,
-  StatusBar
+  StatusBar,
+  ActivityIndicator
 } from "react-native";
 
 import { styles } from "./StylesLogIn";
@@ -21,6 +22,7 @@ import LinearGradient from "react-native-linear-gradient";
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
+let isLoad = null;
 
 export default class LogIn extends React.PureComponent {
   // Check the type of variable
@@ -50,9 +52,14 @@ export default class LogIn extends React.PureComponent {
     passwordConfirmation: "azerty",
     data: null,
     showLogin: true,
-    showSignUp: false
-    //isLoading: false will be used for the loader
+    showSignUp: false,
+    isLoading: false //will be used for the loader
   };
+
+  componentWillMount() {
+    console.log("Will Mount Login Screen");
+    isLoad = true;
+  }
 
   // Send request to server for Sign up
 
@@ -68,8 +75,15 @@ export default class LogIn extends React.PureComponent {
         cb(response);
       })
       .catch(function(error) {
-        console.log(error);
-        alert(error.response.data.error);
+        this.setState(
+          {
+            isLoading: false
+          },
+          () => {
+            alert(error.response.data.error);
+          }
+        );
+        //console.log(error);
       });
   };
 
@@ -85,9 +99,16 @@ export default class LogIn extends React.PureComponent {
         //console.log(response);
         cb(response);
       })
-      .catch(function(error) {
+      .catch(error => {
+        this.setState(
+          {
+            isLoading: false
+          },
+          () => {
+            alert(error.response.data.error);
+          }
+        );
         //console.log(error.response);
-        alert(error.response.data.error);
       });
   };
 
@@ -153,7 +174,11 @@ export default class LogIn extends React.PureComponent {
         {!this.state.showLogin ? (
           <TouchableOpacity
             style={commonStyles.buttonBis}
+            disabled={this.state.isLoading ? true : false}
             onPress={() => {
+              this.setState({
+                isLoading: true
+              });
               if (this.state.password === this.state.passwordConfirmation) {
                 this.signUpUser(
                   this.state.email,
@@ -169,17 +194,28 @@ export default class LogIn extends React.PureComponent {
                   }
                 );
               } else {
+                this.setState({
+                  isLoading: false
+                });
                 alert("the password are not the same");
               }
             }}
             data={this.state.data}
           >
-            <Text style={commonStyles.textButtonBis}>Créer un compte</Text>
+            {this.state.isLoading ? (
+              <ActivityIndicator size="large" color="white" style={{}} />
+            ) : (
+              <Text style={commonStyles.textButtonBis}>Créer un compte</Text>
+            )}
           </TouchableOpacity>
         ) : (
           <TouchableOpacity
             style={commonStyles.buttonBis}
+            disabled={this.state.isLoading ? true : false}
             onPress={() => {
+              this.setState({
+                isLoading: true
+              });
               this.logInUser(this.state.email, this.state.password, data => {
                 this.setState({ data });
 
@@ -191,7 +227,11 @@ export default class LogIn extends React.PureComponent {
             }}
             data={this.state.data}
           >
-            <Text style={commonStyles.textButtonBis}>Se connecter</Text>
+            {this.state.isLoading ? (
+              <ActivityIndicator size="large" color="white" style={{}} />
+            ) : (
+              <Text style={commonStyles.textButtonBis}>Se connecter</Text>
+            )}
           </TouchableOpacity>
         )}
       </View>
@@ -200,6 +240,7 @@ export default class LogIn extends React.PureComponent {
 
   render() {
     console.log("rendering login screen");
+    console.log("isLoad : ", isLoad);
     const { navigate } = this.props.navigation;
     return (
       <KeyboardAvoidingView style={styles.container} behavior="padding">

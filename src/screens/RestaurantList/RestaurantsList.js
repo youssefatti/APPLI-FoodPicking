@@ -145,7 +145,6 @@ export default class Restaurants extends React.PureComponent {
     const { navigate } = this.props.navigation;
     // récupération du nom et de la photo
     const arrResto = [];
-    const test = [];
     for (let i = 0; i < this.state.restaurants.length; i++) {
       arrResto.push(
         <View key={i} style={StyleRestaurant.container}>
