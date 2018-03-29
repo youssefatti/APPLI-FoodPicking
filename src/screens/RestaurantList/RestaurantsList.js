@@ -72,8 +72,8 @@ export default class Restaurants extends React.PureComponent {
           : `https://consumer-ow-api.deliveroo.com/orderapp/v2/restaurants?delivery_time=${hour}&geohash=${geohash}`
       )
       .then(response => {
-        // console.log("response seule : ", response);
-        console.log("reponse dans la liste des resto : ", response.data.data);
+        console.log("response seule : ", response);
+        //console.log("reponse dans la liste des resto : ", response.data.data);
         // console.log(
         //   "reponse dans la liste pour type : ",
         //   response.data.included

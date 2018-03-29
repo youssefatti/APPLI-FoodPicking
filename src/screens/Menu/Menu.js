@@ -40,7 +40,7 @@ export default class Menu extends React.Component {
   };
 
   addItem = item => {
-    console.log("qty", item.quantity);
+    //console.log("qty", item.quantity);
     const newItem = [];
     let found = false;
 
@@ -70,7 +70,7 @@ export default class Menu extends React.Component {
         cart: this.state.cart + item.raw_price
       },
       () => {
-        console.log("quantity", this.state.items.quantity);
+        //console.log("quantity", this.state.items.quantity);
       }
     );
   };
@@ -87,7 +87,7 @@ export default class Menu extends React.Component {
       if (index !== null && removeItem[i].quantity < 1) {
         removeItem.splice(index, 1);
       }
-      console.log("removeitem", removeItem);
+      //console.log("removeitem", removeItem);
     }
     this.setState(
       {
@@ -97,7 +97,7 @@ export default class Menu extends React.Component {
           parseFloat(item.raw_price).toFixed(2)
       },
       () => {
-        console.log("item -", this.state.items);
+        //console.log("item -", this.state.items);
         // console.log("longueur de state item : ", this.state.items.length);
         // console.log("longeur de new item : ", newItem.length);
       }
@@ -125,6 +125,7 @@ export default class Menu extends React.Component {
         `https://foodpacking-serveur.herokuapp.com/api/restaurant/menu/?id=${id}&link=${link}`
       )
       .then(response => {
+        console.log("response seul dans menu : ", response);
         //menu = response.data;
         this.setState(
           {
