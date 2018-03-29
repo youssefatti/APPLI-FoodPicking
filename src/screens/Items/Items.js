@@ -22,37 +22,41 @@ export default class Items extends React.Component {
     let arrItems = [];
     for (let i = 0; i < this.props.idItem.length; i++) {
       arrItems.push(
-        <View key={i} style={itemsStyles.blocItem}>
-          <TouchableOpacity
-            style={itemsStyles.row}
-            onPress={() => this.props.addItem(this.props.idItem[i])}
-          >
-            {this.props.idItem[i].image ? (
-              <Image
-                style={itemsStyles.picRestaurant}
-                source={{
-                  uri: `https:${this.props.idItem[i].image}`
-                }}
-              />
-            ) : null}
-            <View
-              style={[
-                itemsStyles.textItem,
-                this.props.idItem[i].image ? itemsStyles.spaceText : null
-              ]}
+        this.props.idItem[i].raw_price !== 0 ? (
+          <View key={i} style={itemsStyles.blocItem}>
+            <TouchableOpacity
+              style={itemsStyles.row}
+              onPress={() => this.props.addItem(this.props.idItem[i])}
             >
-              <Text style={styles.strong}>{this.props.idItem[i].name}</Text>
-              {this.props.idItem[i].description ? (
-                <Text style={itemsStyles.text}>
-                  {this.props.idItem[i].description}
-                </Text>
+              {this.props.idItem[i].image ? (
+                <Image
+                  style={itemsStyles.picRestaurant}
+                  source={{
+                    uri: `https:${this.props.idItem[i].image}`
+                  }}
+                />
               ) : null}
-              <Text style={[styles.strong, itemsStyles.green, itemsStyles.end]}>
-                {this.props.idItem[i].raw_price.toFixed(2)} €
-              </Text>
-            </View>
-          </TouchableOpacity>
-        </View>
+              <View
+                style={[
+                  itemsStyles.textItem,
+                  this.props.idItem[i].image ? itemsStyles.spaceText : null
+                ]}
+              >
+                <Text style={styles.strong}>{this.props.idItem[i].name}</Text>
+                {this.props.idItem[i].description ? (
+                  <Text style={itemsStyles.text}>
+                    {this.props.idItem[i].description}
+                  </Text>
+                ) : null}
+                <Text
+                  style={[styles.strong, itemsStyles.green, itemsStyles.end]}
+                >
+                  {this.props.idItem[i].raw_price.toFixed(2)} €
+                </Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        ) : null
       );
     }
     return <View>{arrItems}</View>;
