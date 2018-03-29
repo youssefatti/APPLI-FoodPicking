@@ -118,7 +118,10 @@ export default class Menu extends React.Component {
     console.log("params", this.props.navigation);
     console.log("did mount ");
     let link = this.props.navigation.state.params.link;
+    console.log("link :", link);
+
     let id = this.props.navigation.state.params.id_deliveroo;
+    console.log("id : ", id);
 
     axios
       .get(
@@ -137,8 +140,9 @@ export default class Menu extends React.Component {
         );
       })
       .catch(function(error) {
-        console.log(error);
+        console.log("erreur requete axios dans menu : ", error);
       });
+    console.log("aprés la requete axios");
   }
 
   _renderItems() {

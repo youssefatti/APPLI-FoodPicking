@@ -74,7 +74,7 @@ export default class LogIn extends React.PureComponent {
         //console.log(response);
         cb(response);
       })
-      .catch(function(error) {
+      .catch(error => {
         this.setState(
           {
             isLoading: false
