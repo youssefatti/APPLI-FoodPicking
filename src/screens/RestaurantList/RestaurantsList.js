@@ -78,8 +78,8 @@ export default class Restaurants extends React.PureComponent {
     return priceRanking;
   };
 
-  componentDidMount() {
-    console.log("Did mount restaurants Page ");
+  componentWillMount() {
+    console.log("Will mount restaurants Page ");
 
     let hour = this.props.navigation.state.params.hour;
     let geohash = this.props.navigation.state.params.geoloc;
@@ -151,8 +151,6 @@ export default class Restaurants extends React.PureComponent {
             return (element = time2);
           }
         });
-
-        console.log("restaurantTypeId  : ", element);
         this.setState({
           restaurants: element,
           length: element.length
