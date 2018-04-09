@@ -50,16 +50,19 @@ export default class Cart extends React.Component {
       date.getFullYear() +
         "-0" +
         parseInt(date.getMonth() + 1) +
-        "-" +
+        "-0" +
         date.getDate() +
         "T" +
         this.props.navigation.state.params.chosenHour
     ).unix();
     // console.log("time", timestamp);
-    const time = moment(this.props.navigation.state.params.hour).unix();
+    const time = moment(new Date()).unix();
     const diff = timestamp - time;
-    // console.log("arrch", time);
-    // console.log("tok", this.props.navigation.state.params.chosenHour);
+    console.log("date", new Date());
+
+    console.log("arrch", time);
+    console.log("tok", this.props.navigation.state.params.chosenHour);
+    console.log("timestamp", timestamp);
 
     for (let i = 0; i < this.props.navigation.state.params.items.length; i++) {
       arrCart.push(
